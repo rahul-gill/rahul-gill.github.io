@@ -1,0 +1,930 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "loadedVersions": [
+        {
+          "versionName": "current",
+          "versionLabel": "Next",
+          "versionPath": "/docs",
+          "tagsPath": "/docs/tags",
+          "versionBanner": null,
+          "versionBadge": false,
+          "versionClassName": "docs-version-current",
+          "isLast": true,
+          "routePriority": -1,
+          "sidebarFilePath": "/home/ashen-one/Desktop/kaya-folio/sidebars.js",
+          "contentPath": "/home/ashen-one/Desktop/kaya-folio/docs",
+          "contentPathLocalized": "/home/ashen-one/Desktop/kaya-folio/i18n/en/docusaurus-plugin-content-docs/current",
+          "docs": [
+            {
+              "unversionedId": "contents",
+              "id": "contents",
+              "title": "Contents",
+              "description": "Here, you will find a collection of notes on software engineering. These notes are filed under their respective topic, with related topics are categorised under the same chapter.",
+              "source": "@site/docs/contents.md",
+              "sourceDirName": ".",
+              "slug": "/",
+              "permalink": "/docs/",
+              "tags": [],
+              "version": "current",
+              "frontMatter": {
+                "title": "Contents",
+                "slug": "/"
+              },
+              "sidebar": "docs",
+              "next": {
+                "title": "Kotlin Flows and channels",
+                "permalink": "/docs/mobile-app-dev/kotlin-flows"
+              }
+            },
+            {
+              "unversionedId": "dsa/ArraysSortingSearching",
+              "id": "dsa/ArraysSortingSearching",
+              "title": "Arrays, Searching and Sorting",
+              "description": "Kadane's maximum sum subarray algorithm",
+              "source": "@site/docs/dsa/2. ArraysSortingSearching.md",
+              "sourceDirName": "dsa",
+              "slug": "/dsa/ArraysSortingSearching",
+              "permalink": "/docs/dsa/ArraysSortingSearching",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 2,
+              "frontMatter": {
+                "title": "Arrays, Searching and Sorting"
+              },
+              "sidebar": "docs",
+              "previous": {
+                "title": "C++ and STL",
+                "permalink": "/docs/dsa/CppAndSTL"
+              },
+              "next": {
+                "title": "Order Statistics",
+                "permalink": "/docs/dsa/OrderStatistics"
+              }
+            },
+            {
+              "unversionedId": "dsa/BitManipulation",
+              "id": "dsa/BitManipulation",
+              "title": "BitManipulation",
+              "description": "",
+              "source": "@site/docs/dsa/14. BitManipulation.md",
+              "sourceDirName": "dsa",
+              "slug": "/dsa/BitManipulation",
+              "permalink": "/docs/dsa/BitManipulation",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 14,
+              "frontMatter": {
+                "titile": "Bit Manipulation"
+              },
+              "sidebar": "docs",
+              "previous": {
+                "title": "Counting",
+                "permalink": "/docs/dsa/Counting"
+              },
+              "next": {
+                "title": "Segment Trees",
+                "permalink": "/docs/dsa/SegmentTrees"
+              }
+            },
+            {
+              "unversionedId": "dsa/Counting",
+              "id": "dsa/Counting",
+              "title": "Counting",
+              "description": "Counting",
+              "source": "@site/docs/dsa/13. Counting.md",
+              "sourceDirName": "dsa",
+              "slug": "/dsa/Counting",
+              "permalink": "/docs/dsa/Counting",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 13,
+              "frontMatter": {
+                "title": "Counting"
+              },
+              "sidebar": "docs",
+              "previous": {
+                "title": "Prime Numbers",
+                "permalink": "/docs/dsa/PrimeNumbers"
+              },
+              "next": {
+                "title": "BitManipulation",
+                "permalink": "/docs/dsa/BitManipulation"
+              }
+            },
+            {
+              "unversionedId": "dsa/CppAndSTL",
+              "id": "dsa/CppAndSTL",
+              "title": "C++ and STL",
+              "description": "Array opeartions",
+              "source": "@site/docs/dsa/1. CppAndSTL.md",
+              "sourceDirName": "dsa",
+              "slug": "/dsa/CppAndSTL",
+              "permalink": "/docs/dsa/CppAndSTL",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "title": "C++ and STL"
+              },
+              "sidebar": "docs",
+              "previous": {
+                "title": "Android Studio Shortcuts",
+                "permalink": "/docs/mobile-app-dev/AndroidStudioShortcuts"
+              },
+              "next": {
+                "title": "Arrays, Searching and Sorting",
+                "permalink": "/docs/dsa/ArraysSortingSearching"
+              }
+            },
+            {
+              "unversionedId": "dsa/DisjointSets",
+              "id": "dsa/DisjointSets",
+              "title": "Disjoint Sets",
+              "description": "Disjoint Sets/ Union Find",
+              "source": "@site/docs/dsa/16. DisjointSets.md",
+              "sourceDirName": "dsa",
+              "slug": "/dsa/DisjointSets",
+              "permalink": "/docs/dsa/DisjointSets",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 16,
+              "frontMatter": {
+                "title": "Disjoint Sets"
+              },
+              "sidebar": "docs",
+              "previous": {
+                "title": "Segment Trees",
+                "permalink": "/docs/dsa/SegmentTrees"
+              },
+              "next": {
+                "title": "Binary Indexed Tree",
+                "permalink": "/docs/dsa/FenwickTrees"
+              }
+            },
+            {
+              "unversionedId": "dsa/FenwickTrees",
+              "id": "dsa/FenwickTrees",
+              "title": "Binary Indexed Tree",
+              "description": "Binary Indexed Tree/ Fenwick Tree",
+              "source": "@site/docs/dsa/17. FenwickTrees.md",
+              "sourceDirName": "dsa",
+              "slug": "/dsa/FenwickTrees",
+              "permalink": "/docs/dsa/FenwickTrees",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 17,
+              "frontMatter": {
+                "title": "Binary Indexed Tree"
+              },
+              "sidebar": "docs",
+              "previous": {
+                "title": "Disjoint Sets",
+                "permalink": "/docs/dsa/DisjointSets"
+              }
+            },
+            {
+              "unversionedId": "dsa/GraphShortestPath",
+              "id": "dsa/GraphShortestPath",
+              "title": "Graph Shortest Path Problems",
+              "description": "BFS for unweighted graph SSSP",
+              "source": "@site/docs/dsa/10. GraphShortestPath.md",
+              "sourceDirName": "dsa",
+              "slug": "/dsa/GraphShortestPath",
+              "permalink": "/docs/dsa/GraphShortestPath",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 10,
+              "frontMatter": {},
+              "sidebar": "docs",
+              "previous": {
+                "title": "Graph Traversal and MST",
+                "permalink": "/docs/dsa/GraphTraversalAndMst"
+              },
+              "next": {
+                "title": "Maths I",
+                "permalink": "/docs/dsa/MathsI"
+              }
+            },
+            {
+              "unversionedId": "dsa/GraphTraversalAndMst",
+              "id": "dsa/GraphTraversalAndMst",
+              "title": "Graph Traversal and MST",
+              "description": "Graph Traversal Problems O(V+E)",
+              "source": "@site/docs/dsa/9. GraphTraversalAndMst.md",
+              "sourceDirName": "dsa",
+              "slug": "/dsa/GraphTraversalAndMst",
+              "permalink": "/docs/dsa/GraphTraversalAndMst",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 9,
+              "frontMatter": {
+                "title": "Graph Traversal and MST"
+              },
+              "sidebar": "docs",
+              "previous": {
+                "title": "Trees",
+                "permalink": "/docs/dsa/Trees"
+              },
+              "next": {
+                "title": "Graph Shortest Path Problems",
+                "permalink": "/docs/dsa/GraphShortestPath"
+              }
+            },
+            {
+              "unversionedId": "dsa/Heaps",
+              "id": "dsa/Heaps",
+              "title": "Heaps",
+              "description": "Data structure",
+              "source": "@site/docs/dsa/4. Heaps.md",
+              "sourceDirName": "dsa",
+              "slug": "/dsa/Heaps",
+              "permalink": "/docs/dsa/Heaps",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 4,
+              "frontMatter": {
+                "title": "Heaps"
+              },
+              "sidebar": "docs",
+              "previous": {
+                "title": "Order Statistics",
+                "permalink": "/docs/dsa/OrderStatistics"
+              },
+              "next": {
+                "title": "String Algorithms",
+                "permalink": "/docs/dsa/StringAlgorithms"
+              }
+            },
+            {
+              "unversionedId": "dsa/LinkedList",
+              "id": "dsa/LinkedList",
+              "title": "Linked Lists",
+              "description": "reverse linked list",
+              "source": "@site/docs/dsa/6.LinkedList.md",
+              "sourceDirName": "dsa",
+              "slug": "/dsa/LinkedList",
+              "permalink": "/docs/dsa/LinkedList",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 6,
+              "frontMatter": {
+                "title": "Linked Lists"
+              },
+              "sidebar": "docs",
+              "previous": {
+                "title": "String Algorithms",
+                "permalink": "/docs/dsa/StringAlgorithms"
+              },
+              "next": {
+                "title": "Trees",
+                "permalink": "/docs/dsa/Trees"
+              }
+            },
+            {
+              "unversionedId": "dsa/MathsI",
+              "id": "dsa/MathsI",
+              "title": "Maths I",
+              "description": "Binary Exponentiation",
+              "source": "@site/docs/dsa/11. MathsI.md",
+              "sourceDirName": "dsa",
+              "slug": "/dsa/MathsI",
+              "permalink": "/docs/dsa/MathsI",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 11,
+              "frontMatter": {
+                "title": "Maths I"
+              },
+              "sidebar": "docs",
+              "previous": {
+                "title": "Graph Shortest Path Problems",
+                "permalink": "/docs/dsa/GraphShortestPath"
+              },
+              "next": {
+                "title": "Prime Numbers",
+                "permalink": "/docs/dsa/PrimeNumbers"
+              }
+            },
+            {
+              "unversionedId": "dsa/OrderStatistics",
+              "id": "dsa/OrderStatistics",
+              "title": "Order Statistics",
+              "description": "- max and min can simply be find by traversing whole array $\\mathcal(n)$",
+              "source": "@site/docs/dsa/3. OrderStatistics.md",
+              "sourceDirName": "dsa",
+              "slug": "/dsa/OrderStatistics",
+              "permalink": "/docs/dsa/OrderStatistics",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 3,
+              "frontMatter": {
+                "title": "Order Statistics"
+              },
+              "sidebar": "docs",
+              "previous": {
+                "title": "Arrays, Searching and Sorting",
+                "permalink": "/docs/dsa/ArraysSortingSearching"
+              },
+              "next": {
+                "title": "Heaps",
+                "permalink": "/docs/dsa/Heaps"
+              }
+            },
+            {
+              "unversionedId": "dsa/PrimeNumbers",
+              "id": "dsa/PrimeNumbers",
+              "title": "Prime Numbers",
+              "description": "Prime Number theorem",
+              "source": "@site/docs/dsa/12. PrimeNumbers.md",
+              "sourceDirName": "dsa",
+              "slug": "/dsa/PrimeNumbers",
+              "permalink": "/docs/dsa/PrimeNumbers",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 12,
+              "frontMatter": {
+                "title": "Prime Numbers"
+              },
+              "sidebar": "docs",
+              "previous": {
+                "title": "Maths I",
+                "permalink": "/docs/dsa/MathsI"
+              },
+              "next": {
+                "title": "Counting",
+                "permalink": "/docs/dsa/Counting"
+              }
+            },
+            {
+              "unversionedId": "dsa/SegmentTrees",
+              "id": "dsa/SegmentTrees",
+              "title": "Segment Trees",
+              "description": "Segment Trees",
+              "source": "@site/docs/dsa/15. SegmentTrees.md",
+              "sourceDirName": "dsa",
+              "slug": "/dsa/SegmentTrees",
+              "permalink": "/docs/dsa/SegmentTrees",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 15,
+              "frontMatter": {
+                "title": "Segment Trees"
+              },
+              "sidebar": "docs",
+              "previous": {
+                "title": "BitManipulation",
+                "permalink": "/docs/dsa/BitManipulation"
+              },
+              "next": {
+                "title": "Disjoint Sets",
+                "permalink": "/docs/dsa/DisjointSets"
+              }
+            },
+            {
+              "unversionedId": "dsa/StringAlgorithms",
+              "id": "dsa/StringAlgorithms",
+              "title": "String Algorithms",
+              "description": "Comparing strings efficiently with hashing",
+              "source": "@site/docs/dsa/5. StringAlgorithms.md",
+              "sourceDirName": "dsa",
+              "slug": "/dsa/StringAlgorithms",
+              "permalink": "/docs/dsa/StringAlgorithms",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 5,
+              "frontMatter": {
+                "title": "String Algorithms"
+              },
+              "sidebar": "docs",
+              "previous": {
+                "title": "Heaps",
+                "permalink": "/docs/dsa/Heaps"
+              },
+              "next": {
+                "title": "Linked Lists",
+                "permalink": "/docs/dsa/LinkedList"
+              }
+            },
+            {
+              "unversionedId": "dsa/Trees",
+              "id": "dsa/Trees",
+              "title": "Trees",
+              "description": "Data Structure",
+              "source": "@site/docs/dsa/8. Trees.md",
+              "sourceDirName": "dsa",
+              "slug": "/dsa/Trees",
+              "permalink": "/docs/dsa/Trees",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 8,
+              "frontMatter": {
+                "title": "Trees"
+              },
+              "sidebar": "docs",
+              "previous": {
+                "title": "Linked Lists",
+                "permalink": "/docs/dsa/LinkedList"
+              },
+              "next": {
+                "title": "Graph Traversal and MST",
+                "permalink": "/docs/dsa/GraphTraversalAndMst"
+              }
+            },
+            {
+              "unversionedId": "mobile-app-dev/AndroidStudioShortcuts",
+              "id": "mobile-app-dev/AndroidStudioShortcuts",
+              "title": "Android Studio Shortcuts",
+              "description": "| Task | Shortcut |",
+              "source": "@site/docs/mobile-app-dev/AndroidStudioShortcuts.md",
+              "sourceDirName": "mobile-app-dev",
+              "slug": "/mobile-app-dev/AndroidStudioShortcuts",
+              "permalink": "/docs/mobile-app-dev/AndroidStudioShortcuts",
+              "tags": [],
+              "version": "current",
+              "frontMatter": {
+                "title": "Android Studio Shortcuts"
+              },
+              "sidebar": "docs",
+              "previous": {
+                "title": "UI UX",
+                "permalink": "/docs/mobile-app-dev/UiUx"
+              },
+              "next": {
+                "title": "C++ and STL",
+                "permalink": "/docs/dsa/CppAndSTL"
+              }
+            },
+            {
+              "unversionedId": "mobile-app-dev/Apps",
+              "id": "mobile-app-dev/Apps",
+              "title": "App Ideas",
+              "description": "Cricket app",
+              "source": "@site/docs/mobile-app-dev/Apps.md",
+              "sourceDirName": "mobile-app-dev",
+              "slug": "/mobile-app-dev/Apps",
+              "permalink": "/docs/mobile-app-dev/Apps",
+              "tags": [],
+              "version": "current",
+              "frontMatter": {
+                "title": "App Ideas"
+              },
+              "sidebar": "docs",
+              "previous": {
+                "title": "Kotlin Flows and channels",
+                "permalink": "/docs/mobile-app-dev/kotlin-flows"
+              },
+              "next": {
+                "title": "App Architecture",
+                "permalink": "/docs/mobile-app-dev/Architecture"
+              }
+            },
+            {
+              "unversionedId": "mobile-app-dev/Architecture",
+              "id": "mobile-app-dev/Architecture",
+              "title": "App Architecture",
+              "description": "MVVM",
+              "source": "@site/docs/mobile-app-dev/Architecture.md",
+              "sourceDirName": "mobile-app-dev",
+              "slug": "/mobile-app-dev/Architecture",
+              "permalink": "/docs/mobile-app-dev/Architecture",
+              "tags": [],
+              "version": "current",
+              "frontMatter": {
+                "title": "App Architecture"
+              },
+              "sidebar": "docs",
+              "previous": {
+                "title": "App Ideas",
+                "permalink": "/docs/mobile-app-dev/Apps"
+              },
+              "next": {
+                "title": "UI UX",
+                "permalink": "/docs/mobile-app-dev/UiUx"
+              }
+            },
+            {
+              "unversionedId": "mobile-app-dev/kotlin-flows",
+              "id": "mobile-app-dev/kotlin-flows",
+              "title": "Kotlin Flows and channels",
+              "description": "Hot and cold streams",
+              "source": "@site/docs/mobile-app-dev/kotlin-flows.md",
+              "sourceDirName": "mobile-app-dev",
+              "slug": "/mobile-app-dev/kotlin-flows",
+              "permalink": "/docs/mobile-app-dev/kotlin-flows",
+              "tags": [],
+              "version": "current",
+              "frontMatter": {
+                "title": "Kotlin Flows and channels"
+              },
+              "sidebar": "docs",
+              "previous": {
+                "title": "Contents",
+                "permalink": "/docs/"
+              },
+              "next": {
+                "title": "App Ideas",
+                "permalink": "/docs/mobile-app-dev/Apps"
+              }
+            },
+            {
+              "unversionedId": "mobile-app-dev/UiUx",
+              "id": "mobile-app-dev/UiUx",
+              "title": "UI UX",
+              "description": "Lists with create, delete, update operations",
+              "source": "@site/docs/mobile-app-dev/UiUx.md",
+              "sourceDirName": "mobile-app-dev",
+              "slug": "/mobile-app-dev/UiUx",
+              "permalink": "/docs/mobile-app-dev/UiUx",
+              "tags": [],
+              "version": "current",
+              "frontMatter": {
+                "title": "UI UX"
+              },
+              "sidebar": "docs",
+              "previous": {
+                "title": "App Architecture",
+                "permalink": "/docs/mobile-app-dev/Architecture"
+              },
+              "next": {
+                "title": "Android Studio Shortcuts",
+                "permalink": "/docs/mobile-app-dev/AndroidStudioShortcuts"
+              }
+            }
+          ],
+          "sidebars": {
+            "docs": [
+              {
+                "type": "doc",
+                "id": "contents"
+              },
+              {
+                "type": "category",
+                "label": "Mobile Development",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "mobile-app-dev/kotlin-flows"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "mobile-app-dev/Apps"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "mobile-app-dev/Architecture"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "mobile-app-dev/UiUx"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "mobile-app-dev/AndroidStudioShortcuts"
+                  }
+                ],
+                "collapsed": true,
+                "collapsible": true
+              },
+              {
+                "type": "category",
+                "label": "DSA",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "dsa/CppAndSTL"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "dsa/ArraysSortingSearching"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "dsa/OrderStatistics"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "dsa/Heaps"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "dsa/StringAlgorithms"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "dsa/LinkedList"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "dsa/Trees"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "dsa/GraphTraversalAndMst"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "dsa/GraphShortestPath"
+                  },
+                  {
+                    "type": "category",
+                    "label": "Maths",
+                    "items": [
+                      {
+                        "type": "doc",
+                        "id": "dsa/MathsI"
+                      },
+                      {
+                        "type": "doc",
+                        "id": "dsa/PrimeNumbers"
+                      },
+                      {
+                        "type": "doc",
+                        "id": "dsa/Counting"
+                      }
+                    ],
+                    "collapsed": true,
+                    "collapsible": true
+                  },
+                  {
+                    "type": "doc",
+                    "id": "dsa/BitManipulation"
+                  },
+                  {
+                    "type": "category",
+                    "label": "Other Data Structures",
+                    "items": [
+                      {
+                        "type": "doc",
+                        "id": "dsa/SegmentTrees"
+                      },
+                      {
+                        "type": "doc",
+                        "id": "dsa/DisjointSets"
+                      },
+                      {
+                        "type": "doc",
+                        "id": "dsa/FenwickTrees"
+                      }
+                    ],
+                    "collapsed": true,
+                    "collapsible": true
+                  }
+                ],
+                "collapsed": true,
+                "collapsible": true
+              }
+            ]
+          },
+          "mainDocId": "contents",
+          "categoryGeneratedIndices": []
+        }
+      ]
+    }
+  },
+  "docusaurus-plugin-content-blog": {
+    "default": {
+      "blogSidebarTitle": "Recent posts",
+      "blogPosts": [
+        {
+          "id": "mifos-ui",
+          "metadata": {
+            "permalink": "/blog/mifos-ui",
+            "editUrl": "https://github.com/rahul-gill/rahul-gill.github.io/blog/2022-6-11-mifos-ui.mdx",
+            "source": "@site/blog/2022-6-11-mifos-ui.mdx",
+            "title": "Mifos Android UI Library",
+            "description": "Target Goals:",
+            "date": "2022-06-11T00:00:00.000Z",
+            "formattedDate": "June 11, 2022",
+            "tags": [
+              {
+                "label": "android",
+                "permalink": "/blog/tags/android"
+              },
+              {
+                "label": "GSoC",
+                "permalink": "/blog/tags/g-so-c"
+              },
+              {
+                "label": "UI",
+                "permalink": "/blog/tags/ui"
+              },
+              {
+                "label": "library",
+                "permalink": "/blog/tags/library"
+              }
+            ],
+            "readingTime": 3.505,
+            "truncated": true,
+            "authors": [],
+            "frontMatter": {
+              "slug": "mifos-ui",
+              "title": "Mifos Android UI Library",
+              "tags": [
+                "android",
+                "GSoC",
+                "UI",
+                "library"
+              ]
+            },
+            "nextItem": {
+              "title": "Docusaurus features",
+              "permalink": "/blog/blog-path"
+            }
+          },
+          "content": "## Target Goals:\n- Develop a common UI library to ensure a consistent look and feel of UIs for all apps\n- Define a process for migrating apps to use the library\n- Develop design guidelines and standards for the apps(design document)\n- Develop base-level widgets, common UI components\n- Implement screens and workflows to test out on reference sample app\n- Document how to use the UI library and how to update the app when the library is updated.\n\n<!--truncate-->\n## make developers stop modifying the components' style in layout files\n- It would be tedious task for the reviewer to make sure the PR doesn't modify the style attributes in layouts(by \n  using textSize, textColor, padding or similar attributes)\n- So we'll define custom lint rules that will catch this and make the build fail and report the error. Something \n  like this:\n```\n> Task :demoApp:lintDebug FAILED\nLint found 54 errors, 84 warnings. First failure:\n\n/home/ashen-one/AndroidStudioProjects/MifosUI/demoApp/src/main/res/layout/tmp.xml:20: Error: Style attribute usage in layout detected [StyleAttributeUsageIssue from mifos]\n        android:textSize=\"24sp\"\n        ~~~~~~~~~~~~~~~~~~~~~~~\n\nThe full lint text report is located at:\n  /home/ashen-one/AndroidStudioProjects/MifosUI/demoApp/build/intermediates/lint_intermediate_text_report/debug/lint-results-debug.txt\n```\n- The full report lists all errors\n```\n/home/ashen-one/AndroidStudioProjects/MifosUI/demoApp/src/main/res/layout/tmp.xml:20: Error: Style attribute usage in layout detected [StyleAttributeUsageIssue from mifos]\n        android:textSize=\"24sp\"\n        ~~~~~~~~~~~~~~~~~~~~~~~\n/home/ashen-one/AndroidStudioProjects/MifosUI/demoApp/src/main/res/layout/tmp.xml:21: Error: Style attribute usage in layout detected [StyleAttributeUsageIssue from mifos]\n        android:textColor=\"#000000\"/>\n        ~~~~~~~~~~~~~~~~~~~~~~~~~~~\n/home/ashen-one/AndroidStudioProjects/MifosUI/demoApp/src/main/res/layout/tmp.xml:28: Error: Style attribute usage in layout detected [StyleAttributeUsageIssue from mifos]\n        android:textSize=\"18sp\"\n        ~~~~~~~~~~~~~~~~~~~~~~~~~~~\n/home/ashen-one/AndroidStudioProjects/MifosUI/demoApp/src/main/res/layout/tmp.xml:111: Error: Style attribute usage in layout detected [StyleAttributeUsageIssue from mifos]\n        android:textColor=\"?attr/colorPrimary\"/>\n        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n/home/ashen-one/AndroidStudioProjects/MifosUI/demoApp/src/main/res/layout/tmp.xml:119: Error: Style attribute usage in layout detected [StyleAttributeUsageIssue from mifos]\n        android:textColor=\"?attr/colorPrimary\"/>\n        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n/home/ashen-one/AndroidStudioProjects/MifosUI/demoApp/src/main/res/layout/tmp.xml:137: Error: Style attribute usage in layout detected [StyleAttributeUsageIssue from mifos]\n            android:backgroundTint=\"?attr/colorPrimary\"\n```\n\n## Challenge: Dependency management\n- UI library will have the latest dependency versions. But apps' dependencies are not updated. Upgrading a single \n  implementation dependency version may require updating the compileSdkVersion, kotlinVersion, gradlePluginVersion \n  which may cause many problems.\n\n## Themes and styles\n- we'll have to extract common styles used in the apps and provide those styles\n- apps consuming the styles would only apply these styles only(not provided by the material android libraries)\n- text styles for these\n  - link text for things like `forgot password` with click feedback(<u style={{\"color\":\"#4444FF\"}}>NonClicked</u> \n    <a style={{\"color\":\"#AAAAFF\"}}>Clicked</a>)\n  - secondary text style for things like all rights reserved @copyright etc.,\n  - list header style,\n  - main focus text style(like the current account balance on home screen)\n- Text Field Styles:\n  - otp fill\n  - password field\n  - phone number select\n  - edit text with action to fill the field(like qr code fetcher)\n  - edit text with currency selection\n- commonly used size and spacing values\n  - text fields vertical padding and fillMaxWidth text fields horizontal padding\n  - lists:\n    - spacing between list items\n    - card inner padding values\n    - card outer padding values\n    - item spacer horizontal padding values\n    - bottom padding for avoiding list items hiding below the FAB\n    - list item minHeight\n    - list header left margin and vertical margins\n  - images:\n    - OrgIcon width and height\n    - avatar width and height\n    - card icon dimensions\n    - basic icon dimension\n  - title subtitle spacing\n  - card corner radius and elevation\n  - fab margins\n  - standard margin\n  - bottom navigation height and elevation\n  - tooltip(hint) offset(x+,x-,y+,y-)\n- text focus indication with alpha\n<div style={{background:'white'}}>\n<div style={{color:'#d1d1d1'}}>AAAAAAAAAAAAAAAAAAAAAA</div>\n<div style={{color:'#666666bb'}}>BBBBBBBBBBBBBBBBBBBBBB</div>\n<div style={{color:'#000000'}}>BBBBBBBBBBBBBBBBBBBBBB</div>\n</div>\n\n## Custom widgets\n- there are some widgets that are built by combining base widgets, for example:\n  - This kind of cards are used in settings screen, transaction and many other\n  ![card](/img/blog/7085c9d78eb5485cace28c5a243d3f95.png)\n  - list of key value pairs  \n  ![key-val](/img/blog/83bb344bed6840e7af92f92a30fd8dec.png)\n  - commonly used text field styles: simple, with an action, password, otp\n  ![text-fields](/img/blog/c168c3d558564d9db69977333d962e4d.png)\n  - [this](https://dribbble.com/shots/18050792-Mercury-Phone-Input) could be a great for phone number fields\n  - table view\n- implementation for these can be provided in the library\n- also, some custom views are already in the apps, these can be moved to the library; like \n  - [ProcessView](https://github.com/openMF/mifos-mobile/blob/development/app/src/main/java/org/mifos/mobile/utils/ProcessView.kt), Circular Image View, AvatarView, [MifosPassCodeActivity](https://github.com/openMF/mifos-passcode)\n- UI extensions like these can be moved to the library\n  - Correct input verify\n    - password strength [this](https://github.com/openMF/mobile-wallet/blob/dev/mifospay/src/main/java/org/mifos/mobilewallet/mifospay/utils/PasswordStrength.java)\n    - email pattern [this](https://github.com/openMF/mobile-wallet/blob/dev/mifospay/src/main/java/org/mifos/mobilewallet/mifospay/utils/ValidateUtil.kt)\n  - dropdown like visibility change animation [this](https://github.com/openMF/mobile-wallet/blob/dev/mifospay/src/main/java/org/mifos/mobilewallet/mifospay/utils/AnimationUtil.java)\n  - Dialog builder maybe [this](https://github.com/openMF/mobile-wallet/blob/dev/mifospay/src/main/java/org/mifos/mobilewallet/mifospay/utils/DialogBox.java)\n  - click listener helper for recycler view with sublist [this](https://github.com/openMF/mobile-wallet/blob/dev/mifospay/src/main/java/org/mifos/mobilewallet/mifospay/utils/RecyclerItemClickListener.java)\n  - Drawable by name [this](https://github.com/openMF/mobile-wallet/blob/dev/mifospay/src/main/java/org/mifos/mobilewallet/mifospay/utils/TextDrawable.java)\n  - Divider Decoration [this](https://github.com/openMF/mifos-mobile/blob/development/app/src/main/java/org/mifos/mobile/utils/DividerItemDecoration.kt)\n  - EndlessRecyclerViewScrollListener [this](https://github.com/openMF/mifos-mobile/blob/development/app/src/main/java/org/mifos/mobile/utils/EndlessRecyclerViewScrollListener.kt)\n  - ScrollFabBehavior [this](https://github.com/openMF/mifos-mobile/blob/development/app/src/main/java/org/mifos/mobile/utils/ScrollFabBehavior.kt)"
+        },
+        {
+          "id": "blog-path",
+          "metadata": {
+            "permalink": "/blog/blog-path",
+            "editUrl": "https://github.com/rahul-gill/rahul-gill.github.io/blog/2020-12-03-sample-blog.mdx",
+            "source": "@site/blog/2020-12-03-sample-blog.mdx",
+            "title": "Docusaurus features",
+            "description": "Tabs",
+            "date": "2020-12-03T00:00:00.000Z",
+            "formattedDate": "December 3, 2020",
+            "tags": [
+              {
+                "label": "docusaurus",
+                "permalink": "/blog/tags/docusaurus"
+              }
+            ],
+            "readingTime": 0.56,
+            "truncated": true,
+            "authors": [],
+            "frontMatter": {
+              "slug": "blog-path",
+              "title": "Docusaurus features",
+              "tags": [
+                "docusaurus"
+              ]
+            },
+            "prevItem": {
+              "title": "Mifos Android UI Library",
+              "permalink": "/blog/mifos-ui"
+            }
+          },
+          "content": "import Tabs from '@theme/Tabs';\nimport TabItem from '@theme/TabItem';\n\n## Tabs\n\n<Tabs>\n  <TabItem value=\"apple\" label=\"Apple\" default>\n    This is an apple 🍎\n  </TabItem>\n  <TabItem value=\"orange\" label=\"Orange\">\n    This is an orange 🍊\n  </TabItem>\n  <TabItem value=\"banana\" label=\"Banana\">\n    This is a banana 🍌\n  </TabItem>\n</Tabs>\n\n\n<!--truncate-->\n\n\n## Admonitions\n\n:::note SomeNote\n\nSome **content** with _markdown_ `syntax`. Check [this `api`](#).\n\n:::\n\n:::tip SomeTip\n\nSome **content** with _markdown_ `syntax`. Check [this `api`](#).\n\n:::\n\n:::info SomeInfo\n\nSome **content** with _markdown_ `syntax`. Check [this `api`](#).\n\n:::\n\n:::caution SomeCaution\n\nSome **content** with _markdown_ `syntax`. Check [this `api`](#).\n\n:::\n\n:::danger SomeDanger\n\nSome **content** with _markdown_ `syntax`. Check [this `api`](#).\n\n:::\n\n## Code block features\n```cpp\nint main(){\n    // highlight-next-line\n    printf(\"highlighting a line\");\n}\n```"
+        }
+      ],
+      "blogListPaginated": [
+        {
+          "items": [
+            "mifos-ui",
+            "blog-path"
+          ],
+          "metadata": {
+            "permalink": "/blog",
+            "page": 1,
+            "postsPerPage": 10,
+            "totalPages": 1,
+            "totalCount": 2,
+            "blogDescription": "Blog",
+            "blogTitle": "Blog"
+          }
+        }
+      ],
+      "blogTags": {
+        "/blog/tags/android": {
+          "name": "android",
+          "items": [
+            "mifos-ui"
+          ],
+          "permalink": "/blog/tags/android",
+          "pages": [
+            {
+              "items": [
+                "mifos-ui"
+              ],
+              "metadata": {
+                "permalink": "/blog/tags/android",
+                "page": 1,
+                "postsPerPage": 10,
+                "totalPages": 1,
+                "totalCount": 1,
+                "blogDescription": "Blog",
+                "blogTitle": "Blog"
+              }
+            }
+          ]
+        },
+        "/blog/tags/g-so-c": {
+          "name": "GSoC",
+          "items": [
+            "mifos-ui"
+          ],
+          "permalink": "/blog/tags/g-so-c",
+          "pages": [
+            {
+              "items": [
+                "mifos-ui"
+              ],
+              "metadata": {
+                "permalink": "/blog/tags/g-so-c",
+                "page": 1,
+                "postsPerPage": 10,
+                "totalPages": 1,
+                "totalCount": 1,
+                "blogDescription": "Blog",
+                "blogTitle": "Blog"
+              }
+            }
+          ]
+        },
+        "/blog/tags/ui": {
+          "name": "UI",
+          "items": [
+            "mifos-ui"
+          ],
+          "permalink": "/blog/tags/ui",
+          "pages": [
+            {
+              "items": [
+                "mifos-ui"
+              ],
+              "metadata": {
+                "permalink": "/blog/tags/ui",
+                "page": 1,
+                "postsPerPage": 10,
+                "totalPages": 1,
+                "totalCount": 1,
+                "blogDescription": "Blog",
+                "blogTitle": "Blog"
+              }
+            }
+          ]
+        },
+        "/blog/tags/library": {
+          "name": "library",
+          "items": [
+            "mifos-ui"
+          ],
+          "permalink": "/blog/tags/library",
+          "pages": [
+            {
+              "items": [
+                "mifos-ui"
+              ],
+              "metadata": {
+                "permalink": "/blog/tags/library",
+                "page": 1,
+                "postsPerPage": 10,
+                "totalPages": 1,
+                "totalCount": 1,
+                "blogDescription": "Blog",
+                "blogTitle": "Blog"
+              }
+            }
+          ]
+        },
+        "/blog/tags/docusaurus": {
+          "name": "docusaurus",
+          "items": [
+            "blog-path"
+          ],
+          "permalink": "/blog/tags/docusaurus",
+          "pages": [
+            {
+              "items": [
+                "blog-path"
+              ],
+              "metadata": {
+                "permalink": "/blog/tags/docusaurus",
+                "page": 1,
+                "postsPerPage": 10,
+                "totalPages": 1,
+                "totalCount": 1,
+                "blogDescription": "Blog",
+                "blogTitle": "Blog"
+              }
+            }
+          ]
+        }
+      },
+      "blogTagsListPath": "/blog/tags"
+    }
+  },
+  "docusaurus-plugin-content-pages": {
+    "default": [
+      {
+        "type": "jsx",
+        "permalink": "/",
+        "source": "@site/src/pages/index.js"
+      },
+      {
+        "type": "jsx",
+        "permalink": "/about/",
+        "source": "@site/src/pages/about/index.js"
+      },
+      {
+        "type": "jsx",
+        "permalink": "/projects/",
+        "source": "@site/src/pages/projects/index.js"
+      }
+    ]
+  },
+  "docusaurus-plugin-debug": {},
+  "docusaurus-theme-classic": {},
+  "posthog-docusaurus": {}
+}

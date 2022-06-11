@@ -1,0 +1,25 @@
+{
+  "unversionedId": "dsa/ArraysSortingSearching",
+  "id": "dsa/ArraysSortingSearching",
+  "title": "Arrays, Searching and Sorting",
+  "description": "Kadane's maximum sum subarray algorithm",
+  "source": "@site/docs/dsa/2. ArraysSortingSearching.md",
+  "sourceDirName": "dsa",
+  "slug": "/dsa/ArraysSortingSearching",
+  "permalink": "/docs/dsa/ArraysSortingSearching",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "Arrays, Searching and Sorting"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "C++ and STL",
+    "permalink": "/docs/dsa/CppAndSTL"
+  },
+  "next": {
+    "title": "Order Statistics",
+    "permalink": "/docs/dsa/OrderStatistics"
+  }
+}

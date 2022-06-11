@@ -1,0 +1,25 @@
+{
+  "unversionedId": "dsa/LinkedList",
+  "id": "dsa/LinkedList",
+  "title": "Linked Lists",
+  "description": "reverse linked list",
+  "source": "@site/docs/dsa/6.LinkedList.md",
+  "sourceDirName": "dsa",
+  "slug": "/dsa/LinkedList",
+  "permalink": "/docs/dsa/LinkedList",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6,
+  "frontMatter": {
+    "title": "Linked Lists"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "String Algorithms",
+    "permalink": "/docs/dsa/StringAlgorithms"
+  },
+  "next": {
+    "title": "Trees",
+    "permalink": "/docs/dsa/Trees"
+  }
+}

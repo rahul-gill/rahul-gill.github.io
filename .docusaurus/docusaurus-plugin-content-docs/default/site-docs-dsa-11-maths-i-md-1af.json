@@ -1,0 +1,25 @@
+{
+  "unversionedId": "dsa/MathsI",
+  "id": "dsa/MathsI",
+  "title": "Maths I",
+  "description": "Binary Exponentiation",
+  "source": "@site/docs/dsa/11. MathsI.md",
+  "sourceDirName": "dsa",
+  "slug": "/dsa/MathsI",
+  "permalink": "/docs/dsa/MathsI",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 11,
+  "frontMatter": {
+    "title": "Maths I"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Graph Shortest Path Problems",
+    "permalink": "/docs/dsa/GraphShortestPath"
+  },
+  "next": {
+    "title": "Prime Numbers",
+    "permalink": "/docs/dsa/PrimeNumbers"
+  }
+}

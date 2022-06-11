@@ -1,0 +1,123 @@
+---
+slug: mifos-ui
+title: Mifos Android UI Library
+tags: [android, GSoC, UI, library]
+---
+## Target Goals:
+- Develop a common UI library to ensure a consistent look and feel of UIs for all apps
+- Define a process for migrating apps to use the library
+- Develop design guidelines and standards for the apps(design document)
+- Develop base-level widgets, common UI components
+- Implement screens and workflows to test out on reference sample app
+- Document how to use the UI library and how to update the app when the library is updated.
+
+<!--truncate-->
+## make developers stop modifying the components' style in layout files
+- It would be tedious task for the reviewer to make sure the PR doesn't modify the style attributes in layouts(by 
+  using textSize, textColor, padding or similar attributes)
+- So we'll define custom lint rules that will catch this and make the build fail and report the error. Something 
+  like this:
+```
+> Task :demoApp:lintDebug FAILED
+Lint found 54 errors, 84 warnings. First failure:
+
+/home/ashen-one/AndroidStudioProjects/MifosUI/demoApp/src/main/res/layout/tmp.xml:20: Error: Style attribute usage in layout detected [StyleAttributeUsageIssue from mifos]
+        android:textSize="24sp"
+        ~~~~~~~~~~~~~~~~~~~~~~~
+
+The full lint text report is located at:
+  /home/ashen-one/AndroidStudioProjects/MifosUI/demoApp/build/intermediates/lint_intermediate_text_report/debug/lint-results-debug.txt
+```
+- The full report lists all errors
+```
+/home/ashen-one/AndroidStudioProjects/MifosUI/demoApp/src/main/res/layout/tmp.xml:20: Error: Style attribute usage in layout detected [StyleAttributeUsageIssue from mifos]
+        android:textSize="24sp"
+        ~~~~~~~~~~~~~~~~~~~~~~~
+/home/ashen-one/AndroidStudioProjects/MifosUI/demoApp/src/main/res/layout/tmp.xml:21: Error: Style attribute usage in layout detected [StyleAttributeUsageIssue from mifos]
+        android:textColor="#000000"/>
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/ashen-one/AndroidStudioProjects/MifosUI/demoApp/src/main/res/layout/tmp.xml:28: Error: Style attribute usage in layout detected [StyleAttributeUsageIssue from mifos]
+        android:textSize="18sp"
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/ashen-one/AndroidStudioProjects/MifosUI/demoApp/src/main/res/layout/tmp.xml:111: Error: Style attribute usage in layout detected [StyleAttributeUsageIssue from mifos]
+        android:textColor="?attr/colorPrimary"/>
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/ashen-one/AndroidStudioProjects/MifosUI/demoApp/src/main/res/layout/tmp.xml:119: Error: Style attribute usage in layout detected [StyleAttributeUsageIssue from mifos]
+        android:textColor="?attr/colorPrimary"/>
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/ashen-one/AndroidStudioProjects/MifosUI/demoApp/src/main/res/layout/tmp.xml:137: Error: Style attribute usage in layout detected [StyleAttributeUsageIssue from mifos]
+            android:backgroundTint="?attr/colorPrimary"
+```
+
+## Challenge: Dependency management
+- UI library will have the latest dependency versions. But apps' dependencies are not updated. Upgrading a single 
+  implementation dependency version may require updating the compileSdkVersion, kotlinVersion, gradlePluginVersion 
+  which may cause many problems.
+
+## Themes and styles
+- we'll have to extract common styles used in the apps and provide those styles
+- apps consuming the styles would only apply these styles only(not provided by the material android libraries)
+- text styles for these
+  - link text for things like `forgot password` with click feedback(<u style={{"color":"#4444FF"}}>NonClicked</u> 
+    <a style={{"color":"#AAAAFF"}}>Clicked</a>)
+  - secondary text style for things like all rights reserved @copyright etc.,
+  - list header style,
+  - main focus text style(like the current account balance on home screen)
+- Text Field Styles:
+  - otp fill
+  - password field
+  - phone number select
+  - edit text with action to fill the field(like qr code fetcher)
+  - edit text with currency selection
+- commonly used size and spacing values
+  - text fields vertical padding and fillMaxWidth text fields horizontal padding
+  - lists:
+    - spacing between list items
+    - card inner padding values
+    - card outer padding values
+    - item spacer horizontal padding values
+    - bottom padding for avoiding list items hiding below the FAB
+    - list item minHeight
+    - list header left margin and vertical margins
+  - images:
+    - OrgIcon width and height
+    - avatar width and height
+    - card icon dimensions
+    - basic icon dimension
+  - title subtitle spacing
+  - card corner radius and elevation
+  - fab margins
+  - standard margin
+  - bottom navigation height and elevation
+  - tooltip(hint) offset(x+,x-,y+,y-)
+- text focus indication with alpha
+<div style={{background:'white'}}>
+<div style={{color:'#d1d1d1'}}>AAAAAAAAAAAAAAAAAAAAAA</div>
+<div style={{color:'#666666bb'}}>BBBBBBBBBBBBBBBBBBBBBB</div>
+<div style={{color:'#000000'}}>BBBBBBBBBBBBBBBBBBBBBB</div>
+</div>
+
+## Custom widgets
+- there are some widgets that are built by combining base widgets, for example:
+  - This kind of cards are used in settings screen, transaction and many other
+  ![card](/img/blog/7085c9d78eb5485cace28c5a243d3f95.png)
+  - list of key value pairs  
+  ![key-val](/img/blog/83bb344bed6840e7af92f92a30fd8dec.png)
+  - commonly used text field styles: simple, with an action, password, otp
+  ![text-fields](/img/blog/c168c3d558564d9db69977333d962e4d.png)
+  - [this](https://dribbble.com/shots/18050792-Mercury-Phone-Input) could be a great for phone number fields
+  - table view
+- implementation for these can be provided in the library
+- also, some custom views are already in the apps, these can be moved to the library; like 
+  - [ProcessView](https://github.com/openMF/mifos-mobile/blob/development/app/src/main/java/org/mifos/mobile/utils/ProcessView.kt), Circular Image View, AvatarView, [MifosPassCodeActivity](https://github.com/openMF/mifos-passcode)
+- UI extensions like these can be moved to the library
+  - Correct input verify
+    - password strength [this](https://github.com/openMF/mobile-wallet/blob/dev/mifospay/src/main/java/org/mifos/mobilewallet/mifospay/utils/PasswordStrength.java)
+    - email pattern [this](https://github.com/openMF/mobile-wallet/blob/dev/mifospay/src/main/java/org/mifos/mobilewallet/mifospay/utils/ValidateUtil.kt)
+  - dropdown like visibility change animation [this](https://github.com/openMF/mobile-wallet/blob/dev/mifospay/src/main/java/org/mifos/mobilewallet/mifospay/utils/AnimationUtil.java)
+  - Dialog builder maybe [this](https://github.com/openMF/mobile-wallet/blob/dev/mifospay/src/main/java/org/mifos/mobilewallet/mifospay/utils/DialogBox.java)
+  - click listener helper for recycler view with sublist [this](https://github.com/openMF/mobile-wallet/blob/dev/mifospay/src/main/java/org/mifos/mobilewallet/mifospay/utils/RecyclerItemClickListener.java)
+  - Drawable by name [this](https://github.com/openMF/mobile-wallet/blob/dev/mifospay/src/main/java/org/mifos/mobilewallet/mifospay/utils/TextDrawable.java)
+  - Divider Decoration [this](https://github.com/openMF/mifos-mobile/blob/development/app/src/main/java/org/mifos/mobile/utils/DividerItemDecoration.kt)
+  - EndlessRecyclerViewScrollListener [this](https://github.com/openMF/mifos-mobile/blob/development/app/src/main/java/org/mifos/mobile/utils/EndlessRecyclerViewScrollListener.kt)
+  - ScrollFabBehavior [this](https://github.com/openMF/mifos-mobile/blob/development/app/src/main/java/org/mifos/mobile/utils/ScrollFabBehavior.kt)

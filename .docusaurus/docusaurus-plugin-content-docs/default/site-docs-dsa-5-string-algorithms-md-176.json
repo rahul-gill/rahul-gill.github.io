@@ -1,0 +1,25 @@
+{
+  "unversionedId": "dsa/StringAlgorithms",
+  "id": "dsa/StringAlgorithms",
+  "title": "String Algorithms",
+  "description": "Comparing strings efficiently with hashing",
+  "source": "@site/docs/dsa/5. StringAlgorithms.md",
+  "sourceDirName": "dsa",
+  "slug": "/dsa/StringAlgorithms",
+  "permalink": "/docs/dsa/StringAlgorithms",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "title": "String Algorithms"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Heaps",
+    "permalink": "/docs/dsa/Heaps"
+  },
+  "next": {
+    "title": "Linked Lists",
+    "permalink": "/docs/dsa/LinkedList"
+  }
+}

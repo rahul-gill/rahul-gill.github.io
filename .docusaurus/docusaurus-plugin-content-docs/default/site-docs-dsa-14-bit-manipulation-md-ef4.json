@@ -1,0 +1,25 @@
+{
+  "unversionedId": "dsa/BitManipulation",
+  "id": "dsa/BitManipulation",
+  "title": "BitManipulation",
+  "description": "",
+  "source": "@site/docs/dsa/14. BitManipulation.md",
+  "sourceDirName": "dsa",
+  "slug": "/dsa/BitManipulation",
+  "permalink": "/docs/dsa/BitManipulation",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 14,
+  "frontMatter": {
+    "titile": "Bit Manipulation"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Counting",
+    "permalink": "/docs/dsa/Counting"
+  },
+  "next": {
+    "title": "Segment Trees",
+    "permalink": "/docs/dsa/SegmentTrees"
+  }
+}

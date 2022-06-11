@@ -1,0 +1,236 @@
+{
+  "/__docusaurus/debug-ae7": {
+    "component": "component---theme-debug-config-23-a-2ff",
+    "__routeContextModule": "__routeContextModule---docusaurus-debug-7-cf-041"
+  },
+  "/__docusaurus/debug/config-21b": {
+    "component": "component---theme-debug-config-23-a-2ff",
+    "__routeContextModule": "__routeContextModule---docusaurus-debug-7-cf-041"
+  },
+  "/__docusaurus/debug/content-216": {
+    "component": "component---theme-debug-contentba-8-ce7",
+    "allContent": "allContent---docusaurus-debug-content-246-9aa",
+    "__routeContextModule": "__routeContextModule---docusaurus-debug-7-cf-041"
+  },
+  "/__docusaurus/debug/globalData-a66": {
+    "component": "component---theme-debug-global-dataede-0fa",
+    "__routeContextModule": "__routeContextModule---docusaurus-debug-7-cf-041"
+  },
+  "/__docusaurus/debug/metadata-73a": {
+    "component": "component---theme-debug-site-metadata-68-e-3d4",
+    "__routeContextModule": "__routeContextModule---docusaurus-debug-7-cf-041"
+  },
+  "/__docusaurus/debug/registry-f70": {
+    "component": "component---theme-debug-registry-679-501",
+    "__routeContextModule": "__routeContextModule---docusaurus-debug-7-cf-041"
+  },
+  "/__docusaurus/debug/routes-3be": {
+    "component": "component---theme-debug-routes-946-699",
+    "__routeContextModule": "__routeContextModule---docusaurus-debug-7-cf-041"
+  },
+  "/about-65a": {
+    "component": "component---site-src-pages-about-index-js-958-67a",
+    "config": "config---about-5-e-9-bcb",
+    "__routeContextModule": "__routeContextModule---about-468-ec4"
+  },
+  "/blog-746": {
+    "component": "component---theme-blog-list-pagea-6-a-7ba",
+    "sidebar": "sidebar---blog-814-8ac",
+    "items": [
+      {
+        "content": "content---bloga-40-9db"
+      },
+      {
+        "content": "content---blogaac-d6f"
+      }
+    ],
+    "metadata": "metadata---blogb-2-b-df1",
+    "__routeContextModule": "__routeContextModule---blog-18-d-180"
+  },
+  "/blog/archive-deb": {
+    "component": "component---theme-blog-archive-page-9-e-4-1d8",
+    "archive": "archive---blog-archiveb-2-f-393",
+    "__routeContextModule": "__routeContextModule---blog-18-d-180"
+  },
+  "/blog/blog-path-fe0": {
+    "component": "component---theme-blog-post-pageccc-cab",
+    "sidebar": "sidebar---blog-814-8ac",
+    "content": "content---blog-blog-path-873-9db",
+    "__routeContextModule": "__routeContextModule---blog-18-d-180"
+  },
+  "/blog/mifos-ui-e63": {
+    "component": "component---theme-blog-post-pageccc-cab",
+    "sidebar": "sidebar---blog-814-8ac",
+    "content": "content---blog-mifos-ui-44-d-a3e",
+    "__routeContextModule": "__routeContextModule---blog-18-d-180"
+  },
+  "/blog/tags-d3a": {
+    "component": "component---theme-blog-tags-list-page-01-a-d0b",
+    "sidebar": "sidebar---blog-814-8ac",
+    "tags": "tags---blog-tagsa-70-da2",
+    "__routeContextModule": "__routeContextModule---blog-18-d-180"
+  },
+  "/blog/tags/android-264": {
+    "component": "component---theme-blog-tags-posts-page-687-b6c",
+    "sidebar": "sidebar---blog-814-8ac",
+    "items": [
+      {
+        "content": "content---bloga-40-9db"
+      }
+    ],
+    "metadata": "metadata---blog-tags-androiddc-3-ddd",
+    "listMetadata": "listMetadata---blog-tags-android-31-c-8ae",
+    "__routeContextModule": "__routeContextModule---blog-18-d-180"
+  },
+  "/blog/tags/docusaurus-ee0": {
+    "component": "component---theme-blog-tags-posts-page-687-b6c",
+    "sidebar": "sidebar---blog-814-8ac",
+    "items": [
+      {
+        "content": "content---blogaac-d6f"
+      }
+    ],
+    "metadata": "metadata---blog-tags-docusaurusa-80-728",
+    "listMetadata": "listMetadata---blog-tags-docusaurus-608-c09",
+    "__routeContextModule": "__routeContextModule---blog-18-d-180"
+  },
+  "/blog/tags/g-so-c-fac": {
+    "component": "component---theme-blog-tags-posts-page-687-b6c",
+    "sidebar": "sidebar---blog-814-8ac",
+    "items": [
+      {
+        "content": "content---bloga-40-9db"
+      }
+    ],
+    "metadata": "metadata---blog-tags-g-so-c-752-d52",
+    "listMetadata": "listMetadata---blog-tags-g-so-cb-54-06e",
+    "__routeContextModule": "__routeContextModule---blog-18-d-180"
+  },
+  "/blog/tags/library-1b0": {
+    "component": "component---theme-blog-tags-posts-page-687-b6c",
+    "sidebar": "sidebar---blog-814-8ac",
+    "items": [
+      {
+        "content": "content---bloga-40-9db"
+      }
+    ],
+    "metadata": "metadata---blog-tags-library-6-ac-fd5",
+    "listMetadata": "listMetadata---blog-tags-librarye-5-b-1d6",
+    "__routeContextModule": "__routeContextModule---blog-18-d-180"
+  },
+  "/blog/tags/ui-8ae": {
+    "component": "component---theme-blog-tags-posts-page-687-b6c",
+    "sidebar": "sidebar---blog-814-8ac",
+    "items": [
+      {
+        "content": "content---bloga-40-9db"
+      }
+    ],
+    "metadata": "metadata---blog-tags-ui-8-dd-6a9",
+    "listMetadata": "listMetadata---blog-tags-ui-3-fe-98d",
+    "__routeContextModule": "__routeContextModule---blog-18-d-180"
+  },
+  "/projects-7d3": {
+    "component": "component---site-src-pages-projects-index-js-0-d-0-104",
+    "config": "config---about-5-e-9-bcb",
+    "__routeContextModule": "__routeContextModule---about-468-ec4"
+  },
+  "/docs-456": {
+    "component": "component---theme-doc-page-1-be-9be",
+    "versionMetadata": "versionMetadata---docs-935-398",
+    "__routeContextModule": "__routeContextModule---docs-6-ff-d40"
+  },
+  "/docs-5b7": {
+    "component": "component---theme-doc-item-178-a40",
+    "content": "content---docs-2-dc-aa8"
+  },
+  "/docs/dsa/ArraysSortingSearching-8c3": {
+    "component": "component---theme-doc-item-178-a40",
+    "content": "content---docs-dsa-arrays-sorting-searchingf-3-b-1f1"
+  },
+  "/docs/dsa/BitManipulation-d85": {
+    "component": "component---theme-doc-item-178-a40",
+    "content": "content---docs-dsa-bit-manipulationef-4-419"
+  },
+  "/docs/dsa/Counting-22d": {
+    "component": "component---theme-doc-item-178-a40",
+    "content": "content---docs-dsa-countingcd-9-005"
+  },
+  "/docs/dsa/CppAndSTL-97d": {
+    "component": "component---theme-doc-item-178-a40",
+    "content": "content---docs-dsa-cpp-and-st-la-60-621"
+  },
+  "/docs/dsa/DisjointSets-7c6": {
+    "component": "component---theme-doc-item-178-a40",
+    "content": "content---docs-dsa-disjoint-sets-43-a-ab3"
+  },
+  "/docs/dsa/FenwickTrees-a20": {
+    "component": "component---theme-doc-item-178-a40",
+    "content": "content---docs-dsa-fenwick-treesf-94-6aa"
+  },
+  "/docs/dsa/GraphShortestPath-2c1": {
+    "component": "component---theme-doc-item-178-a40",
+    "content": "content---docs-dsa-graph-shortest-path-71-f-962"
+  },
+  "/docs/dsa/GraphTraversalAndMst-a9d": {
+    "component": "component---theme-doc-item-178-a40",
+    "content": "content---docs-dsa-graph-traversal-and-mst-0-d-4-17a"
+  },
+  "/docs/dsa/Heaps-d68": {
+    "component": "component---theme-doc-item-178-a40",
+    "content": "content---docs-dsa-heaps-601-f49"
+  },
+  "/docs/dsa/LinkedList-985": {
+    "component": "component---theme-doc-item-178-a40",
+    "content": "content---docs-dsa-linked-list-67-a-14c"
+  },
+  "/docs/dsa/MathsI-f01": {
+    "component": "component---theme-doc-item-178-a40",
+    "content": "content---docs-dsa-maths-i-1-af-702"
+  },
+  "/docs/dsa/OrderStatistics-14c": {
+    "component": "component---theme-doc-item-178-a40",
+    "content": "content---docs-dsa-order-statistics-635-14e"
+  },
+  "/docs/dsa/PrimeNumbers-943": {
+    "component": "component---theme-doc-item-178-a40",
+    "content": "content---docs-dsa-prime-numbersd-35-ada"
+  },
+  "/docs/dsa/SegmentTrees-001": {
+    "component": "component---theme-doc-item-178-a40",
+    "content": "content---docs-dsa-segment-treesd-48-5a0"
+  },
+  "/docs/dsa/StringAlgorithms-3d9": {
+    "component": "component---theme-doc-item-178-a40",
+    "content": "content---docs-dsa-string-algorithms-176-d5c"
+  },
+  "/docs/dsa/Trees-952": {
+    "component": "component---theme-doc-item-178-a40",
+    "content": "content---docs-dsa-trees-8-ff-a7c"
+  },
+  "/docs/mobile-app-dev/AndroidStudioShortcuts-c44": {
+    "component": "component---theme-doc-item-178-a40",
+    "content": "content---docs-mobile-app-dev-android-studio-shortcutsac-2-8fa"
+  },
+  "/docs/mobile-app-dev/Apps-1f6": {
+    "component": "component---theme-doc-item-178-a40",
+    "content": "content---docs-mobile-app-dev-apps-3-dd-1be"
+  },
+  "/docs/mobile-app-dev/Architecture-d11": {
+    "component": "component---theme-doc-item-178-a40",
+    "content": "content---docs-mobile-app-dev-architecturefca-c97"
+  },
+  "/docs/mobile-app-dev/kotlin-flows-20f": {
+    "component": "component---theme-doc-item-178-a40",
+    "content": "content---docs-mobile-app-dev-kotlin-flows-8-e-0-9f8"
+  },
+  "/docs/mobile-app-dev/UiUx-b4b": {
+    "component": "component---theme-doc-item-178-a40",
+    "content": "content---docs-mobile-app-dev-ui-uxcf-6-082"
+  },
+  "/-de2": {
+    "component": "component---site-src-pages-index-jsc-4-f-f99",
+    "config": "config---about-5-e-9-bcb",
+    "__routeContextModule": "__routeContextModule---about-468-ec4"
+  }
+}

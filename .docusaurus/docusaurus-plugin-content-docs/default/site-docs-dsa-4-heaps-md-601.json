@@ -1,0 +1,25 @@
+{
+  "unversionedId": "dsa/Heaps",
+  "id": "dsa/Heaps",
+  "title": "Heaps",
+  "description": "Data structure",
+  "source": "@site/docs/dsa/4. Heaps.md",
+  "sourceDirName": "dsa",
+  "slug": "/dsa/Heaps",
+  "permalink": "/docs/dsa/Heaps",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "title": "Heaps"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Order Statistics",
+    "permalink": "/docs/dsa/OrderStatistics"
+  },
+  "next": {
+    "title": "String Algorithms",
+    "permalink": "/docs/dsa/StringAlgorithms"
+  }
+}

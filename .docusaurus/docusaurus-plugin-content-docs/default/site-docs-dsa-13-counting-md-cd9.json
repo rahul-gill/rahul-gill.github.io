@@ -1,0 +1,25 @@
+{
+  "unversionedId": "dsa/Counting",
+  "id": "dsa/Counting",
+  "title": "Counting",
+  "description": "Counting",
+  "source": "@site/docs/dsa/13. Counting.md",
+  "sourceDirName": "dsa",
+  "slug": "/dsa/Counting",
+  "permalink": "/docs/dsa/Counting",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 13,
+  "frontMatter": {
+    "title": "Counting"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Prime Numbers",
+    "permalink": "/docs/dsa/PrimeNumbers"
+  },
+  "next": {
+    "title": "BitManipulation",
+    "permalink": "/docs/dsa/BitManipulation"
+  }
+}

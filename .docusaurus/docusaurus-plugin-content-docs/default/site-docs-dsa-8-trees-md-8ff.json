@@ -1,0 +1,25 @@
+{
+  "unversionedId": "dsa/Trees",
+  "id": "dsa/Trees",
+  "title": "Trees",
+  "description": "Data Structure",
+  "source": "@site/docs/dsa/8. Trees.md",
+  "sourceDirName": "dsa",
+  "slug": "/dsa/Trees",
+  "permalink": "/docs/dsa/Trees",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 8,
+  "frontMatter": {
+    "title": "Trees"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Linked Lists",
+    "permalink": "/docs/dsa/LinkedList"
+  },
+  "next": {
+    "title": "Graph Traversal and MST",
+    "permalink": "/docs/dsa/GraphTraversalAndMst"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "unversionedId": "dsa/GraphTraversalAndMst",
+  "id": "dsa/GraphTraversalAndMst",
+  "title": "Graph Traversal and MST",
+  "description": "Graph Traversal Problems O(V+E)",
+  "source": "@site/docs/dsa/9. GraphTraversalAndMst.md",
+  "sourceDirName": "dsa",
+  "slug": "/dsa/GraphTraversalAndMst",
+  "permalink": "/docs/dsa/GraphTraversalAndMst",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 9,
+  "frontMatter": {
+    "title": "Graph Traversal and MST"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Trees",
+    "permalink": "/docs/dsa/Trees"
+  },
+  "next": {
+    "title": "Graph Shortest Path Problems",
+    "permalink": "/docs/dsa/GraphShortestPath"
+  }
+}

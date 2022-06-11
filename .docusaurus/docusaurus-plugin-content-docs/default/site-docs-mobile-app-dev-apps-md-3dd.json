@@ -1,0 +1,24 @@
+{
+  "unversionedId": "mobile-app-dev/Apps",
+  "id": "mobile-app-dev/Apps",
+  "title": "App Ideas",
+  "description": "Cricket app",
+  "source": "@site/docs/mobile-app-dev/Apps.md",
+  "sourceDirName": "mobile-app-dev",
+  "slug": "/mobile-app-dev/Apps",
+  "permalink": "/docs/mobile-app-dev/Apps",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "App Ideas"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Kotlin Flows and channels",
+    "permalink": "/docs/mobile-app-dev/kotlin-flows"
+  },
+  "next": {
+    "title": "App Architecture",
+    "permalink": "/docs/mobile-app-dev/Architecture"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Recent posts",
+  "items": [
+    {
+      "title": "Mifos Android UI Library",
+      "permalink": "/blog/mifos-ui"
+    },
+    {
+      "title": "Docusaurus features",
+      "permalink": "/blog/blog-path"
+    }
+  ]
+}

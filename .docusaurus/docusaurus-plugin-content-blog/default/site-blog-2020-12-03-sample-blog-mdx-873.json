@@ -1,0 +1,29 @@
+{
+  "permalink": "/blog/blog-path",
+  "editUrl": "https://github.com/rahul-gill/rahul-gill.github.io/blog/2020-12-03-sample-blog.mdx",
+  "source": "@site/blog/2020-12-03-sample-blog.mdx",
+  "title": "Docusaurus features",
+  "description": "Tabs",
+  "date": "2020-12-03T00:00:00.000Z",
+  "formattedDate": "December 3, 2020",
+  "tags": [
+    {
+      "label": "docusaurus",
+      "permalink": "/blog/tags/docusaurus"
+    }
+  ],
+  "readingTime": 0.56,
+  "truncated": true,
+  "authors": [],
+  "frontMatter": {
+    "slug": "blog-path",
+    "title": "Docusaurus features",
+    "tags": [
+      "docusaurus"
+    ]
+  },
+  "prevItem": {
+    "title": "Mifos Android UI Library",
+    "permalink": "/blog/mifos-ui"
+  }
+}

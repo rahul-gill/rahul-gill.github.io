@@ -1,0 +1,44 @@
+{
+  "permalink": "/blog/mifos-ui",
+  "editUrl": "https://github.com/rahul-gill/rahul-gill.github.io/blog/2022-6-11-mifos-ui.mdx",
+  "source": "@site/blog/2022-6-11-mifos-ui.mdx",
+  "title": "Mifos Android UI Library",
+  "description": "Target Goals:",
+  "date": "2022-06-11T00:00:00.000Z",
+  "formattedDate": "June 11, 2022",
+  "tags": [
+    {
+      "label": "android",
+      "permalink": "/blog/tags/android"
+    },
+    {
+      "label": "GSoC",
+      "permalink": "/blog/tags/g-so-c"
+    },
+    {
+      "label": "UI",
+      "permalink": "/blog/tags/ui"
+    },
+    {
+      "label": "library",
+      "permalink": "/blog/tags/library"
+    }
+  ],
+  "readingTime": 3.505,
+  "truncated": true,
+  "authors": [],
+  "frontMatter": {
+    "slug": "mifos-ui",
+    "title": "Mifos Android UI Library",
+    "tags": [
+      "android",
+      "GSoC",
+      "UI",
+      "library"
+    ]
+  },
+  "nextItem": {
+    "title": "Docusaurus features",
+    "permalink": "/blog/blog-path"
+  }
+}

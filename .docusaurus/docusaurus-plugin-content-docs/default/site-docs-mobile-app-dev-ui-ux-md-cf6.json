@@ -1,0 +1,24 @@
+{
+  "unversionedId": "mobile-app-dev/UiUx",
+  "id": "mobile-app-dev/UiUx",
+  "title": "UI UX",
+  "description": "Lists with create, delete, update operations",
+  "source": "@site/docs/mobile-app-dev/UiUx.md",
+  "sourceDirName": "mobile-app-dev",
+  "slug": "/mobile-app-dev/UiUx",
+  "permalink": "/docs/mobile-app-dev/UiUx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "UI UX"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "App Architecture",
+    "permalink": "/docs/mobile-app-dev/Architecture"
+  },
+  "next": {
+    "title": "Android Studio Shortcuts",
+    "permalink": "/docs/mobile-app-dev/AndroidStudioShortcuts"
+  }
+}

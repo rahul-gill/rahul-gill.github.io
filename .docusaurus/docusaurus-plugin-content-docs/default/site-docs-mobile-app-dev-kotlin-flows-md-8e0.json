@@ -1,0 +1,24 @@
+{
+  "unversionedId": "mobile-app-dev/kotlin-flows",
+  "id": "mobile-app-dev/kotlin-flows",
+  "title": "Kotlin Flows and channels",
+  "description": "Hot and cold streams",
+  "source": "@site/docs/mobile-app-dev/kotlin-flows.md",
+  "sourceDirName": "mobile-app-dev",
+  "slug": "/mobile-app-dev/kotlin-flows",
+  "permalink": "/docs/mobile-app-dev/kotlin-flows",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Kotlin Flows and channels"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Contents",
+    "permalink": "/docs/"
+  },
+  "next": {
+    "title": "App Ideas",
+    "permalink": "/docs/mobile-app-dev/Apps"
+  }
+}

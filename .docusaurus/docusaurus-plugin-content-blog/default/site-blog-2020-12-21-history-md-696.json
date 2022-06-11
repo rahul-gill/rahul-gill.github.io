@@ -1,0 +1,34 @@
+{
+  "permalink": "/blog/history",
+  "editUrl": "https://github.com/rahul-gill/rahul-gill.github.io/blog/2020-12-21-history.md",
+  "source": "@site/blog/2020-12-21-history.md",
+  "title": "History",
+  "description": "Will write some time when I'm free",
+  "date": "2020-12-21T00:00:00.000Z",
+  "formattedDate": "December 21, 2020",
+  "tags": [
+    {
+      "label": "sharing",
+      "permalink": "/blog/tags/sharing"
+    }
+  ],
+  "readingTime": 0.04,
+  "truncated": true,
+  "authors": [
+    {
+      "name": "Evan Tay"
+    }
+  ],
+  "frontMatter": {
+    "slug": "history",
+    "title": "History",
+    "author": "Evan Tay",
+    "tags": [
+      "sharing"
+    ]
+  },
+  "nextItem": {
+    "title": "Sample Blog",
+    "permalink": "/blog/blog-path"
+  }
+}

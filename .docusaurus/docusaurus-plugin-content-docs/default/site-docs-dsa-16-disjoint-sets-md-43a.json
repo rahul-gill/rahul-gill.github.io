@@ -1,0 +1,25 @@
+{
+  "unversionedId": "dsa/DisjointSets",
+  "id": "dsa/DisjointSets",
+  "title": "Disjoint Sets",
+  "description": "Disjoint Sets/ Union Find",
+  "source": "@site/docs/dsa/16. DisjointSets.md",
+  "sourceDirName": "dsa",
+  "slug": "/dsa/DisjointSets",
+  "permalink": "/docs/dsa/DisjointSets",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 16,
+  "frontMatter": {
+    "title": "Disjoint Sets"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Segment Trees",
+    "permalink": "/docs/dsa/SegmentTrees"
+  },
+  "next": {
+    "title": "Binary Indexed Tree",
+    "permalink": "/docs/dsa/FenwickTrees"
+  }
+}

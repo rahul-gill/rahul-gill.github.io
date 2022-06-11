@@ -1,0 +1,23 @@
+{
+  "unversionedId": "dsa/GraphShortestPath",
+  "id": "dsa/GraphShortestPath",
+  "title": "Graph Shortest Path Problems",
+  "description": "BFS for unweighted graph SSSP",
+  "source": "@site/docs/dsa/10. GraphShortestPath.md",
+  "sourceDirName": "dsa",
+  "slug": "/dsa/GraphShortestPath",
+  "permalink": "/docs/dsa/GraphShortestPath",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 10,
+  "frontMatter": {},
+  "sidebar": "docs",
+  "previous": {
+    "title": "Graph Traversal and MST",
+    "permalink": "/docs/dsa/GraphTraversalAndMst"
+  },
+  "next": {
+    "title": "Maths I",
+    "permalink": "/docs/dsa/MathsI"
+  }
+}

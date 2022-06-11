@@ -1,0 +1,25 @@
+{
+  "unversionedId": "dsa/PrimeNumbers",
+  "id": "dsa/PrimeNumbers",
+  "title": "Prime Numbers",
+  "description": "Prime Number theorem",
+  "source": "@site/docs/dsa/12. PrimeNumbers.md",
+  "sourceDirName": "dsa",
+  "slug": "/dsa/PrimeNumbers",
+  "permalink": "/docs/dsa/PrimeNumbers",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 12,
+  "frontMatter": {
+    "title": "Prime Numbers"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Maths I",
+    "permalink": "/docs/dsa/MathsI"
+  },
+  "next": {
+    "title": "Counting",
+    "permalink": "/docs/dsa/Counting"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "unversionedId": "mobile-app-dev/AndroidStudioShortcuts",
+  "id": "mobile-app-dev/AndroidStudioShortcuts",
+  "title": "Android Studio Shortcuts",
+  "description": "| Task | Shortcut |",
+  "source": "@site/docs/mobile-app-dev/AndroidStudioShortcuts.md",
+  "sourceDirName": "mobile-app-dev",
+  "slug": "/mobile-app-dev/AndroidStudioShortcuts",
+  "permalink": "/docs/mobile-app-dev/AndroidStudioShortcuts",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Android Studio Shortcuts"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "UI UX",
+    "permalink": "/docs/mobile-app-dev/UiUx"
+  },
+  "next": {
+    "title": "C++ and STL",
+    "permalink": "/docs/dsa/CppAndSTL"
+  }
+}

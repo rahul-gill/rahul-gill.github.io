@@ -1,0 +1,25 @@
+{
+  "unversionedId": "dsa/OrderStatistics",
+  "id": "dsa/OrderStatistics",
+  "title": "Order Statistics",
+  "description": "- max and min can simply be find by traversing whole array $\\mathcal(n)$",
+  "source": "@site/docs/dsa/3. OrderStatistics.md",
+  "sourceDirName": "dsa",
+  "slug": "/dsa/OrderStatistics",
+  "permalink": "/docs/dsa/OrderStatistics",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "Order Statistics"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Arrays, Searching and Sorting",
+    "permalink": "/docs/dsa/ArraysSortingSearching"
+  },
+  "next": {
+    "title": "Heaps",
+    "permalink": "/docs/dsa/Heaps"
+  }
+}

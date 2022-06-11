@@ -1,0 +1,137 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/docs",
+          "mainDocId": "contents",
+          "docs": [
+            {
+              "id": "contents",
+              "path": "/docs/",
+              "sidebar": "docs"
+            },
+            {
+              "id": "dsa/ArraysSortingSearching",
+              "path": "/docs/dsa/ArraysSortingSearching",
+              "sidebar": "docs"
+            },
+            {
+              "id": "dsa/BitManipulation",
+              "path": "/docs/dsa/BitManipulation",
+              "sidebar": "docs"
+            },
+            {
+              "id": "dsa/Counting",
+              "path": "/docs/dsa/Counting",
+              "sidebar": "docs"
+            },
+            {
+              "id": "dsa/CppAndSTL",
+              "path": "/docs/dsa/CppAndSTL",
+              "sidebar": "docs"
+            },
+            {
+              "id": "dsa/DisjointSets",
+              "path": "/docs/dsa/DisjointSets",
+              "sidebar": "docs"
+            },
+            {
+              "id": "dsa/FenwickTrees",
+              "path": "/docs/dsa/FenwickTrees",
+              "sidebar": "docs"
+            },
+            {
+              "id": "dsa/GraphShortestPath",
+              "path": "/docs/dsa/GraphShortestPath",
+              "sidebar": "docs"
+            },
+            {
+              "id": "dsa/GraphTraversalAndMst",
+              "path": "/docs/dsa/GraphTraversalAndMst",
+              "sidebar": "docs"
+            },
+            {
+              "id": "dsa/Heaps",
+              "path": "/docs/dsa/Heaps",
+              "sidebar": "docs"
+            },
+            {
+              "id": "dsa/LinkedList",
+              "path": "/docs/dsa/LinkedList",
+              "sidebar": "docs"
+            },
+            {
+              "id": "dsa/MathsI",
+              "path": "/docs/dsa/MathsI",
+              "sidebar": "docs"
+            },
+            {
+              "id": "dsa/OrderStatistics",
+              "path": "/docs/dsa/OrderStatistics",
+              "sidebar": "docs"
+            },
+            {
+              "id": "dsa/PrimeNumbers",
+              "path": "/docs/dsa/PrimeNumbers",
+              "sidebar": "docs"
+            },
+            {
+              "id": "dsa/SegmentTrees",
+              "path": "/docs/dsa/SegmentTrees",
+              "sidebar": "docs"
+            },
+            {
+              "id": "dsa/StringAlgorithms",
+              "path": "/docs/dsa/StringAlgorithms",
+              "sidebar": "docs"
+            },
+            {
+              "id": "dsa/Trees",
+              "path": "/docs/dsa/Trees",
+              "sidebar": "docs"
+            },
+            {
+              "id": "mobile-app-dev/AndroidStudioShortcuts",
+              "path": "/docs/mobile-app-dev/AndroidStudioShortcuts",
+              "sidebar": "docs"
+            },
+            {
+              "id": "mobile-app-dev/Apps",
+              "path": "/docs/mobile-app-dev/Apps",
+              "sidebar": "docs"
+            },
+            {
+              "id": "mobile-app-dev/Architecture",
+              "path": "/docs/mobile-app-dev/Architecture",
+              "sidebar": "docs"
+            },
+            {
+              "id": "mobile-app-dev/kotlin-flows",
+              "path": "/docs/mobile-app-dev/kotlin-flows",
+              "sidebar": "docs"
+            },
+            {
+              "id": "mobile-app-dev/UiUx",
+              "path": "/docs/mobile-app-dev/UiUx",
+              "sidebar": "docs"
+            }
+          ],
+          "sidebars": {
+            "docs": {
+              "link": {
+                "path": "/docs/",
+                "label": "contents"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}

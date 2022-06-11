@@ -1,0 +1,25 @@
+{
+  "unversionedId": "dsa/SegmentTrees",
+  "id": "dsa/SegmentTrees",
+  "title": "Segment Trees",
+  "description": "Segment Trees",
+  "source": "@site/docs/dsa/15. SegmentTrees.md",
+  "sourceDirName": "dsa",
+  "slug": "/dsa/SegmentTrees",
+  "permalink": "/docs/dsa/SegmentTrees",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 15,
+  "frontMatter": {
+    "title": "Segment Trees"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "BitManipulation",
+    "permalink": "/docs/dsa/BitManipulation"
+  },
+  "next": {
+    "title": "Disjoint Sets",
+    "permalink": "/docs/dsa/DisjointSets"
+  }
+}

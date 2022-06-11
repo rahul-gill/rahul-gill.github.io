@@ -1,0 +1,25 @@
+{
+  "unversionedId": "dsa/CppAndSTL",
+  "id": "dsa/CppAndSTL",
+  "title": "C++ and STL",
+  "description": "Array opeartions",
+  "source": "@site/docs/dsa/1. CppAndSTL.md",
+  "sourceDirName": "dsa",
+  "slug": "/dsa/CppAndSTL",
+  "permalink": "/docs/dsa/CppAndSTL",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "C++ and STL"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Android Studio Shortcuts",
+    "permalink": "/docs/mobile-app-dev/AndroidStudioShortcuts"
+  },
+  "next": {
+    "title": "Arrays, Searching and Sorting",
+    "permalink": "/docs/dsa/ArraysSortingSearching"
+  }
+}

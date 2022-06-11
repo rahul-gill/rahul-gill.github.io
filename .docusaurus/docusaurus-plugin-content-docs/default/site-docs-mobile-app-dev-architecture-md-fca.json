@@ -1,0 +1,24 @@
+{
+  "unversionedId": "mobile-app-dev/Architecture",
+  "id": "mobile-app-dev/Architecture",
+  "title": "App Architecture",
+  "description": "MVVM",
+  "source": "@site/docs/mobile-app-dev/Architecture.md",
+  "sourceDirName": "mobile-app-dev",
+  "slug": "/mobile-app-dev/Architecture",
+  "permalink": "/docs/mobile-app-dev/Architecture",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "App Architecture"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "App Ideas",
+    "permalink": "/docs/mobile-app-dev/Apps"
+  },
+  "next": {
+    "title": "UI UX",
+    "permalink": "/docs/mobile-app-dev/UiUx"
+  }
+}

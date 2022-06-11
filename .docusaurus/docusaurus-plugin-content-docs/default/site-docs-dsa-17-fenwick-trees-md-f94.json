@@ -1,0 +1,21 @@
+{
+  "unversionedId": "dsa/FenwickTrees",
+  "id": "dsa/FenwickTrees",
+  "title": "Binary Indexed Tree",
+  "description": "Binary Indexed Tree/ Fenwick Tree",
+  "source": "@site/docs/dsa/17. FenwickTrees.md",
+  "sourceDirName": "dsa",
+  "slug": "/dsa/FenwickTrees",
+  "permalink": "/docs/dsa/FenwickTrees",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 17,
+  "frontMatter": {
+    "title": "Binary Indexed Tree"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Disjoint Sets",
+    "permalink": "/docs/dsa/DisjointSets"
+  }
+}

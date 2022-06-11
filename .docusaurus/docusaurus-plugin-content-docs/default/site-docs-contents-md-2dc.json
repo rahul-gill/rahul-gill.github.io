@@ -1,0 +1,21 @@
+{
+  "unversionedId": "contents",
+  "id": "contents",
+  "title": "Contents",
+  "description": "Here, you will find a collection of notes on software engineering. These notes are filed under their respective topic, with related topics are categorised under the same chapter.",
+  "source": "@site/docs/contents.md",
+  "sourceDirName": ".",
+  "slug": "/",
+  "permalink": "/docs/",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Contents",
+    "slug": "/"
+  },
+  "sidebar": "docs",
+  "next": {
+    "title": "Kotlin Flows and channels",
+    "permalink": "/docs/mobile-app-dev/kotlin-flows"
+  }
+}

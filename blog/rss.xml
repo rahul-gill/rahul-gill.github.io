@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Rahul Gill Blog</title>
+        <link>https://rahul-gill.github.io/blog</link>
+        <description>Rahul Gill Blog</description>
+        <lastBuildDate>Mon, 21 Dec 2020 00:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <language>en</language>
+        <item>
+            <title><![CDATA[History]]></title>
+            <link>https://rahul-gill.github.io/blog/history</link>
+            <guid>history</guid>
+            <pubDate>Mon, 21 Dec 2020 00:00:00 GMT</pubDate>
+            <description><![CDATA[Will write some time when I'm free]]></description>
+            <category>sharing</category>
+        </item>
+        <item>
+            <title><![CDATA[Sample Blog]]></title>
+            <link>https://rahul-gill.github.io/blog/blog-path</link>
+            <guid>blog-path</guid>
+            <pubDate>Thu, 03 Dec 2020 00:00:00 GMT</pubDate>
+            <description><![CDATA[Tabs]]></description>
+            <category>docusaurus</category>
+        </item>
+    </channel>
+</rss>

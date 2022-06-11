@@ -1,0 +1,159 @@
+---
+slug: blog-path
+title: Sample Blog
+tags: [docusaurus]
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+## Tabs
+
+<Tabs>
+  <TabItem value="apple" label="Apple" default>
+    This is an apple 🍎
+  </TabItem>
+  <TabItem value="orange" label="Orange">
+    This is an orange 🍊
+  </TabItem>
+  <TabItem value="banana" label="Banana">
+    This is a banana 🍌
+  </TabItem>
+</Tabs>
+
+
+<!--truncate-->
+
+
+## Admonitions
+
+:::note SomeNote
+
+Some **content** with _markdown_ `syntax`. Check [this `api`](#).
+
+:::
+
+:::tip SomeTip
+
+Some **content** with _markdown_ `syntax`. Check [this `api`](#).
+
+:::
+
+:::info SomeInfo
+
+Some **content** with _markdown_ `syntax`. Check [this `api`](#).
+
+:::
+
+:::caution SomeCaution
+
+Some **content** with _markdown_ `syntax`. Check [this `api`](#).
+
+:::
+
+:::danger SomeDanger
+
+Some **content** with _markdown_ `syntax`. Check [this `api`](#).
+
+:::
+
+## Code block features
+```cpp
+int main(){
+    // highlight-next-line
+    printf("highlighting a line");
+}
+```
+
+Chris shared 6 principles to follow when moving from a Monolith to a Microservice architecture.
+
+Here are 5 of them :wink: :
+
+- Adopt Microservice architecture for the right reasons
+  - Monolith architecture is not necessary bad (an anti-pattern), it has its valid use-cases
+  - Adopt Microservice architecture because it allows you to deliver software rapidly, frequently and sustainability, with small, autonomous teams working on the different microservices
+- Migrate to Microservice architecture incrementally rather than via Big Bang rewrite
+  - **Strangler Application**: Incrementally migrate functionality from existing Monolith application to new Strangler Microservice application
+    - Extract existing code modules and database tables out into microservices
+    - Implement new features as microservices
+- Consider Return-on-Investment when deciding which modules to convert into microservices
+    - Consider benefit of decoupling said module
+    - Consider cost of decoupling
+      - How difficult it is to do so
+      - How many inbound dependencies it has
+        - If module A is depended upon by module B, consider extracting module B first
+- Define the service boundaries correctly
+  - Avoid **Runtime Coupling**
+    - Reduced availability due to reliance of a given microservice on another for serving a given request
+      - For example, microservice A receives an API request which it can only respond to when its own API request to microservice B is answered first
+    - Make microservices as self-contained as possible
+      - Able to respond to a request without making follow-up requests to other microservices
+  - Avoid **Design-Time Coupling**
+    - Similar to [Open-Closed Principle](https://en.wikipedia.org/wiki/Open%E2%80%93closed_principle)
+    - Avoid having to modify other microservices when modifying a given microservice
+    - Must be able to modify or exend a given microservice independently as much as possible
+      - Have small and stable API which hides as much implementation complexity as possible
+      - Hide what you can, not only code but also database schemas, so you can change them without affecting other microservices
+- Measuring success
+  - Improved metrics: Reduced lead time, deployment frequency, failure rate, etc.
+  - Improvements in other '-ilities': Availability, Reliability and Scalability 
+
+## You Won’t BELIEVE This HACK to Improve Your Technical Communication!
+
+**Speaker(s)**
+
+- [Nikhil Choudhary](https://www.linkedin.com/in/nikhil-c-513647148/): Software Engineer at Open Government Products
+
+**Key takeaways**
+
+When introducing non-technical folks to coding, keep in mind that the most important objective is to convey understanding of core programming concepts.
+
+On that note, here are some tips Nikhil shared:
+
+- Forgo coding best practices if doing so make it easier for the audience to understand
+  - Reduce surface area to increase accessibility, even if it is not good coding practice
+    - Collapse all HTML, JS and CSS into a single file so students can view everything in one place
+    - Collapse all functions into one for the same reason as the previous line
+    - Combine program lines if it makes things clearer
+- Use real-world examples to explain technical concepts
+  - For example, use a restaurant scenario to explain `async`
+- Enable students in sharing their joy/achievement
+  - Make deploying their application easy
+    - Can use [Netlify Drop](https://app.netlify.com/drop): Simply drag and drop your HTML, JS, CSS files and Netlify Drop will do the rest for deployments
+- Practise empathy consciously throughout teaching process to identify ways you can make learning easier for your students
+
+## DevOps: Cloud and Back Again
+
+**Speaker(s)**
+
+- [Mitchell Hashimoto](https://www.linkedin.com/in/mitchellh/): Co-Founder and CTO at HashiCorp
+
+**Key takeaways**
+
+Mitchell shared more about the [Cloud Operating Model](https://www.hashicorp.com/cloud-operating-model) during this session.
+
+:::note [Cite](https://www.hashicorp.com/cloud-operating-model)
+
+"The Cloud Operating Model is a new approach for IT operations that organizations need to use to be successful with cloud adoption and thrive in an era of multi-cloud architecture." - Hashicorp
+
+:::
+
+|           | Static                                                                         | Dynamic                                                                                                     |
+|-----------|--------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
+| Run       | Dedicated infrastructure to run app on                                         | Scheduled automatically across a fleet (e.g. AWS Auto-Scaling Group, Hashicorp Nomad)                       |
+| Connect   | Host-based, static IP-addressing                                               | Service-based, dynamic IP addresses due to dynamic provisioning                                             |
+| Secure    | High-trust environment which is IP-address-based, with clear network perimeter | Low-trust environment with no clear perimeter given multi-tenancy and nature of the Cloud                   |
+| Provision | Dedicated resources - Physical servers, routers and switches                   | Capacity on-demand, provision VMs, Containers and other managed services, or simply use Serverless services |
+
+- Infrastructure operations on the Cloud must follow the Dynamic Cloud Operating Model fully
+  - Pointless if you provision infrastructure in minutes using Infrastructure-as-Code (IaC), but still manually handle connectivity and security review using tickets
+  - Have to adopt dynamic cloud operating tools for all 4 layers
+- Why use IaC for provisioning
+  - Split Execution from Definition
+  - Execution can be automated and carried out via API, UI or automatically through Continuous-Integration (CI) tools
+- How can teams use IaC
+  - Operations team still necessary, focus on creating and improving blueprints and handling edge-cases when doing so
+  - Development team creates infrastructure in a self-service manner, using the blueprints created by the Operations team
+separating buzz words from crucial tech
+
+Read up on Hashicorp's white paper on [Cloud Operating Model](https://www.hashicorp.com/cloud-operating-model) for more information.

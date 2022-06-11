@@ -55,7 +55,10 @@ module.exports = {
   baseUrl: "/",
   onBrokenLinks: "throw",
   favicon: "img/logo.png",
-  projectName: "kaya-folio",
+  organizationName: "rahul-gill",
+  projectName: "rahul-gill.github.io",
+  trailingSlash: false,
+  deploymentBranch: "gh-pages",
   plugins: ["posthog-docusaurus"],
   themeConfig: {
     prism: {

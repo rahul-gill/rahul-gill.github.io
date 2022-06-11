@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkrahul_gill_github_io=self.webpackChunkrahul_gill_github_io||[]).push([[2535],{5641:function(l){l.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"History","permalink":"/blog/history"},{"title":"Sample Blog","permalink":"/blog/blog-path"}]}')}}]);

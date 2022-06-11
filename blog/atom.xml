@@ -2,24 +2,24 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://rahul-gill.github.io/blog</id>
     <title>Rahul Gill Blog</title>
-    <updated>2020-12-21T00:00:00.000Z</updated>
+    <updated>2022-06-11T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://rahul-gill.github.io/blog"/>
     <subtitle>Rahul Gill Blog</subtitle>
     <icon>https://rahul-gill.github.io/img/logo.png</icon>
     <entry>
-        <title type="html"><![CDATA[History]]></title>
-        <id>history</id>
-        <link href="https://rahul-gill.github.io/blog/history"/>
-        <updated>2020-12-21T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Will write some time when I'm free]]></summary>
-        <author>
-            <name>Evan Tay</name>
-        </author>
-        <category label="sharing" term="sharing"/>
+        <title type="html"><![CDATA[Mifos Android UI Library]]></title>
+        <id>mifos-ui</id>
+        <link href="https://rahul-gill.github.io/blog/mifos-ui"/>
+        <updated>2022-06-11T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Target Goals:]]></summary>
+        <category label="android" term="android"/>
+        <category label="GSoC" term="GSoC"/>
+        <category label="UI" term="UI"/>
+        <category label="library" term="library"/>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Sample Blog]]></title>
+        <title type="html"><![CDATA[Docusaurus features]]></title>
         <id>blog-path</id>
         <link href="https://rahul-gill.github.io/blog/blog-path"/>
         <updated>2020-12-03T00:00:00.000Z</updated>

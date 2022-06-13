@@ -15,7 +15,7 @@ tags: [android, GSoC, UI, library]
 ## make developers stop modifying the components' style in layout files
 - It would be tedious task for the reviewer to make sure the PR doesn't modify the style attributes in layouts(by 
   using textSize, textColor, padding or similar attributes)
-- So we'll define custom lint rules that will catch this and make the build fail and report the error. Something 
+- So we'll define [custom lint rules](https://github.com/rahul-gill/Mifos-Android-UI/blob/master/lint_check/src/main/java/io/github/rahul_gill/lint_check/StyleAttributeUsageIssue.kt) that will catch this and make the build fail and report the error. Something 
   like this:
 ```
 > Task :demoApp:lintDebug FAILED

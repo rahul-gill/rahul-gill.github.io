@@ -125,7 +125,7 @@ export default {
           ]
         }
       ],
-      "copyright": "Last updated on Sat Jun 11 2022 ",
+      "copyright": "Last updated on Mon Jun 13 2022 ",
       "style": "light"
     },
     "posthog": {
@@ -148,7 +148,7 @@ export default {
       "@docusaurus/preset-classic",
       {
         "docs": {
-          "sidebarPath": "/home/ashen-one/Desktop/kaya-folio/sidebars.js",
+          "sidebarPath": "/home/ashen-one/projects/Blog-Portfolio/kaya-folio/sidebars.js",
           "disableVersioning": false,
           "editCurrentVersion": false,
           "remarkPlugins": [
@@ -173,7 +173,7 @@ export default {
           "editUrl": "https://github.com/rahul-gill/rahul-gill.github.io"
         },
         "theme": {
-          "customCss": "/home/ashen-one/Desktop/kaya-folio/src/css/custom.css"
+          "customCss": "/home/ashen-one/projects/Blog-Portfolio/kaya-folio/src/css/custom.css"
         }
       }
     ]

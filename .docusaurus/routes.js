@@ -4,103 +4,68 @@ import ComponentCreator from '@docusaurus/ComponentCreator';
 
 export default [
   {
-    path: '/__docusaurus/debug',
-    component: ComponentCreator('/__docusaurus/debug','ae7'),
-    exact: true
-  },
-  {
-    path: '/__docusaurus/debug/config',
-    component: ComponentCreator('/__docusaurus/debug/config','21b'),
-    exact: true
-  },
-  {
-    path: '/__docusaurus/debug/content',
-    component: ComponentCreator('/__docusaurus/debug/content','216'),
-    exact: true
-  },
-  {
-    path: '/__docusaurus/debug/globalData',
-    component: ComponentCreator('/__docusaurus/debug/globalData','a66'),
-    exact: true
-  },
-  {
-    path: '/__docusaurus/debug/metadata',
-    component: ComponentCreator('/__docusaurus/debug/metadata','73a'),
-    exact: true
-  },
-  {
-    path: '/__docusaurus/debug/registry',
-    component: ComponentCreator('/__docusaurus/debug/registry','f70'),
-    exact: true
-  },
-  {
-    path: '/__docusaurus/debug/routes',
-    component: ComponentCreator('/__docusaurus/debug/routes','3be'),
-    exact: true
-  },
-  {
     path: '/about',
-    component: ComponentCreator('/about','65a'),
+    component: ComponentCreator('/about','d5d'),
     exact: true
   },
   {
     path: '/blog',
-    component: ComponentCreator('/blog','746'),
+    component: ComponentCreator('/blog','eaf'),
     exact: true
   },
   {
     path: '/blog/archive',
-    component: ComponentCreator('/blog/archive','deb'),
+    component: ComponentCreator('/blog/archive','358'),
     exact: true
   },
   {
     path: '/blog/blog-path',
-    component: ComponentCreator('/blog/blog-path','fe0'),
+    component: ComponentCreator('/blog/blog-path','264'),
     exact: true
   },
   {
     path: '/blog/mifos-ui',
-    component: ComponentCreator('/blog/mifos-ui','e63'),
+    component: ComponentCreator('/blog/mifos-ui','f9b'),
     exact: true
   },
   {
     path: '/blog/tags',
-    component: ComponentCreator('/blog/tags','d3a'),
+    component: ComponentCreator('/blog/tags','9e1'),
     exact: true
   },
   {
     path: '/blog/tags/android',
-    component: ComponentCreator('/blog/tags/android','264'),
+    component: ComponentCreator('/blog/tags/android','571'),
     exact: true
   },
   {
     path: '/blog/tags/docusaurus',
-    component: ComponentCreator('/blog/tags/docusaurus','ee0'),
+    component: ComponentCreator('/blog/tags/docusaurus','37b'),
     exact: true
   },
   {
     path: '/blog/tags/g-so-c',
-    component: ComponentCreator('/blog/tags/g-so-c','fac'),
+    component: ComponentCreator('/blog/tags/g-so-c','04b'),
     exact: true
   },
   {
     path: '/blog/tags/library',
-    component: ComponentCreator('/blog/tags/library','1b0'),
+    component: ComponentCreator('/blog/tags/library','176'),
     exact: true
   },
   {
     path: '/blog/tags/ui',
-    component: ComponentCreator('/blog/tags/ui','8ae'),
+    component: ComponentCreator('/blog/tags/ui','cb5'),
     exact: true
   },
   {
     path: '/projects',
-    component: ComponentCreator('/projects','7d3'),
+    component: ComponentCreator('/projects','0e4'),
     exact: true
   },
   {
     path: '/docs',
-    component: ComponentCreator('/docs','456'),
+    component: ComponentCreator('/docs','b53'),
     routes: [
       {
         path: '/docs',
@@ -238,7 +203,7 @@ export default [
   },
   {
     path: '/',
-    component: ComponentCreator('/','de2'),
+    component: ComponentCreator('/','627'),
     exact: true
   },
   {

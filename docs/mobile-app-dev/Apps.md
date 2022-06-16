@@ -226,6 +226,15 @@ title: App Ideas
 - Groups nad inside that group opinions and these are upvoted devoted
 - A way to find the opinion you have and if someone has posted it already on the app 
 
+## Habits app
+- checkbox/numbered progress, numbered progress should be easy to fill like 5 stars
+- separate out notifications and progress filling
+- progress filling should be as easy as it can be
+- feature to add notes for the day, on which the person messed up
+- a panic button widget, which on clicked shows the strategies the user have collected(In panic we usually don't 
+  find us looking up for that note in which we wrote how to handle panic, making is easily available can solve the 
+  problem)
+- category feature to allow users to focus on habits with a particular importance level at one time
 
 ## Topics
 - room database migration and nested objects

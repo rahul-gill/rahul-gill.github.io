@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkrahul_gill_github_io=self.webpackChunkrahul_gill_github_io||[]).push([[2535],{5641:function(i){i.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Mifos Android UI Library","permalink":"/blog/mifos-ui"},{"title":"Docusaurus features","permalink":"/blog/blog-path"}]}')}}]);

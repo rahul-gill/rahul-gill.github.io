@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkrahul_gill_github_io=self.webpackChunkrahul_gill_github_io||[]).push([[3825],{4274:l=>{l.exports=JSON.parse('{"label":"android","permalink":"/blog/tags/android","allTagsPath":"/blog/tags","count":1}')}}]);

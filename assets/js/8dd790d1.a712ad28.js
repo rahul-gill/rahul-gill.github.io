@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkrahul_gill_github_io=self.webpackChunkrahul_gill_github_io||[]).push([[2375],{4321:function(l){l.exports=JSON.parse('{"allTagsPath":"/blog/tags","name":"UI","count":1,"permalink":"/blog/tags/ui"}')}}]);

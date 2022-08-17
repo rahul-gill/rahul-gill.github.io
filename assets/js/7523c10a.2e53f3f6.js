@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkrahul_gill_github_io=self.webpackChunkrahul_gill_github_io||[]).push([[3564],{3009:function(l){l.exports=JSON.parse('{"allTagsPath":"/blog/tags","name":"GSoC","count":1,"permalink":"/blog/tags/g-so-c"}')}}]);

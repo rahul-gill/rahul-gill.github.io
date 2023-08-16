@@ -1,3 +1,5 @@
+import Github from "$lib/icons/Github.svelte";
+import Twitter from "$lib/icons/Twitter.svelte";
 
 export const WebsiteData = {
     userName: "Rahul Gill",

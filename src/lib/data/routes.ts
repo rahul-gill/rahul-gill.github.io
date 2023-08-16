@@ -1,6 +1,8 @@
 import {WebsiteData} from "$lib/data/websiteData";
 import Mail from "$lib/icons/Mail.svelte";
 import Rss from "$lib/icons/Rss.svelte";
+import Github from "$lib/icons/Github.svelte";
+import Twitter from "$lib/icons/Twitter.svelte";
 
 //avoid trailing slash
 export const navBarTextLinks = [
@@ -39,5 +41,17 @@ export const navBarIconLinks = [
         text: 'RSS',
         external: true,
         icon: Rss
+    },
+    {
+        text: "Github",
+        href: "https://github.com/rahul-gill",
+        icon: Github,
+        external: true
+    },
+    {
+        text: "Twitter",
+        href: "https://twitter.com/artisticent001",
+        icon: Twitter,
+        external: true
     }
 ];

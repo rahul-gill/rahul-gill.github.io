@@ -6,7 +6,7 @@ import {WebsiteData} from "$lib/data/websiteData";
 // To also prerender this *page*, as SvelteKit treats it as a page regarding prerendering.
 export const prerender = true;
 
-export const GET: RequestHandler = ({ setHeaders }) => {
+export const GET: RequestHandler = async ({setHeaders}) => {
     const blogPosts = getBlogPosts();
 
     const feed = new Feed({
@@ -33,7 +33,8 @@ export const GET: RequestHandler = ({ setHeaders }) => {
             title: blogPost.title,
             link: href,
             date: new Date(blogPost.datetime),
-            description: blogPost.description
+            description: blogPost.description,
+            content: (await import(`../../writings/${blogPost.slug}.svx`)).default.render().html
         });
     }
 

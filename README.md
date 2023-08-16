@@ -1,4 +1,6 @@
 User specific data
 
-- `/static/favicon.png`
+- `/static/**`
 - `/src/lib/data/**`
+- `/src/writings/**`
+- `/src/notes/**`

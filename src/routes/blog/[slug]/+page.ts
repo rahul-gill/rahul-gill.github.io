@@ -2,7 +2,7 @@ import type {PageLoad} from './$types';
 import type {ComponentType} from 'svelte';
 import {slide} from "svelte/transition";
 
-type WritingDataResult = {
+export type WritingDataResult = {
     title: string;
     description: string;
     datetime: string;

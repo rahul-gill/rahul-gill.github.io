@@ -1,18 +1,5 @@
-import {basename} from 'path';
-import type { PageServerLoad } from './$types';
-import {getBlogPosts} from "$lib/data/writings";
-import type {WritingPreview} from "$lib/data/writings";
+import { redirect } from '@sveltejs/kit';
 
-type GetResult = {
-    articles: WritingPreview[];
-};
-
-export const load: PageServerLoad<GetResult> = () => {
-    const blogPosts = getBlogPosts();
-
-    return {
-        articles: blogPosts
-    };
-};
-
-
+export function load() {
+    throw redirect(307, '/blog/page/0');
+}

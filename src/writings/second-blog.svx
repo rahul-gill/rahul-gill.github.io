@@ -1,5 +1,5 @@
 ---
-title: Expo in a monorepo
+title: Expo in a monorepo 2
 description: An Expo application can not be integrated inside a monorepo without doing some extra work. Fortunately the Expo team has published some tools to ease our job.
 datetime: 2021-06-12T18:48:01.937Z
 tags:

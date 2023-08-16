@@ -1,4 +1,5 @@
 import {basename} from "path";
+import {slugify} from "$lib/utils/slugify";
 
 
 export type WritingPreview = {
@@ -9,8 +10,20 @@ export type WritingPreview = {
     tags: string[];
 };
 
+export function getBlogPostsWithTag(tag: string) {
+    return getBlogPosts().filter(
+        (item) => item.tags
+            .map((tag) => slugify(tag))
+            .includes(tag)
+    )
+}
+
+export function getNLatestPosts(count: number){
+    return getBlogPosts().slice(0, count)
+}
+
 export function getBlogPosts(): WritingPreview[] {
-    const svxFiles = import.meta.glob('../../writings/*.svx', { eager: true });
+    const svxFiles = import.meta.glob('../../writings/*.svx', {eager: true});
 
     return Object.entries(svxFiles)
         .filter(([path]) => {

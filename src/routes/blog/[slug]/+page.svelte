@@ -31,7 +31,7 @@
 <SEOPage {title} {description} {canonical}>
     <div class="flex items-center justify-center flex-wrap mb-2">
         {#each formattedTags as { title, slug }}
-            <Tag href="/tags/{slug}/">
+            <Tag href="/blog/tags/{slug}/">
                 {title}
             </Tag>
         {/each}

@@ -5,7 +5,6 @@
     import {slugify} from "$lib/utils/slugify";
     import Tag from "$lib/components/Tag.svelte";
     import type {PageServerData} from './$types';
-    import Github from "$lib/icons/Github.svelte";
 
     const title = `${WebsiteData.userName} | About`;
     const description = `Get to know ${WebsiteData.userName}.`;

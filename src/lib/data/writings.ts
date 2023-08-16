@@ -28,10 +28,6 @@ export function getBlogPosts(): WritingPreview[] {
     const svxFiles = import.meta.glob('../../writings/*.svx', {eager: true});
 
     return Object.entries(svxFiles)
-        .filter(([path]) => {
-            const fileIsHidden = basename(path).startsWith('_');
-            return !fileIsHidden;
-        })
         .map(([path, data]) => {
             const {metadata} = data as { metadata: Omit<WritingPreview, 'slug'> };
 

@@ -1,0 +1,116 @@
+---
+title: C++ and STL
+---
+
+## Array opeartions
+```cpp
+copy(arr_begin, arr_end, result_arr_begin);
+//partial sorting: arr_begin to arr_middle will be sorted and contain smallest elements of array
+partial_sort(arr_begin, arr_middle, arr_end);
+/**
+ * lower_bound: resultIterator will point to first element >= target
+ * upper_bound: resultIterator will point to first element > target
+ */
+lower_bound(arr_begin, arr_end, value);	
+/**
+ * Finding unique elements
+ * - first sort the array
+ * - unique makes the sorted array {1,1,2,2,3} => { 1,2,35,*,* } and
+ *   returns iterator to first duplicate(marked by *)
+ */
+vector<int> v{1,2,3,1,2,5};
+sort(v.begin(),v.end());
+v.erase(unique(v.begin(),v.end()),v.end());
+
+
+
+fill_n(arr_begin, arr_size, value_to_fill);
+reverse(arr_begin, arr_end);
+sort(arr_begin, arr_end);
+//descending sort
+sort(arr_begin, arr_end, [](int a, int b){return a>b;})	
+next_permutation(arr_begin, arr_end)
+
+transform(input_begin, input_end,output_begin,operation_function);
+swap(arr_begin, arr_end, result_arr_begin);
+random_suffle(arr_begin, arr_end);
+```
+
+## Other Data structures' operations
+- **Stack**: push, pop, top, empty
+- **Queue**: push, pop, front, back, empty
+- **Dequeue**: push_back, push_front, pop_back, pop_front, front, back, empty
+- **Map**, **Set** and their multi and unordered variants:
+  insert, find, erase, lower_bound(for ordered ones), [] operator
+
+# Lambdas
+- syntax: `[scope](params){ body }`
+- scope is either empty, by reference(with `&`) or by value(with `=`)
+- examples
+```cpp
+vector<int> map_arr(vector<int> arr, function<int(int)> f){
+    vector<int> ret;
+    for(auto &x: arr)
+        ret.push_back(f(x));
+    return ret;
+}
+
+vector<int> arr{1,2,3,4,5,6,7,8,9,10};
+auto square_arr = map_arr(arr, [](int i) -> int { return i*i; });
+
+//by reference scope example
+int a = 10;
+auto doubleValueOfA = [&](){
+	 a = a * 2;
+};
+//by value scope example
+auto readOnlyLambda = [=](){
+	 cout<<a<<' ';
+};
+```
+
+
+## Structured bindings
+```cpp
+auto [var1, var2] = make_tuple(1,2);
+map<int,int> mp{ {0,100}, {1, 99} };
+for(auto[key,value]: mp){
+    doSomethingWithKey(key);
+    doSomethingWithValue(value);
+}
+```
+
+## ConstExpr
+- for computing values at compile time
+```cpp
+constexpr int cube (int a){return a * a * a;}
+float gk[cube(3)]; // Valid in global scope since C++11: variable 'gk' has 27 elements
+```
+
+## Literals
+```cpp
+auto raw_string = R"(Raw String)"
+auto binary_num = 0b11
+auto hex_num = 0x11
+```
+- user defined literal
+```cpp
+long double operator"" _kg( long double x ){
+	return x*1000;
+}
+long double operator"" _g( long double x ){
+	return x;
+}
+long double operator"" _mg( long double x ){
+	return x / 1000;
+}
+auto amnt = 10_kg + 5_mg
+//works only on these(doesn't work on signed types):
+char const*
+unsigned long long
+long double
+char const*, std::size_t
+wchar_t const*, std::size_t
+char16_t const*, std::size_t
+char32_t const*, std::size_t
+```

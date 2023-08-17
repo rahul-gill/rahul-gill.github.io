@@ -1,62 +1,51 @@
-import {slugify} from "$lib/utils/slugify";
+import type {ComponentType} from "svelte";
 
-function parsePath(input: string): string[] {
-    const pattern = /\/([^/]+)(?=\/[^/]*\.svx$)/g;
-    const matches = input.match(pattern);
-
-    if (matches) {
-        return matches.map(match => match.slice(1));
-    } else {
-        return [];
-    }
-}
-
-export type NoteType = {
-    title: string,
-    pathSegments: string[],
-    topic: string,
-    path: string
-};
-export function getAllNotes(): NoteType[] {
-    return Object.entries(import.meta.glob('../../notes/**/*.svx', {eager: true}))
+export function getNotesTopics(){
+    return Object.entries(import.meta.glob('../../notes/*/index.svx', {eager: true}))
         .map(([path, data]) => {
-            const {metadata} = data as { metadata: { title: string, topic: string } };
-            const {title} = metadata;
-            const pathSegments = parsePath(path)
+            const {metadata} = data as { metadata: { title: string } };
+
+
             return {
-                title,
-                pathSegments,
-                topic: pathSegments[0],
-                path
+                title: metadata.title,
+                slug: path.slice(0, path.length - 'index.svx$'.length)
             };
         })
 }
 
-
-export function getNotesTopicsList() {
-    return getAllNotes().map(({topic}) => {
-        return {
-            title: topic,
-            slug: slugify(topic)
-        };
-    })
+export function getTopicTitle(list: [string, unknown][], topicSlug: string){
+    return list.filter(([path, data]) => path.includes(`${topicSlug}/index.svx`))
+        .map(([path, data]) => {
+            const {metadata} = data as { metadata: { title: string } };
+            return metadata.title;
+        })[0];
 }
 
 export function getNotesInTopic(topicSlug: string){
-    return getAllNotes().filter(({topic}) => slugify(topic) === topicSlug).map(({title, topic}) => {
-        return {
-            title,
-            slug: `${slugify(topic)}/${slugify(title)}`
-        }
-    });
-}
-
-export function getTopicNameFromSlug(topicSlug: string){
-    return getAllNotes().find(({topic}) => slugify(topic) == topicSlug)?.topic;
+    const list =  Object.entries(import.meta.glob(`../../notes/**/*.svx`, {eager: true}))
+    return {
+        topicTitle: getTopicTitle(list, topicSlug),
+        notes: list.filter(([path, data]) => path.includes(topicSlug) && !path.includes('index.svx'))
+            .map(([path, data]) => {
+                const {metadata} = data as { metadata: { title: string } };
+                return {
+                    title: metadata.title,
+                    slug: path.slice('../..notes/'.length + 1, path.length - '.svx'.length)
+                };
+            })
+    }
 }
 
 export function getNote(topicSlug: string, noteSlug: string){
-    return getAllNotes().find(({topic, title}) => {
-        return topicSlug == slugify(topic) && noteSlug == slugify(title)
-    })!!;
+    const list = Object.entries(import.meta.glob(`../../notes/**/*.svx`, {eager: true}))
+    return list.filter(([path, data]) => path.includes(`${topicSlug}/${noteSlug}`))
+        .map(([path, data]) => {
+            const {metadata, default: content} = data as { metadata: { title: string },default: ComponentType; };
+            const topicTitle = getTopicTitle(list, topicSlug)
+            return {
+                title: metadata.title,
+                topic: topicTitle,
+                content
+            };
+        })[0]
 }

@@ -6,6 +6,8 @@ type GetResult = {
     articles: WritingPreview[];
 };
 
+
+
 export const load: PageServerLoad<GetResult> = ( {params} ) => {
     const blogPosts = getBlogPostsWithTag(params.tag);
 

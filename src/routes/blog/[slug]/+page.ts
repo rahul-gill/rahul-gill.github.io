@@ -11,6 +11,8 @@ export type WritingDataResult = {
     content: ComponentType;
 };
 
+
+
 export const load: PageLoad<WritingDataResult> = async ({params: {slug}}) => {
     const {
         metadata: { title, description, datetime, last_updated_datetime, tags },

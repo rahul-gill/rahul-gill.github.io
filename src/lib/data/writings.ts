@@ -1,7 +1,5 @@
 import {basename} from "path";
 import {slugify} from "$lib/utils/slugify";
-import type {ComponentType} from "svelte";
-import type {WritingDataResult} from "../../routes/blog/[slug]/+page";
 
 
 export type WritingPreview = {

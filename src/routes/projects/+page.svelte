@@ -7,7 +7,7 @@
 
     const title = `${WebsiteData.userName} | Projects`;
     const description = 'My code projects';
-    const canonical = `${WebsiteData.userName}/projects/`;
+    const canonical = `${WebsiteData.websiteAddress}/projects/`;
 
 </script>
 <SEOPage {title} {description} {canonical}>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="col-span-1 xl:col-span-4 flex justify-center items-center xl:mt-4">
                         <div class="w-full overflow-hidden relative">
-                            <div class="relative w-full bg-gray-100" style="padding-bottom: 56%" />
+                            <div class="relative w-full bg-gray-100" style="padding-bottom: 56%"></div>
 
                             <img
                                     src={imageSrc}

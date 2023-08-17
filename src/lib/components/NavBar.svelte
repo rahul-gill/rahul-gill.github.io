@@ -4,6 +4,7 @@
     import {page} from "$app/stores";
     import DarkModeToggle from "$lib/components/DarkModeToggle.svelte";
     import {draw, fade} from 'svelte/transition';
+    import {base} from "$app/paths";
 
     let showNavBar = false;
 
@@ -12,7 +13,7 @@
     }
 </script>
 <nav class="flex items-baseline md:justify-center justify-between">
-    <a href="/" class="text-lg py-4 pr-4">
+    <a href="{base}/" class="text-lg py-4 pr-4">
         Rahul Gill
     </a>
     <div class="space-x-4 hidden md:flex items-center">

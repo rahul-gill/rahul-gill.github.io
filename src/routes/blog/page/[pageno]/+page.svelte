@@ -8,6 +8,7 @@
     import PagerButtons from "$lib/components/PagerButtons.svelte";
     import { page } from '$app/stores';
     import {goto} from "$app/navigation";
+    import {base} from "$app/paths";
     export let data: PageServerData;
 
     const title = `${WebsiteData.userName} | Writing`;
@@ -31,7 +32,7 @@
                     {formatDate(datetime)}
                 </time>
             </div>
-            <a href="/blog/{slug}/" class="no-underline">
+            <a href="{base}/blog/{slug}/" class="no-underline">
                 <h2 class="text-2xl hover:underline my-1">
                     {title}
                 </h2>
@@ -40,7 +41,7 @@
 
             <div class="flex mt-2 gap-2 flex-wrap">
                 {#each tags as tag}
-                    <Tag  href="/blog/tags/{slugify(tag)}/">
+                    <Tag  href="{base}/blog/tags/{slugify(tag)}/">
                         {tag}
                     </Tag>
                 {/each}

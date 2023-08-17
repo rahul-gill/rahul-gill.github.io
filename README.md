@@ -4,3 +4,5 @@ User specific data
 - `/src/lib/data/**`
 - `/src/writings/**`
 - `/src/notes/**`
+- `/.github/worflows/deploy.yml`
+- `/src/app.html`

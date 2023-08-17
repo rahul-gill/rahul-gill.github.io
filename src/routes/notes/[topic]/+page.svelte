@@ -3,6 +3,7 @@
     import {WebsiteData} from "$lib/data/websiteData";
     import type {PageData, PageServerData} from './$types';
     import {page} from "$app/stores";
+    import {base} from "$app/paths";
 
     const title = `${WebsiteData.userName} | Notes`;
     const description = `A collection of notes for self-studying computer science.`;
@@ -22,7 +23,7 @@
         <ul>
             {#each notesInTopic as {title, slug}, index}
                 <li class="text-lg list-none">
-                    <a href="/notes/{slug}" class="primary-coloring no-underline hover:underline">
+                    <a href="{base}/notes/{slug}" class="primary-coloring no-underline hover:underline">
                         {index + 1}. {title} →
                     </a>
                 </li>

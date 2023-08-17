@@ -5,6 +5,7 @@
     import {formatDate} from "$lib/utils/formate-date";
     import {WebsiteData} from "$lib/data/websiteData";
     import Tag from "$lib/components/Tag.svelte";
+    import {base} from "$app/paths";
 
     export let data: PageData;
     $: title = data.title;
@@ -31,7 +32,7 @@
 <SEOPage {title} {description} {canonical}>
     <div class="flex items-center justify-center flex-wrap mb-2">
         {#each formattedTags as { title, slug }}
-            <Tag href="/blog/tags/{slug}/">
+            <Tag href="{base}/blog/tags/{slug}/">
                 {title}
             </Tag>
         {/each}

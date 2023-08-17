@@ -3,31 +3,32 @@ import Mail from "$lib/icons/Mail.svelte";
 import Rss from "$lib/icons/Rss.svelte";
 import Github from "$lib/icons/Github.svelte";
 import Twitter from "$lib/icons/Twitter.svelte";
+import {base} from "$app/paths";
 
 //avoid trailing slash
 export const navBarTextLinks = [
     {
-        href: "/about",
+        href: `${base}/about`,
         external: false,
         text: "About"
     },
     {
-        href: "/projects",
+        href: `${base}/projects`,
         external: false,
         text: "Projects"
     },
     {
-        href: "/blog",
+        href: `${base}/blog`,
         external: false,
         text: "Blog"
     },
     {
-        href: "/notes",
+        href: `${base}/notes`,
         external: false,
         text: "Notes"
     },
     {
-        href: "/cv.pdf",
+        href: `${base}/cv.pdf`,
         external: true,
         text: "CV"
     }
@@ -42,7 +43,7 @@ export const navBarIconLinks = [
         icon: Mail
     },
     {
-        href: '/feed.xml',
+        href: `${base}/feed.xml`,
         text: 'RSS',
         external: true,
         icon: Rss

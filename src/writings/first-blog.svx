@@ -1,25 +1,13 @@
 ---
-title: Expo in a monorepo
-description: An Expo application can not be integrated inside a monorepo without doing some extra work. Fortunately the Expo team has published some tools to ease our job.
-datetime: 2021-06-12T18:48:01.937Z
+title: Checking If the blog is working
+description: Yeah I think it's working
+datetime: 2023-08-17T00:00:00.000Z
 tags:
-  - Front-end
-  - React Native
-  - Expo
+  - Test
 ---
 
 
-Today I encountered some difficulties to make Expo work inside a monorepo.
-
-As part of my studies I have to create a mobile application to listen to music in collaboration with other people. We decided to create it with React Native, and to ease the development, we decided to use [Expo](https://expo.io/). We also decided to organize our project by packages, owned by a single repository. To orchestrate these different packages, we chose to use [Yarn Workspaces](https://classic.yarnpkg.com/en/docs/workspaces/) and [Lerna](https://lerna.js.org/).
-
-With monorepositories, the `node_modules` are shared across all of the packages by default, and are stored at a single place, at the root of the monorepo. If a package needs a different version than others, it will be installed inside the `node_modules` directory of this package.
-
-In general this is perfectly fine. It even reduces your disk usage, comparing to a situation where all the packages would be in different repositories, each having its own independent `node_modules` folders.
-
-However this genius way of managing multiple independent but interlinked pieces of code can become a headache when a tool needs to find a file exactly inside the `node_modules` directory of a package. And guess what? This is the case of Expo.
-
-There are several ways of solving this problem. The easiest one is to disable the mechanism I described before, namely having the dependencies installed at the root of the monorepo and letting Node.js travel directories parent to parent to find the code of the dependency. This mechanism is called hoisting, [as one of the properties of functions in JavaScript](https://developer.mozilla.org/en-US/docs/Glossary/Hoisting). We can disable hoisting by [listing with globs all the dependencies we want to be installed directly in the package node_modules and not on the root node_modules directory](https://classic.yarnpkg.com/blog/2018/02/15/nohoist/#illustration) in the `package.json` of the package, like that:
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget sem vel ligula congue tristique. Fusce lobortis commodo urna vel pulvinar. Quisque eget sapien non lectus elementum dapibus. Aliquam erat volutpat. Sed id hendrerit justo. Proin ac ligula sit amet velit volutpat hendrerit at id augue. In hac habitasse platea dictumst. Cras vel est vel justo sollicitudin bibendum. Vivamus condimentum felis ut nisl facilisis, non gravida lectus auctor. Donec in dolor et libero varius tristique. Sed ut diam at justo sodales tincidunt.
 
 ```json
 {

@@ -1,0 +1,141 @@
+---
+title: Operating System Introduction
+index: 0
+---
+
+<script>
+import {base} from "$app/paths";
+</script>
+
+
+- OS
+    - a virtual machine(virtualizing physical software)
+    - resource manager(manges cpu, disk, memory etc.)
+    - standard library(providing syscalls for some operations)
+- Goals in OS design
+    - building abstraction(of hardware so programs don't have to deal with hardware directly)
+    - performance(making best use of available hardware)
+    - reliability(for example in NASA ops)
+    - protection(between programs so one doesn't affect other)
+    - efficiency(managing hardware usage based on needs)
+    - security(of important data)
+
+- **preemptive os**: monitors and controls processes by themselves(for example switch to another process if current process' share is done)
+- **cooperative os**: rely on processes to cooperate
+- os type
+    - single process os
+    - multiprogramming os: multiple processes are scheduled, only one runs. If current running process do IO, then OS runs another process
+    - time sharing/multi tasking OS: many processes run concurrently
+- parallel execution of processes: processes execute simultaneously on different core for example
+- concurrent execution: processes execute simultaneously or switches frequently giving if both on same core
+- **kernel mode & usermode**: privillaged operations are done in kernel mode with hardware support. when a process running in usermode wants to do some privillaged operations, it calls some syscall storing arguments at predetermined locations(this done by c wrapper functions). The call generates a trap and then syscall is handled by kernel. This way program can't execute arbitrary operations but only operations predefined by os. this is limited direct execution.
+- when a process run on a single core processor machine,the only way kernel gets handle on cpu is when the program promptly exit.To stop process from hijacking cpu this way, interrupt timers are used. These timers periodically generate trap which handles the control to kernel. How to do the handling is decided by scheduler
+
+**Limited direct execution**
+```
+- OS@boot(kernel mode)
+	- initialize trap tables for trap handling
+	- start interrupt timer
+- OS@process_creation(kernel mode)
+	- create entry for process in process table
+	- allocate memory for program
+	- load program in memory(code section, static data, global variables)
+	- setup stack and heap(with main args in stack)
+	- <return-from-trap>
+- hardware
+	- restore registers from kernel stack
+	- switch to user mode
+	- jump to main
+- program(user mode) calling a syscall
+	- program running
+	- c sycall wrapper function called
+	- wrapper function puts sycall no and arguments in well known locations
+	- <trap>
+- OS(kernel mode)
+	- process state saved on kernel stack
+	- os library handles the trap
+	- <return-from-trap>
+- program(user mode) exiting
+	- program running
+	- <trap-exit-syscall>
+- OS(kernel mode)
+	- free memory of process
+	- remote its entry from process table
+```
+## Syscalls
+- the library provided by OS
+- some syscalls in linux
+```c
+ssize_t read(int fd, void *buf, size_t count);
+ssize_t write(int fd, void *buf, size_t count);
+
+//flags like O_CREAT, O_RDWR, O_TRUNC etc.
+//mode specified permissions for newly created file
+inf fd = open(const char *path, inf flags, mod_t mode);
+close(int fd);
+int pipe(int pipefd[2]); //return 0 in success
+
+/*
+ * fork creates a new child process, clone of current process
+ * but copy on write initializion is done,
+ * meaning instead of allocating resources right away,
+ * page allocation is done when a memory write is performed
+ */
+pid_t fork(void)
+void exit(int status)
+//execute program at given path with given arguments
+int execvp(const char *path, char *const argv[])
+//wait until one of the children processes exit, save return status in wstatus and return pid of finished child
+pid_t child_pid = wait(int *wstatus)
+pid_t wait4(pid_t pid, int *wstatus, ...)
+int kill(pid_t pid, int sig)
+pid_t getpid()
+pid_t getppid()
+```
+
+<br/>
+
+<img src="{base}/img/notes/os/intro1.png" style="background: #333"/>
+<img src="{base}/img/notes/os/intro2.png" style="background: #333"/>
+
+
+## Processes
+- executing instance of a program
+- there can be multiple proceses of single program running at the same time
+- process resources
+    - memory(address space)
+    - registers(cpu or process state)
+    - threads of execution
+    - data section(global variables)
+- kernel schedules threads rather than processes
+- linux doesn't differentiate between processes and threads, threads are just special processes which share virtual memory address space and/or file descriptors(`clone` syscall can be used to create threads but pthread library is used because its easier to use and more portable)
+- There is one "kernel stack" per CPU like ISR Stack and one "kernel stack" per Process. There is one "user stack" for each process, though each thread has its own stack, including both user and kernel threads.
+- When a process enters kernel mode as the result of a system call, the stack is switched from the user mode stack to the kernel stack. This is done to preserve the integrity of the kernel, otherwise the process (another thread, for example) could do some nasty things to the stack.
+- example struct for process
+```c
+struct context{
+	int eip, esp, ebx, ecx, edx, esi, edi, ebp;
+}
+enum proc_state{
+	UNUSED, SLEEPING, RUNNABLE, RUNNING, EMBRYO, ZOMBIE
+}
+struct proc{
+	char* mem; //start of process memory
+	uint sz; //memory size
+	char *kstack; //bottom of kernel stack
+	enum proc_state state;
+	int pid;
+	struct proc *parent;
+	int killed; //if zero, then killed
+	struct inode* cwd; //current directory
+	struct context context;
+	struct trapframe *tf;
+	void *chan; //channel used for example when process sleep for console input
+}
+```
+- the cpu state is about context switch, while trapframe holds userspace state saved in tcb(thread control block) after exception or irq(interrupt request) have arised
+- process creating steps
+    - load code and any static data in memory(usually done lazily by today's operating systems)
+    - allocate memory for stack and initialize it with arguments of main function; allocate memory for heap
+    - do other initialization tasks(e.g. three file descriptors are opened: stdin, stdout, stderr)
+    - run program from entry point main

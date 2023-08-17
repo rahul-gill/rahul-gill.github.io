@@ -69,12 +69,12 @@
                 transition:fade={{ duration: 200 }}
         >
             {#each navBarTextLinks as {href, external, text} }
-                <NavLink {href} {external} active={$page.url.pathname === href} className="py-0" on:click={() => showNavBar = false}>
+                <NavLink {href} {external} active={$page.url.pathname === href} className="py-0 text-xl" on:click={() => showNavBar = false}>
                     {text}
                 </NavLink>
             {/each}
             {#each navBarIconLinks as {href, external, text}}
-                <NavLink {href} {external} active={$page.url.pathname === href} className="py-0" on:click={() => showNavBar = false}>
+                <NavLink {href} {external} active={$page.url.pathname === href} className="py-0 text-xl" on:click={() => showNavBar = false}>
                     {text}
                 </NavLink>
             {/each}

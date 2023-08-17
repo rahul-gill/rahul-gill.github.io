@@ -27,12 +27,14 @@ export function getNotesInTopic(topicSlug: string){
         topicTitle: getTopicTitle(list, topicSlug),
         notes: list.filter(([path, data]) => path.includes(topicSlug) && !path.includes('index.svx'))
             .map(([path, data]) => {
-                const {metadata} = data as { metadata: { title: string } };
+                const {metadata} = data as { metadata: { title: string, index: string } };
                 return {
                     title: metadata.title,
-                    slug: path.slice('../..notes/'.length + 1, path.length - '.svx'.length)
+                    slug: path.slice('../..notes/'.length + 1, path.length - '.svx'.length),
+                    index: parseInt(metadata.index)
                 };
             })
+            .sort((a, b) => a.index - b.index)
     }
 }
 

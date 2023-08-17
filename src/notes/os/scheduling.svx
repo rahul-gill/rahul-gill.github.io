@@ -1,0 +1,26 @@
+---
+title: Scheduling
+index: 2
+---
+
+## Scheduler
+- scheduling strategies
+    - first come first serve, good turnaround time = completion timestamp - arrival timestamp
+    - round robin: every process gets a slice of cpu burst(io work is different) periodically, response time = first run timestamp - arrival time
+    - MLFQ(multi level feedback queue)
+## MLFQ
+-  many queues with different priority levels
+-  if priority of A > priority of B then only A run
+-  if priority of A = priority of B then round robin A and B
+-  when job enters the system, it has the highest process
+- once job's cpu time reach a certain level, its priority reduced
+- after some time, move all processes to top priority(priority boost)
+- values with magin
+    - number of queues
+    - time slice length
+    - priority boost interval
+- how operating systems decide the priorities
+    - some have high priority for os processes where user processes can't reach
+    - some provide table for setting these value, other allow varying the values(e.g. small time slices for high priority queues)
+    - provide a way to hint the os like nice values(other similar like madvise, informed prefetch and caching)
+- CFS(completely fair scheduler) of linux assign proportion of cpu time instead of time slice so cpu time value depend on current load

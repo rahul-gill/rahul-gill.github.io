@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    :root{
+        @apply
+        bg-slate-950 text-slate-200
+        dark:bg-slate-200 dark:text-slate-950
+    }
+}
+
 @layer components {
     .color-anim {
         @apply transition-colors duration-300 ease-in-out;

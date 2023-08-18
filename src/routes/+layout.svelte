@@ -1,7 +1,6 @@
 <script>
-  import "../app.postcss";
-  import NavBar from "$lib/components/NavBar.svelte";
-
+    import "../app.postcss";
+    import NavBar from "$lib/components/NavBar.svelte";
 </script>
 
 <div class="base-coloring w-full">
@@ -9,7 +8,7 @@
         <NavBar/>
 
         <main class="flex flex-col flex-grow h-full">
-            <slot />
+            <slot/>
         </main>
 
     </div>

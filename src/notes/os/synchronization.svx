@@ -69,80 +69,80 @@ void unlock(lock_t *mutex){
 ```
 ## Locks with hardware support
 - some atomic instructions provided by cpu
-- **test and set**(atomic exchange) cpu instructions
-    - use of instructions like xchg(x86) and ldstub(sparc)
-    - pseudo code:
-   ```c
-   int test_and_set(int *old_ptr, int new){
-       int old = *old_ptr;
-       *old_ptr = new;
-       return old;
-   }
-   ```
-    - with it, the previous lock code will be modified as
-   ```c
-   while(test_and_set(&mutex->flag, 1) == 1) ;
-   ```
-    - it doesn't provide any fairness guarantees
-    - bad performance of single core(imagine N processes waiting for the lock, only $1/N^{th}$ of total cpu time will do the main work
-    - on multi core reasonably well performance if number of threads roughly equals to number of cores
-- **compare and swap**
-    - pseudo code
-  ```c
-  int compare_and_swap(int *ptr, expected, new) {
-      int actual = *ptr;
-      if (actual == expected) *ptr = new;
-      return actual;
+### **test and set**(atomic exchange) cpu instructions
+- use of instructions like xchg(x86) and ldstub(sparc)
+- pseudo code:
+```c
+int test_and_set(int *old_ptr, int new){
+   int old = *old_ptr;
+   *old_ptr = new;
+   return old;
+}
+```
+- with it, the previous lock code will be modified as
+```c
+while(test_and_set(&mutex->flag, 1) == 1) ;
+```
+- it doesn't provide any fairness guarantees
+- bad performance of single core(imagine N processes waiting for the lock, only $1/nth$ of total cpu time will do the main work
+- on multi core reasonably well performance if number of threads roughly equals to number of cores
+###  **compare and swap**
+- pseudo code
+```c
+int compare_and_swap(int *ptr, expected, new) {
+    int actual = *ptr;
+    if (actual == expected) *ptr = new;
+    return actual;
+}
+```
+- with it, the previous lock code will be modified as
+```c
+while(compare_and_swap(&mutex->flag ,0 , 1) == 1) ;
+```
+###  **load linked and store conditional**
+- pseudo code
+ ```c
+ int load_linked(int *ptr){ return *ptr }
+ int store_conditional(int *ptr, int expected, int new) {
+     if (/*no one has updated *ptr since the LoadLinked to this address*/) {
+         *ptr = value;
+         return 1;//success
+     }
+     else return 0;
+ }
+ ```
+- with it, the previous lock code will be modified as
+ ```c
+ while (LoadLinked(&lock->flag)||
+        !StoreConditional(&lock->flag, 1))
+      ;//spin
+ ```
+###  **fetch and add**
+- pseudo code
+ ```c
+ int fetch_and_add(int *ptr){
+     int old = *ptr;
+     *ptr = old + 1;
+     return old;
+ }
+ ```
+- ticket lock based on it
+ ```c
+ typedef struct __lock_t {
+      int now_serving;
+      int next_ticket;
+  } lock_t;
+ void lock_init(lock_t *lock) {
+     lock->now_serving = lock->next_ticket = 0;
+ }
+ void lock(lock_t *lock){
+     int = my_ticket;
+     fetch_and_add(lock->next_ticket);
+     while (lock->now_serving != my_ticket)
+         ;
   }
-  ```
-    - with it, the previous lock code will be modified as
-  ```c
-  while(compare_and_swap(&mutex->flag ,0 , 1) == 1) ;
-  ```
-- **load linked and store conditional**
-    - pseudo code
-   ```c
-   int load_linked(int *ptr){ return *ptr }
-   int store_conditional(int *ptr, int expected, int new) {
-       if (/*no one has updated *ptr since the LoadLinked to this address*/) {
-           *ptr = value;
-           return 1;//success
-       }
-       else return 0;
-   }
-   ```
-    - with it, the previous lock code will be modified as
-   ```c
-   while (LoadLinked(&lock->flag)||
-          !StoreConditional(&lock->flag, 1))
-        ;//spin
-   ```
-- **fetch and add**
-    - pseudo code
-   ```c
-   int fetch_and_add(int *ptr){
-       int old = *ptr;
-       *ptr = old + 1;
-       return old;
-   }
-   ```
-    - ticket lock based on it
-   ```c
-   typedef struct __lock_t {
-        int now_serving;
-        int next_ticket;
-    } lock_t;
-   void lock_init(lock_t *lock) {
-       lock->now_serving = lock->next_ticket = 0;
-   }
-   void lock(lock_t *lock){
-       int = my_ticket;
-       fetch_and_add(lock->next_ticket);
-       while (lock->now_serving != my_ticket)
-           ;
-    }
-    void unlock (lock_t *lock)  { lock->now_serving++; }
-   ```
+  void unlock (lock_t *lock)  { lock->now_serving++; }
+ ```
 - this lock is fair. Every process will get the chance to run critical section after all processes with tickets less that its finish
 
 ## Better locks with os support

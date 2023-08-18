@@ -1,4 +1,6 @@
 import { defineMDSveXConfig as defineConfig } from "mdsvex";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 
 const config = defineConfig({
   extensions: [".svelte.md", ".md", ".svx"],
@@ -6,9 +8,12 @@ const config = defineConfig({
   smartypants: {
     dashes: "oldschool",
   },
-
-  remarkPlugins: [],
-  rehypePlugins: [],
+  remarkPlugins: [
+    remarkMath,
+  ],
+  rehypePlugins: [
+    [rehypeKatex, {output: 'html'}],
+  ],
 });
 
 export default config;

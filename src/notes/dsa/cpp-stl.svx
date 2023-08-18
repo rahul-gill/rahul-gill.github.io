@@ -1,5 +1,5 @@
 ---
-title: 1. C++ and STL
+title: C++ and STL
 index: 0
 ---
 

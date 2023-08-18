@@ -1,0 +1,22 @@
+---
+title: 18 August, 2023
+index: 0
+---
+
+Doing some sveltekit things
+- I found a tool called `svelte-add` to add things like tailwind and mdsvex to svelte project
+- I found out that instead of just `about.md`, now you gotta do `about/+page.md`(a directory and then a file inside it) to make a `/about` route using mdsvex
+- i learned about the properties of the `<a>` element in html
+    - `target` property define where the page load would be done
+        - `_self`: Default behavior. Opens the link in the same frame or tab.
+        - `_blank`: Opens the link in a new tab or window.
+        - `_parent`: Opens the link in the parent frame (iframes).
+        - `_top`: Opens the link in the full body of the window, breaking out of all frames.
+    - `rel` property specifies relation between the current and new to be loaded document
+        - `nofollow`: Advises search engines not to follow the link for ranking purposes.
+        - `noopener`: Advises browsers to ensure the new tab/window doesn't have access to the referring page(when link opened through `target="_blank"`, new tab/window can potentially access referring page through the `window.opener` object)
+        - `noreferrer`: Prevents the browser from sending the referrer information to the linked page(http referrer header thing)
+        - `external`: referenced document is not part of the same site
+        - there are many more values
+    - `download` property specifies that the document should be download(like for a pdf)
+- reiterating the key, in almost all projects i just make a fresh new version and after 2,3 iterations, I get good enough results

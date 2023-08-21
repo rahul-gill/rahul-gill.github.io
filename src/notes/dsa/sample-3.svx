@@ -1,0 +1,6 @@
+---
+title: Sample 3
+index: 3
+---
+
+## Array opeartions

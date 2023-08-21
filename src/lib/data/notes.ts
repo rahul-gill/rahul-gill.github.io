@@ -38,6 +38,33 @@ export function getNotesInTopic(topicSlug: string){
     }
 }
 
+export function getNotesInTopicAroundANote(topicSlug: string, noteSlug: string){
+    const allNotes = getNotesInTopic(topicSlug)
+    const currentNoteIndex = allNotes.notes.findIndex(note =>
+        note.slug === `${topicSlug}/${noteSlug}`
+    );
+    const notesAround = []
+    for(let i=-1; i<=1; ++i){
+        
+        const index = currentNoteIndex + i;
+        if(index >=0 && index < allNotes.notes.length){
+            const note = allNotes.notes[index];
+            notesAround.push({
+                title: note.title,
+                slug: note.slug,
+                noteNumber: index + 1,
+                isCurrent: index == currentNoteIndex
+            })
+        }
+    }
+    return  {
+        notesAround,
+        haveNotesBefore: notesAround[0].noteNumber - 1,
+        haveNotesAfter: allNotes.notes.length - notesAround[notesAround.length-1].noteNumber,
+        topicSlug
+    }
+}
+
 export function getNote(topicSlug: string, noteSlug: string){
     const list = Object.entries(import.meta.glob(`../../notes/**/*.svx`, {eager: true}))
     return list.filter(([path, data]) => path.includes(`${topicSlug}/${noteSlug}`))

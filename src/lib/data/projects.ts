@@ -24,7 +24,7 @@ export const UserProjectsInfo: ProjectInfo[] = [
             "libraries used: jetpack fragments and navigation, sqldelight, kmm settings"
         ],
         links: [
-            { type: 'GitHub', href: "https://github.com/rahul-gill/Scoreboard"},
+            { type: 'GitHub', href: "https://github.com/rahul-gill/Self-attendance-tracker"},
         ],
         imageSrc: "/attendance-tracker.png",
         imageRatio: 56

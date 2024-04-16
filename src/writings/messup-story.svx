@@ -6,7 +6,7 @@ tags:
   - linux
 ---
 
-
+**Warning**: article written by an LLM  
 
 
 As a self-proclaimed Linux elitist, I never thought I'd be writing a blog post about how I messed up my own home partition. But alas, even the most skilled of us can make mistakes, especially when trying to cater to the needs of the inferior Windows operating system.

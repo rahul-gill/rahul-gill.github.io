@@ -5,6 +5,7 @@
     import DarkModeToggle from "$lib/components/DarkModeToggle.svelte";
     import {draw, fade} from 'svelte/transition';
     import {base} from "$app/paths";
+    import HamburgereMenuSwitcher from "./HamburgereMenuSwitcher.svelte";
 
     let showNavBar = false;
 
@@ -32,35 +33,8 @@
 
 
     <div class="z-30 flex items-center justify-end md:hidden">
-
         <DarkModeToggle/>
-        <button on:click={toggleNavMenu}>
-            <span class="sr-only">
-                {showNavBar ? 'Close drawer' : 'Open drawer'}
-            </span>
-            <svg
-                    class="hover:primary-coloring w-6 h-6 ml-2"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    xmlns="http://www.w3.org/2000/svg"
-            >
-                {#if !showNavBar}
-                    <path
-                            transition:draw={{ duration: 300 }}
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M3.75 6.75h16.5M3.75 12H12m-8.25 5.25h16.5"/>
-                {:else}
-                    <path
-                            transition:draw={{ duration: 300 }}
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M6 18L18 6M6 6l12 12"/>
-                {/if}
-            </svg>
-
-        </button>
+        <HamburgereMenuSwitcher onClick={toggleNavMenu} open={showNavBar}/>
     </div>
 
     {#if showNavBar}

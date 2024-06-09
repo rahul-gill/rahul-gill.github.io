@@ -1,0 +1,314 @@
+---
+title: Custom music player layout in Jetpack compose
+description: Custom layout using Jetpack compose layout and anchor draggable APIs
+datetime: 2024-06-09T00:00:00.000Z
+tags:
+  - android
+  - jetpack-compose
+---
+
+In this article, I'll explain how to make custom layouts using Jetpack compose layout and anchor draggable apis.
+
+With anchor draggable apis, we can implement drag gesture with anchors, i.e. the content won't drag like scroll but will snap to appropriate anchor position on drag.
+Bottom sheets are implemented using this apis. We'll use this api to implement switching between mini player and full player using drag gesture.   
+The layout apis of compose allow us to make custom layouts. We'll use the layout apis to place navigation bar, mini player, full player and screen content in appropriate positions.   
+We'll also use the material-adaptive library to make the layout handle different screen sizes, so make sure to add it as a dependency.
+
+First of all, we'll create a wrapper around `AnchoredDraggableState`. This class contains necessary information about any ongoing drag or animation and provides methods to change the state either immediately or by starting an animation.
+The `PlayerSheetStateType` enum will represent the anchors, the layout will snap to after a drag gesture.
+```kotlin
+enum class PlayerSheetStateType {
+    MiniPlayer,
+    FullPlayer
+}
+```
+
+The main operations we'll be doing over `AnchoredDraggableState` are
+1. Specifying the positions of anchors in layout.
+2. Getting the current expansion ratio of expansion of full player. If, currently full player is showing, then it's value will be `1f`. If, currently mini player is showing, it's value will be `0f`.
+3. Animating transition to one anchor from other(mini player to full player or vice versa).
+
+Below code is mostly copy-paste from [`BottomSheetState`](https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:compose/material/material/src/commonMain/kotlin/androidx/compose/material/BottomSheetScaffold.kt;l=82?q=file:androidx%2Fcompose%2Fmaterial%2FBottomSheetScaffold.kt%20class:androidx.compose.material.BottomSheetScaffoldState) adjusted to our needs.    
+You can read the [documentation](https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/AnchoredDraggableState) to know what properties and constructor arguments of `AnchoredDraggableState` mean. 
+```kotlin
+@OptIn(ExperimentalFoundationApi::class)
+@Stable
+class PlayerSheetState(
+  initialValue: PlayerSheetStateType = PlayerSheetStateType.MiniPlayer,
+  density: Density,
+  animationDurationMillis: Int = 300
+) {
+  val draggableState = AnchoredDraggableState(
+    initialValue = initialValue,
+    animationSpec = 
+      tween(easing = EaseOutExpo, durationMillis = animationDurationMillis),
+    positionalThreshold = { distance: Float -> distance * 0.5f },
+    velocityThreshold = { with(density) { 125.dp.toPx() } },
+    confirmValueChange = { true }
+  )
+
+  val currentValue: PlayerSheetStateType
+    get() = draggableState.currentValue
+  val targetValue: PlayerSheetStateType
+    get() = draggableState.targetValue
+  val currentOffset
+    get() = if (draggableState.offset.isNaN()) 0f else draggableState.offset
+
+  suspend fun expandToFullPlayer() {
+    draggableState.animateTo(PlayerSheetStateType.FullPlayer)
+  }
+
+  suspend fun shrinkToMiniPlayer() {
+    draggableState.animateTo(PlayerSheetStateType.MiniPlayer)
+  }
+}
+```
+
+Here's the implementation for `sheetExpansionRatio`. We do have to handle `NaN` cases.
+```kotlin
+class PlayerSheetState(...){
+  ...
+  val sheetExpansionRatio: Float
+    get() {
+      val miniPlayerPos =
+        draggableState.anchors.positionOf(PlayerSheetStateType.MiniPlayer).run {
+          if (isNaN()) 0f else this
+        }
+      val fullPlayerPos =
+        draggableState.anchors.positionOf(PlayerSheetStateType.FullPlayer).run {
+          if (isNaN()) 0f else this
+        }
+
+      return if (fullPlayerPos - miniPlayerPos == 0f) 0f
+      else (currentOffset - miniPlayerPos) / (fullPlayerPos - miniPlayerPos)
+    }
+}
+```
+
+
+Here's the implementation for `updateAnchors`. We provide the total layout height and sum of heights that navigation bar and mini player are taking as arguments.
+You can think of the anchor value as offset from top of screen. Full player will be at `0` offset and mini player at difference of layout height and sum of heights of navigation bar and mini player.
+According to documentation, since the anchors depend on the size of the layout, We'll call updateAnchors in the layout (placement) phase. 
+```kotlin
+fun updateAnchors(layoutHeight: Int, bottomContentHeight: Int) {
+  val newAnchors = DraggableAnchors {
+    PlayerSheetStateType.MiniPlayer at layoutHeight - bottomContentHeight.toFloat()
+    PlayerSheetStateType.FullPlayer at 0f
+  }
+  draggableState.updateAnchors(newAnchors)
+}
+```
+
+We'll write a convenient method to build this state object
+```kotlin
+@Composable
+fun rememberPlayerSheetState(): PlayerSheetState {
+  val density = LocalDensity.current
+  val animTimeMillis = integerResource(id = android.R.integer.config_mediumAnimTime)
+  return rememberSaveable(
+    saver = PlayerSheetState.Saver(
+      density = density
+    ),
+    init = {
+      PlayerSheetState(
+        PlayerSheetStateType.MiniPlayer,
+        density,
+        animTimeMillis
+      )
+    }
+  )
+}
+```
+
+Now we'll build the layout. For this we'll refer the implementation of [`NavigationSuiteScaffold`](https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:compose/material3/material3-adaptive-navigation-suite/src/commonMain/kotlin/androidx/compose/material3/adaptive/navigationsuite/NavigationSuiteScaffold.kt;l=89?q=file:androidx%2Fcompose%2Fmaterial3%2Fadaptive%2Fnavigationsuite%2FNavigationSuiteScaffold.kt%20function:NavigationSuiteScaffold). I Copied most of `NavigationSuiteScaffold` composable and made a custom version `NavigationSuiteScaffoldLayout` as `PlayerSheetScaffoldLayout`.
+The `Layout` composable allows you to measure and lay out children manually.
+The signature of `PlayerSheetScaffoldLayout` is
+```kotlin
+@Composable
+fun PlayerSheetScaffoldLayout(
+    sheetState: PlayerSheetState,
+    fullPlayerContent: @Composable ColumnScope.() -> Unit,
+    miniPlayerContent: @Composable (shouldApplyNavPadding: Boolean) -> Unit,
+    navigationSuite: @Composable () -> Unit,
+    isLayoutNavBar: Boolean,
+    content: @Composable () -> Unit = {}
+)
+```
+`miniPlayerContent` composable has `shouldApplyNavPadding` argument because we'll apply navigation bar padding to mini player in landscape layout.
+Laying out each node in the UI tree is a three step process. Each node must:
+1. Measure any children
+2. Decide its own size
+3. Place its children
+
+The whole layout will fill the whole screen, so we have to do just the two steps, measuring and placing.
+This is the signature of `Layout` composable
+```kotlin
+inline fun Layout(
+    content: @Composable @UiComposable () -> Unit,
+    modifier: Modifier = Modifier,
+    measurePolicy: MeasurePolicy
+)
+fun interface MeasurePolicy {
+  fun MeasureScope.measure(
+    measurables: List<Measurable>,
+    constraints: Constraints
+  ): MeasureResult
+}
+```
+In content, we call the child composables and `measurePolicy` allows us to measure and place children.
+In `PlayerSheetScaffoldLayout`, we define some values first
+```kotlin
+@Composable
+fun PlayerSheetScaffoldLayout(...){
+  //we'll only show mini player if sheet is less than half expanded
+  val shouldShowMiniPlayer = remember(sheetState.sheetExpansionRatio) {
+    derivedStateOf { sheetState.sheetExpansionRatio < 0.5f }
+  }
+  //If sheet is more than half expanded, 
+  //Pressing back event will consumed by sheet and sheet will shrink to mini player
+  val shouldApplyBackHandler = remember(sheetState.sheetExpansionRatio) {
+    derivedStateOf { sheetState.sheetExpansionRatio > 0.5f }
+  }
+  //alpha of mini player, from expansion ratio 0 to 0.5, alpha will vary from 1 to 0
+  val alpha = remember(sheetState.sheetExpansionRatio) {
+    derivedStateOf {
+      if (sheetState.sheetExpansionRatio >= 0.5f) {
+          0f
+      } else {
+          1 - sheetState.sheetExpansionRatio * 2f
+      }
+    }
+  }
+}
+```
+Now we'll write the `content` of `Layout` composable. Couple of points here:
+1. We use the `layoutId` modifier on each composable invoked in `content`, to later identify their measurables.
+2. We apply the `anchoredDraggable` modifier on mini player and full player composable to handle drag gestures.
+3. We're passing `isLayoutNavBar` to `miniPlayerContent` so that it can apply navigation bars padding appropriatly inside.
+4. We also change the opacity of mini player and full player content as sheet expansion ratio changes.
+5. 
+```kotlin
+@Composable
+fun PlayerSheetScaffoldLayout(...){
+  ...
+  Layout(
+    modifier = Modifier.fillMaxSize(),
+    content = {
+      // Wrap the navigation suite and content composables each in a Box to not propagate the
+      // parent's (Surface) min constraints to its children (see b/312664933).
+      Box(
+        modifier = Modifier
+          .layoutId(ContentLayoutIdTag)
+      ) {
+          content()
+      }
+      Box(
+        modifier = Modifier
+          .layoutId(MiniPlayerContentLayoutTag)
+          .anchoredDraggable(
+            state = sheetState.draggableState,
+            orientation = Orientation.Vertical
+          )
+          .graphicsLayer {
+            this.alpha = alpha.value
+          }
+      ) {
+          if (shouldShowMiniPlayer.value)
+            miniPlayerContent(isLayoutNavBar)
+      }
+      Column(
+        Modifier
+          .layoutId(FullPlayerContentLayoutTag)
+          .anchoredDraggable(
+            state = sheetState.draggableState,
+            orientation = Orientation.Vertical
+          )
+          .background(MaterialTheme.colorScheme.surface)
+          .graphicsLayer {
+            this.alpha =
+              if (sheetState.targetValue == PlayerSheetStateType.FullPlayer) 1f
+              else (0.5f - alpha.value) * 2
+          }
+          .fillMaxWidth()
+      ) {
+          val scope = rememberCoroutineScope()
+          BackHandler(enabled = shouldApplyBackHandler.value) {
+            scope.launch {
+              sheetState.shrinkToMiniPlayer()
+            }
+          }
+          fullPlayerContent()
+      }
+      Box(
+        modifier = Modifier
+          .layoutId(NavigationSuiteLayoutIdTag)
+      ) {
+          navigationSuite()
+      }
+    },
+    measurePolicy = ...
+  )
+}
+```
+Now we'll discuss the  the measure policy implementation. First we'll look at the measuring of child composables.
+```kotlin
+@Composable
+fun PlayerSheetScaffoldLayout(...){
+  ...
+  Layout(
+    modifier = Modifier.fillMaxSize(),
+    content = ...,
+    measurePolicy = { measurables, constraints ->
+      val layoutHeight = constraints.maxHeight
+      val layoutWidth = constraints.maxWidth
+      val looseConstraints = constraints.copy(minWidth = 0, minHeight = 0)
+      val miniPlayerPlaceable =
+        measurables
+          .fastFirst { it.layoutId == MiniPlayerContentLayoutTag }
+          .measure(looseConstraints)
+
+      val navigationPlaceable =
+        measurables
+          .fastFirst { it.layoutId == NavigationSuiteLayoutIdTag }
+          .run {
+            if (isLayoutNavBar)
+              measure(looseConstraints)
+            else
+              measure(looseConstraints.copy(maxHeight = layoutHeight - miniPlayerPlaceable.height))
+          }
+
+
+      val fullPlayerPlaceable =
+        measurables
+          .fastFirst { it.layoutId == FullPlayerContentLayoutTag }
+          .measure(looseConstraints)
+
+
+      sheetState.updateAnchors(
+        layoutHeight,
+        if (isLayoutNavBar) miniPlayerPlaceable.height + navigationPlaceable.height
+        else miniPlayerPlaceable.height
+      )
+
+      val contentPlaceable =
+        measurables
+            .fastFirst { it.layoutId == ContentLayoutIdTag }
+            .measure(
+              if (isLayoutNavBar) {
+                constraints.copy(
+                  minHeight = layoutHeight - navigationPlaceable.height - miniPlayerPlaceable.height,
+                  maxHeight = layoutHeight - navigationPlaceable.height - miniPlayerPlaceable.height
+                )
+              } else {
+                constraints.copy(
+                  minWidth = layoutWidth - navigationPlaceable.width,
+                  maxWidth = layoutWidth - navigationPlaceable.width,
+                  minHeight = layoutHeight - miniPlayerPlaceable.height,
+                  maxHeight = layoutHeight - miniPlayerPlaceable.height
+                )
+              }
+            )
+    }
+  )
+}
+```

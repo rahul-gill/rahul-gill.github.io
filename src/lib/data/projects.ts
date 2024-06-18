@@ -11,6 +11,7 @@ export function formatLinkType(linkType: ProjectLinkType): string {
     const texts: Record<ProjectLinkType, string> = {
         GitHub: 'See the project on Github',
         Website: 'Go to the website',
+        GPlayStore: 'Get on Google PlayStore'
     };
 
     return texts[linkType];
@@ -25,6 +26,7 @@ export const UserProjectsInfo: ProjectInfo[] = [
         ],
         links: [
             { type: 'GitHub', href: "https://github.com/rahul-gill/Self-attendance-tracker"},
+            { type: 'GPlayStore', href: "https://play.google.com/store/apps/details?id=com.github.rahul_gill.attendance" }
         ],
         imageSrc: "/attendance-tracker.png",
         imageRatio: 56

@@ -28,7 +28,7 @@ export const navBarTextLinks = [
         text: "Notes"
     },
     {
-        href: `${base}/cv.pdf`,
+        href: `${base}/cv`,
         external: true,
         text: "CV"
     }

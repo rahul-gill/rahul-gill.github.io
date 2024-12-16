@@ -31,7 +31,7 @@
             Currently, I'm working as an Associate Consultant at Oracle.
         </p>
 
-        <a href={base + "/cv.pdf"} target="_blank" rel="external" class="primary-coloring">
+        <a href={base + "/cv"} target="_blank" rel="external" class="primary-coloring">
             See my English resume →
         </a>
 

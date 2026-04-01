@@ -1,0 +1,394 @@
+---
+title: "Object-Oriented Programming: A Practical Deep Dive"
+description: "From the four pillars to SOLID principles — a thorough guide to OOP concepts, common pitfalls, and when to rethink the paradigm entirely."
+datetime: 2026-04-01T00:00:00.000Z
+tags:
+  - oop
+---
+
+
+<script>
+  import Callout from '$lib/components/Callout.svelte';
+</script>
+
+Object-Oriented Programming (OOP) is a paradigm built around the idea that software should model the world as a collection of *objects* — entities that encapsulate both data (fields, properties) and behavior (methods). It has been the dominant paradigm in enterprise software for decades, powering everything from Android apps to banking systems.
+
+But OOP is also widely misused. This post covers its core concepts, explores how general ideas like polymorphism extend well beyond what most tutorials show, examines where OOP breaks down in practice, and provides guidance on what to do about it.
+
+---
+
+## The four pillars
+
+OOP is typically defined by four core principles. These aren't independent features — they build on and interact with each other in important ways.
+
+### Abstraction
+
+Abstraction is the practice of hiding unnecessary detail from the consumer of a piece of code. When you call `sendEmail()`, you don't need to know how it negotiates with an SMTP server — you just use the interface it exposes.
+
+Abstraction isn't unique to OOP. It's a universal engineering principle visible at every level of computing:
+
+- Hardware → Logic gates → Circuits → CPU → OS → Applications
+- Network access layer → Internet layer → Transport layer → Application layer
+
+### Encapsulation
+
+Encapsulation is about bundling related data and the procedures that operate on it into a single unit (a class), while restricting direct access to internal state. It encompasses three related sub-concepts:
+
+- **Cohesion** — keeping related logic together. When you want to understand how something works, you shouldn't need to search across unrelated files or modules.
+- **Decoupling** — reducing hard dependencies between components so they can evolve independently without cascading breakage.
+- **Data hiding** — exposing only a stable public API, so consumers aren't coupled to internal implementation details that may change.
+
+
+<Callout variant="tip" label="Key insight">
+  Encapsulation is often described as a form of abstraction — specifically, the abstraction of an object's internal state behind a public API. Abstraction is the broader concept; encapsulation is one concrete mechanism for achieving it.
+</Callout>
+
+### Inheritance
+
+Inheritance allows a class (the child or subclass) to acquire the fields and methods of another class (the parent or superclass), enabling code reuse and modeling of "is-a" relationships. A `Dog` class might inherit from an `Animal` class, gaining common behaviors like `breathe()` while overriding others like `speak()`.
+
+Inheritance can be implemented in these ways:
+
+- **Class-based** (Java, Kotlin, C++) — the classical approach with explicit class hierarchies.
+- **Prototype-based** (JavaScript) — objects inherit directly from other objects, without formal class declarations. Prototype-based inheritance only supports single inheritance.
+
+### Polymorphism
+
+Polymorphism — from the Greek for "many forms" — allows a single symbol to represent multiple different behaviors. The classic example is a `draw()` method that behaves differently depending on whether it's called on a `Circle`, `Triangle`, or `Rectangle`.
+
+In practice, polymorphism is far broader than most introductory materials suggest:
+
+| Type | Also known as | Description | Dispatch |
+|------|--------------|-------------|----------|
+| Ad hoc | Overloading / coercion | Same function name, different parameter types. Includes function overloading, operator overloading and implicit type conversion. | Static |
+| Parametric | Generics / templates | Functions or types that operate uniformly regardless of the concrete type. e.g. `List<T>`. | Static |
+| Subtyping | Inclusion polymorphism | A function accepting type `T` also accepts any subtype `S` of `T`. The basis of inheritance-based OOP. | Dynamic |
+
+**A note on dispatch mechanisms:** In languages like Java and C++, subtype polymorphism is implemented via virtual function tables (vtables). The runtime type of the receiver (`this`) determines which method is called — this is called *single dispatch*. Some languages (like Common Lisp) support *multiple dispatch*, where the method selected depends on the runtime types of *multiple* arguments. A further generalization is *predicate dispatch*, where method selection is based on arbitrary runtime predicates rather than types alone.
+
+**Structural typing vs duck typing:** Not all languages require explicit interface declarations for subtyping. Go uses *structural typing* (checked at compile time): if a type implements the required methods, it is implicitly a subtype. Python uses *duck typing* (checked at runtime): "if it quacks like a duck, it's a duck." Both approaches avoid the verbosity of Java-style explicit `implements` declarations.
+
+## Where OOP goes wrong
+
+### The encapsulation trap
+
+Encapsulation works well at coarse-grained levels — module, package, service, subsystem. But at the fine-grained level of individual classes and structs, forcing every piece of data into a class with bundled methods creates unnecessary design friction.
+
+A common symptom: designing a messaging system and spending more time deciding which class "owns" the `send()` method than on the actual logic. Should `Sender` have it? `Receiver`? A third `Channel` class? These decisions are often arbitrary, yet OOP dogma pressures developers into resolving them definitively upfront.
+
+<Callout variant="tip" label="Practical advice">
+  Don't force encapsulation — let it emerge organically. If related data and behavior naturally cluster together, a class makes sense. If you're fighting to decide ownership, you may be over-engineering the abstraction.
+</Callout>
+
+
+### The inheritance problem
+
+Inheritance is the most misused tool in OOP. Its core problem is that it fundamentally breaks **locality** — the principle that to understand a piece of code, you shouldn't need to look far.
+
+- An overridden method may have partial behavior defined in multiple superclasses, requiring you to trace up the hierarchy to understand the full picture.
+- A single field may be mutated in several subclasses, making state tracking difficult.
+- Large hierarchies create implicit coupling — a change to a superclass method can break subclasses in unexpected ways.
+
+A real-world example: Android's `AppCompatActivity` class. To understand what happens in `onCreate()`, you need to trace through several levels of the inheritance chain across multiple framework layers. This is a well-known pain point in Android development.
+
+#### The Circle-Ellipse problem
+
+A classic illustration of inheritance going wrong. Mathematically, a circle *is* an ellipse (one where both radii are equal).
+So we may model `Circle` as subclass of `Ellipse`. 
+
+But if we've a method call `strechX` in the `Ellipse` class, which stretches the X axis of ellipse by some factor, we got a problem. 
+
+`stretchX` from `Ellipse` breaks the circle invariant.A circle that has been stretched along X is no longer a circle.
+We'd need to override `stretchX` to keep `a == b`, but then Circle is no longer behaving like an Ellipse — it violates the contract that each axis can be scaled independently.
+
+If you use a `Circle` anywhere an `Ellipse` is expected and call `stretchX()`, the circle invariant (`a == b`) breaks silently. Your code compiled, the types matched, but the behavior is wrong.
+
+The mathematical "is-a" relationship doesn't translate cleanly into an inheritance hierarchy once behavior (mutation, methods) enters the picture. This is one reason to be skeptical of using real-world nouns to drive your class hierarchy.
+
+```kotlin
+// A cleaner approach: don't inherit, use a factory or sealed hierarchy
+sealed class Shape
+data class Circle(val radius: Double) : Shape()
+data class Ellipse(val a: Double, val b: Double) : Shape()
+
+fun stretchX(shape: Shape, factor: Double): Shape = when (shape) {
+    is Circle  -> Ellipse(shape.radius * factor, shape.radius) // produces an Ellipse, not a Circle
+    is Ellipse -> shape.copy(a = shape.a * factor)
+}
+```
+
+This makes the transformation explicit: stretching a circle produces an ellipse. No silent invariant violation, no surprising runtime behavior.
+
+<Callout variant="tip" label="Rule of thumb">
+  Prefer object composition over class inheritance. Inheritance is appropriate when a true, stable "is-a" relationship exists and the behavior hierarchy is shallow. Otherwise, compose.
+</Callout>
+
+
+### Cognitive overhead
+
+In OOP, a developer must simultaneously reason about: the inheritance hierarchy, the composition graph (types of properties of a class), and the call graph (who calls who). In procedural code, you typically only need to think about the call graph. This extra overhead is real, and it matters at scale.
+
+
+## Beyond the four pillars
+
+### Composition
+
+Composition is the practice of building complex objects by combining simpler ones — modeling "has-a" relationships rather than "is-a" ones. A `Student` object might contain an `EnrollmentInfo` object, rather than inheriting from some abstract `AcademicRecord` hierarchy.
+
+Composition keeps the call graph flat and local. You know exactly which object does what because you can see the wiring at the point of construction, rather than tracing through a superclass chain.
+
+## SOLID principles
+
+SOLID is a set of five design principles that guide how to structure OOP code to be maintainable, extensible, and robust. Although, these principles are also misunderstood often.
+
+### Single Responsibility Principle
+
+A module should have one — and only one — reason to change. "Reason to change" maps to a specific actor or stakeholder, not just a vague notion of "doing one thing."
+
+**Example:** A module that both compiles *and* formats a report has two reasons to change — the content requirements might be owned by business analysts, while formatting decisions might be owned by a frontend team. These should be separate modules.
+
+It does not refer to class being changed by one reason. The `Robert Martin` guy, although, update the `class` to `module` in his newer book, still, his wordings contradict each other in that book too.
+
+### Open/Closed Principle
+
+A module should be open for extension but closed for modification. New behavior should be addable without touching existing, tested source code.
+
+This is achieved by exposing stable, well-defined interfaces. In Java, this often means programming to interfaces rather than concrete classes:
+
+```java
+// Closed for modification
+interface NotificationSender {
+    void send(String message, String recipient);
+}
+
+// Open for extension — add new channels without touching existing code
+class EmailSender implements NotificationSender { ... }
+class SmsSender   implements NotificationSender { ... }
+class SlackSender implements NotificationSender { ... }
+```
+
+### Liskov Substitution Principle
+
+If `S` is a subtype of `T`, then objects of type `T` may be replaced with objects of type `S` without altering the correctness of the program. This is a *behavioral* guarantee, not just a syntactic one — it's about what the code *does*, not just whether it compiles.
+
+The full set of requirements is more nuanced than it first appears:
+
+**Preconditions cannot be strengthened in the subtype.** If the supertype's method accepts any integer, the subtype cannot reject negative values. Callers who work with the supertype have no reason to guard against a restriction they were never told about.
+
+```java
+// Supertype accepts the full range of a discount percentage: 0–100
+class PricingEngine {
+    public double applyDiscount(double discountPercent) {
+        // Accepts 0 to 100. A 0% discount is valid (no discount).
+        // A 100% discount is valid (free item, e.g. a promotion).
+        return price * (1 - discountPercent / 100);
+    }
+}
+
+class RestrictedPricingEngine extends PricingEngine {
+    @Override
+    public double applyDiscount(double discountPercent) {
+        if (discountPercent > 50) {
+            throw new IllegalArgumentException("Discounts above 50% not allowed");
+        }
+        // WRONG: Strengthens the precondition.
+        // Callers holding a PricingEngine reference have no idea
+        // this restriction exists — they'll pass 75% and get a runtime crash
+        // they had no reason to guard against this.
+        return super.applyDiscount(discountPercent);
+    }
+}
+```
+
+**Postconditions cannot be weakened in the subtype.** If the supertype guarantees a non-empty return list value, the subtype must also return non-empty list. If the supertype guarantees a database connection is closed after a method, the subtype must close it too.
+
+```kotlin
+abstract class UserRepository {
+    // Contract: always returns a non-empty list, never null
+    abstract fun findAll(): List<User>
+}
+
+class BuggyUserRepository : UserRepository() {
+    override fun findAll(): List<User> {
+        return emptyList() // Technically valid types...
+        // but if the supertype contract says "never empty", this is a postcondition violation.
+    }
+}
+```
+
+**Invariants cannot be weakened in the subtype.** Properties guaranteed by the supertype must remain true in the subtype. If a supertype field is always non-null, the subtype must keep it non-null. If a collection field is always non-empty in the supertype, the subtype must preserve that.
+
+```java
+// Supertype invariant: account balance is always >= 0
+class BankAccount {
+    protected double balance;
+
+    public BankAccount(double initialBalance) {
+        if (initialBalance < 0) throw new IllegalArgumentException("Initial balance cannot be negative");
+        this.balance = initialBalance;
+    }
+
+    public void withdraw(double amount) {
+        if (amount > balance) throw new IllegalStateException("Insufficient funds");
+        this.balance -= amount;
+    }
+
+    public double getBalance() { return balance; }
+}
+
+class OverdraftAccount extends BankAccount {
+    private double overdraftLimit;
+
+    public OverdraftAccount(double initialBalance, double overdraftLimit) {
+        super(initialBalance);
+        this.overdraftLimit = overdraftLimit;
+    }
+
+    @Override
+    public void withdraw(double amount) {
+        // Allows balance to go negative, violating the supertype invariant.
+        // Callers holding a BankAccount reference assume balance >= 0 always
+        // code like (balance * interestRate) or UI displays showing balance
+        // will silently produce wrong results with no exception thrown.
+        // The superclass should be allowing negative balance if overdraft accounts are there.
+        this.balance -= amount;
+    }
+}
+```
+
+**No new exceptions may be thrown by subtype methods**, except those that are subtypes of exceptions declared by the supertype method. Callers handle the exception set they were told about — throwing something unexpected is a behavioral lie.
+
+```java
+// Supertype: a report exporter
+// callers are expected to handle ExportFailureException failures and nothing else.
+class ReportExporter {
+    /**
+     * ExportFailureException can be thrown
+    */
+    public void export(Report report, Path destination) {
+        // write report to disk
+    }
+}
+
+class TemplatedReportExporter extends ReportExporter {
+    private TemplateEngine engine;
+
+    @Override
+    public void export(Report report, Path destination)  {
+        // TemplateEngine.render() throws TemplateNotFoundException
+        // when a template is missing.
+        // We let it bubble up unchecked rather than handling it here.
+        String rendered = engine.render(report.getTemplateName(), report.getData());
+        Files.writeString(destination, rendered);
+    }
+}
+```
+
+```java
+// Caller holds a ReportExporter reference — they've done everything right.
+// They caught ExportFailureException as the contract demanded. But they get a
+// TemplateNotFoundException at runtime that they had no reason to expect
+// or handle — it crashes the thread.
+ReportExporter exporter = new TemplatedReportExporter(engine);
+try {
+    exporter.export(report, outputPath);
+} catch (ExportFailureException e) {
+    log.error("Export failed", e);
+    // TemplateNotFoundException flies straight past this — uncaught.
+}
+```
+
+**The history constraint.** Objects are considered modifiable only through their methods. A subtype must not introduce new methods that mutate supertype state in ways the supertype never permitted. In Go, this is often expressed through interfaces that expose only what needs to be public:
+
+```go
+type ReadOnlyStore interface {
+    Get(key string) (string, bool)
+}
+
+// A mutable implementation is fine internally,
+// but if you pass it as ReadOnlyStore, callers expect no mutation.
+// Subtypes (or implementing types) adding back-channel mutation
+// violate the history constraint.
+```
+
+**Covariance and contravariance.** Return types may be covariant (a subtype may return a more specific type), and parameter types may be contravariant (a subtype may accept a more general type). These aren't just generic type system rules — they're a direct consequence of LSP. In Kotlin, variance is explicit:
+
+```kotlin
+// out = covariant, safe to produce T but not consume it
+interface Producer<out T> { fun produce(): T }
+
+// in = contravariant, safe to consume T but not produce it
+interface Consumer<in T> { fun consume(value: T) }
+```
+
+In Java, the same concept is expressed with wildcards: `? extends T` for covariance, `? super T` for contravariance.
+
+<Callout variant="tip" label="Note">
+  full behavioral subtyping is undecidable in general — compilers can enforce the type-level rules (variance, exception declarations), but the semantic contracts (preconditions, postconditions, invariants) are the programmer's responsibility.
+</Callout>
+
+
+### Interface Segregation Principle
+
+Clients should not be forced to depend on interfaces they don't use. Prefer many focused interfaces over one bloated general-purpose one.
+
+In Go, this is idiomatic by default — interfaces are small and composed:
+
+```go
+// Prefer this
+type Reader interface { Read(p []byte) (n int, err error) }
+type Writer interface { Write(p []byte) (n int, err error) }
+type ReadWriter interface { Reader; Writer }
+
+// Over this — forces implementors to provide methods they may not need
+type FileHandler interface {
+    Read(p []byte) (n int, err error)
+    Write(p []byte) (n int, err error)
+    Seek(offset int64, whence int) (int64, error)
+    Close() error
+    Stat() (FileInfo, error)
+    Sync() error
+}
+```
+
+Java's `java.io` package learned this lesson — `InputStream`, `OutputStream`, `Reader`, `Writer` are all narrow interfaces that compose cleanly.
+
+### Dependency Inversion Principle
+
+High-level modules should not depend on low-level modules. Both should depend on abstractions. Abstractions should not depend on details; details should depend on abstractions.
+
+In practice, this means injecting dependencies rather than instantiating them:
+
+```java
+// PROBLEMATIC: High-level module directly depends on a low-level implementation
+class OrderService {
+    private MySQLOrderRepository repo = new MySQLOrderRepository();
+    ...
+}
+
+// GOOD: Both depend on an abstraction
+interface OrderRepository {
+    Order findById(long id);
+    void save(Order order);
+}
+
+class OrderService {
+    private final OrderRepository repo;
+
+    public OrderService(OrderRepository repo) {
+        this.repo = repo; // injected — could be MySQL, Postgres, in-memory for tests, etc.
+    }
+}
+```
+
+Kotlin's coroutines and repository patterns make this especially clean, and Go's interface system makes DIP essentially free — since interfaces are satisfied implicitly, you depend on behavior rather than concrete types by default.
+
+---
+
+## Summary
+
+OOP is a powerful paradigm when used with discipline. The four pillars — abstraction, encapsulation, inheritance, and polymorphism — are tools, not mandates. Polymorphism is broader than subclassing; encapsulation is most useful at module and service boundaries rather than at the individual class level; and inheritance should be the last resort, not the first instinct (the Circle-Ellipse problem is a good reminder of why).
+
+The SOLID principles provide a practical framework for evaluating your OOP designs. Of the five, Liskov Substitution is the most nuanced — it's not just about types matching, but about behavioral contracts being honored across the full lifecycle of your objects. Dependency Inversion is the most architecturally significant — it's what makes large codebases testable and loosely coupled.
+
+Used with care, OOP produces code that is easier to reason about, extend, and maintain. Used carelessly — especially with deep inheritance hierarchies and fine-grained forced encapsulation — it produces code that is harder to navigate than the flat procedural alternative it was meant to improve upon.

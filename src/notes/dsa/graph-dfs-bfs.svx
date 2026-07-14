@@ -1,3 +1,8 @@
+---
+title: graph-dfs-bfs
+index: 5
+---
+
 # Scratch 
 ## TAkeway
 - graph distinctions: directed-undirected/unweighted-weighted-negative-weighted/have-loops-repititive-edges

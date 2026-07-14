@@ -1,0 +1,226 @@
+# Scratch 
+## TAkeway
+- graph distinctions: directed-undirected/unweighted-weighted-negative-weighted/have-loops-repititive-edges
+
+## Other
+
+
+
+
+
+- visited marking difference between dfs and bfs
+    - notion of active vs vertex processed at once + prevent duplicate(more. clear when we process all items in a queue at once in outer while loop)
+    - also stack vs queue difference. stack doesn't gurantee first pushed, first processed but queue does  
+
+
+
+
+- deeper into
+    - The formula distances (da, db) still work, but computed on the directed adjacency (and BFS from b implicitly needs the reverse graph if you want distances into b). for full reachability analysis (e.g. SCCs) you generally also need the reverse graph.
+    - two lca finder methods
+    - the two toors
+    
+# BFS & DFS — Interview Reference Notes
+
+
+## 1. What BFS can do
+
+- **Works on any unweighted graph, directed or undirected.** BFS only needs an adjacency list and a queue — it doesn't care whether edges are one-directional or two-directional, it just follows whatever edges exist from the current vertex.
+- **Finds shortest paths in an unweighted graph.** Because BFS expands vertex-by-vertex in increasing order of distance from the source (it finishes an entire "distance layer" before starting the next), the first time a vertex is reached is guaranteed to be via a shortest path. This holds for **both directed and undirected** unweighted graphs — the direction of edges just restricts which layers are reachable at all.
+- **Solves state-space search problems** (puzzles, games) where each distinct game state is a vertex and each legal move is an edge. BFS finds the state reachable in the fewest moves, same reasoning as above.
+- **Finds the shortest cycle through a specific vertex.** Run BFS from that vertex and look at each edge `(neighbor1, neighbor2)` in the graph, here, if that edge has not discovered a completely new v both endpoint veretices are at some finite distance from the source which is computed already— if that edge is *not* the tree edge that discovered either vertex, then `distance[neighbor1] + distance[neighbor2] + 1` is the length of a cycle passing through the source. The minimum over all such edges is the shortest cycle through that vertex. See §7 for the worked example.
+- **Finds every edge/vertex lying on *some* shortest path from `a` to `b`.** Run BFS once from `a` and once from `b` to get two distance arrays, `distFromA` and `distFromB`. See §8 for the exact test and how it changes for directed graphs.
+
+## 2. What DFS can do
+
+- **Produces the lexicographically-first path from the source to every vertex**, assuming neighbors in the adjacency list are visited in sorted order. "Lexicographically-first" just means: if you write each root-to-vertex path as a sequence of vertex numbers, DFS with sorted adjacency lists produces the path that would sort earliest among all valid paths, because DFS always commits to the smallest available unvisited neighbor before backtracking.
+- **Gives the unique path between two vertices in a tree.** A tree by definition has exactly one simple path between any two vertices, so *any* correct traversal — DFS included — that records parent pointers will hand you that one path back via parent-chasing. DFS isn't special here; the uniqueness comes from the tree structure, not from DFS itself.
+- **Naturally captures ancestor/descendant structure** by recording an `entryTime`/`exitTime` (a "Euler tour") for every vertex. Vertex `i` is an ancestor of vertex `j` exactly when `entryTime[i] < entryTime[j]` **and** `exitTime[i] > exitTime[j]` — i.e., `j`'s entire visit happened strictly inside `i`'s visit window. This turns an O(depth) ancestor check into an O(1) check after one DFS pass.
+- **Finds the Lowest Common Ancestor (LCA) of two vertices in a tree.** See §6 for the full method (binary lifting), which is built directly on top of the entry/exit timestamps above.
+- **Detects cycles via back edges**, and more generally classifies every edge in the graph as tree/back/forward/cross. See §5 for the precise definitions and how to compute them.
+
+---
+
+## 3. Iterative Java implementations
+
+### Iterative DFS (with entry/exit time + 3-state coloring)
+
+DFS needs **three** states per vertex, not two — this is the key fix
+explained in §4. `0 = unvisited`, `1 = in progress (on the current
+stack)`, `2 = finished`. Keeping a second stack of iterators lets us
+"pause" a vertex mid-neighbor-scan and resume exactly where we left off,
+which is what lets this iterative version match recursive DFS exactly,
+timestamp-for-timestamp.
+
+```java
+import java.util.*;
+
+class GraphTraversal {
+    List<List<Integer>> adjacencyList;
+    int vertexCount;
+
+    GraphTraversal(List<List<Integer>> adjacencyList) {
+        this.adjacencyList = adjacencyList;
+        this.vertexCount = adjacencyList.size();
+    }
+
+    void iterativeDfs(int source) {
+        int[] state = new int[vertexCount];   // 0 = white, 1 = gray, 2 = black
+        int[] parent = new int[vertexCount];
+        int[] entryTime = new int[vertexCount];
+        int[] exitTime = new int[vertexCount];
+        Arrays.fill(parent, -1);
+        int timer = 0;
+
+        Deque<Integer> stack = new ArrayDeque<>();
+        Deque<Iterator<Integer>> frontierStack = new ArrayDeque<>();
+
+        stack.push(source);
+        state[source] = 1;                    // gray: entered, not finished
+        entryTime[source] = timer++;
+        frontierStack.push(adjacencyList.get(source).iterator());
+
+        while (!stack.isEmpty()) {
+            int currentVertex = stack.peek();
+            Iterator<Integer> frontier = frontierStack.peek();
+
+            if (frontier.hasNext()) {
+                int neighbor = frontier.next();
+
+                if (state[neighbor] == 0) {           // tree edge — descend
+                    state[neighbor] = 1;
+                    parent[neighbor] = currentVertex;
+                    entryTime[neighbor] = timer++;
+                    stack.push(neighbor);
+                    frontierStack.push(adjacencyList.get(neighbor).iterator());
+                }
+                // state[neighbor] == 1 -> back edge (neighbor is an ancestor, still gray)
+                // state[neighbor] == 2 -> forward or cross edge (see §5)
+            } else {
+                state[currentVertex] = 2;             // black: fully finished
+                exitTime[currentVertex] = timer++;
+                System.out.print(currentVertex + " -> ");   // final op, per vertex, once
+                stack.pop();
+                frontierStack.pop();
+            }
+        }
+    }
+
+    void iterativeBfs(int source) {
+        boolean[] visited = new boolean[vertexCount];
+        int[] distance = new int[vertexCount];
+        int[] parent = new int[vertexCount];
+        Arrays.fill(parent, -1);
+
+        Queue<Integer> queue = new ArrayDeque<>();
+        queue.add(source);
+        visited[source] = true;               // marked at discovery time — see §4
+
+        while (!queue.isEmpty()) {
+            int currentVertex = queue.poll();
+            System.out.print(currentVertex + " -> ");   // final op, per vertex, once
+
+            for (int neighbor : adjacencyList.get(currentVertex)) {
+                if (!visited[neighbor]) {
+                    visited[neighbor] = true;
+                    distance[neighbor] = distance[currentVertex] + 1;
+                    parent[neighbor] = currentVertex;
+                    queue.add(neighbor);
+                }
+            }
+        }
+    }
+
+    List<Integer> reconstructPath(int[] parent, int target) {
+        List<Integer> path = new ArrayList<>();
+        for (int vertex = target; vertex != -1; vertex = parent[vertex]) {
+            path.add(vertex);
+        }
+        Collections.reverse(path);
+        return path;
+    }
+}
+```
+
+**Both work unchanged on directed graphs.** Neither implementation reads or assumes edge symmetry anywhere — DFS descends along whatever edges exist from `currentVertex`, and BFS enqueues whatever `adjacencyList.get` returns. If the graph is directed, `adjacencyList` simply won't contain the reverse edge, so both traversals correctly only follow the arrows that actually exist. The one place directedness changes the *meaning* of results (not the code) is the a↔b shortest-path query — see §8. 
+**Why `ArrayDeque` for both, instead of `LinkedList` for the queue or `ArrayList` for the stack:** `ArrayDeque` is a resizable circular array, so both ends are O(1) amortized with no per-node object overhead. Used as a queue (`add`/`poll`) it beats `LinkedList` — `LinkedList` allocates a node object per element and has worse cache locality, and the JDK docs themselves recommend `ArrayDeque` over `LinkedList` for queue use. Used as a stack (`push`/`pop`, i.e. `addFirst`/`removeFirst`), it's also faster than `ArrayList` used as a stack (`add`/`remove(size-1)`): `ArrayList.remove(size-1)` is O(1) too, so raw stack push/pop performance is comparable, but `ArrayDeque` gives one consistent `Deque` API for both roles and avoids `ArrayList`'s occasional internal `Arrays.copyOf` shifts being confused with removal-from-front costs if the code is ever misused as a queue by mistake. Net effect: one import, one mental model, best-or-tied performance in both roles.
+
+---
+
+## 4. Why BFS marks `visited` in the inner loop but DFS needs more care
+
+**Yes — this is directly tied to edge classification (§5).**
+
+BFS only ever needs a binary `visited` flag, and it *must* be set at **discovery time** (inside the inner neighbor loop), not at dequeue/processing time. If it were delayed to the outer loop instead, the same vertex could be pushed onto the queue multiple times before any copy of it is dequeued and marked — each push would compute its own `distance`/`parent` from whichever vertex is currently being expanded, and the *last* push processed would silently overwrite an earlier, correct, shorter-distance assignment. Marking at discovery time is what prevents duplicate enqueuing and guarantees the first (and only) distance recorded for a vertex is the shortest one.
+
+DFS has a subtler requirement: a plain binary `visited` flag (mark once, at push time, mirroring the BFS style) is **not enough** to detect back edges correctly — you need the 3-state coloring from §3. Concretely: 
+```
+Graph: A -> B, A -> C, B -> C   (A has two children in adjacency order B, C)
+```
+
+Real recursive DFS from A: visit A, descend into B, from B descend into C, finish C, finish B, back at A, see edge A→C — C is already fully finished, so this is correctly classified as a **forward edge**. 
+
+If instead you used the *BFS style* of marking a node visited as soon as it's *pushed* (rather than tracking gray-vs-black), then when you push both B and C onto the stack while processing A, C already shows as "visited" the moment B is being explored — even though C hasn't actually been entered yet. Now when B's turn comes and it looks at its edge to C, C reads as visited, but you have no way to tell whether that means "C is one of my current ancestors on the stack (a genuine back edge, i.e. a cycle)" or "C was already fully explored via a sibling branch (a forward or cross edge, not a cycle)". A binary flag conflates those two very different cases. That's exactly why cycle detection in a directed graph needs the gray/black distinction: a back edge is an edge to a **gray** (currently-on-stack, i.e. still an open ancestor) vertex specifically — an edge to a black vertex is never a cycle. Marking everything visited at push time throws away the gray/black distinction and makes correct back-edge (cycle) detection impossible. 
+
+So: BFS's inner-loop marking is about **avoiding duplicate work and protecting distance correctness**. DFS's outer-loop-style entry/exit marking (§3) is about **preserving enough state — gray vs. black — to classify edges correctly**, which BFS never needs because an unweighted BFS tree has no notion of "currently open ancestor" worth distinguishing from "finished" — every non-tree edge in BFS is just a cross edge between the same or adjacent layers, with nothing further to classify.
+
+---
+
+## 5. Edge classification: tree / back / forward / cross
+
+Run DFS and, the moment you traverse an edge `(currentVertex, neighbor)`, classify it using `state[neighbor]` at that moment:
+
+- **Tree edge** — `state[neighbor] == 0` (white). This is the edge you just used to discover `neighbor` for the first time; it becomes part of the DFS forest.
+- **Back edge** — `state[neighbor] == 1` (gray). `neighbor` is currently an open ancestor of `currentVertex` on the recursion/stack path. A back edge means there's a cycle: `neighbor -> ... -> currentVertex -> neighbor`. This is the standard directed-cycle-detection signal.
+- **Forward edge** — `state[neighbor] == 2` (black) **and** `entryTime[currentVertex] < entryTime[neighbor]`. `neighbor` is a descendant of `currentVertex` reached earlier via a different tree path — only possible in directed graphs.
+- **Cross edge** — `state[neighbor] == 2` (black) **and** `entryTime[currentVertex] > entryTime[neighbor]`. `neighbor` is neither an ancestor nor a descendant of `currentVertex` — it's in an already-finished, unrelated subtree (or an earlier DFS tree entirely).
+
+In an **undirected** graph only tree and back edges occur (every non-tree edge you see, DFS will have already seen from the other side as a tree edge, so it always looks like a back edge to whichever endpoint is
+visited second) — forward/cross edges are a directed-graph-only concept.
+
+---
+
+## 6. Finding LCA using entry/exit times
+
+The entry/exit timestamps from §3 (or §4) give you ancestor checks in O(1), but the fastest common technique for repeated LCA queries is **binary lifting**:
+
+1. Run one DFS, recording `depth[vertex]` and `up[0][vertex] = parent` for every vertex.
+2. Precompute `up[k][vertex]` = the ancestor `2^k` steps above `vertex`, via `up[k][vertex] = up[k-1][up[k-1][vertex]]`, for `k` up to `log2(vertexCount)`.
+3. To find `LCA(x, y)`: first lift the deeper of the two vertices up until both are at equal depth (using the binary-lifting table to jump in powers of two). Then, if they're already the same vertex, that's the LCA. Otherwise, jump both vertices up together by the largest power of two that keeps them *distinct*, repeatedly, until they're one step below their common ancestor — that ancestor (`up[0][x]`) is the LCA.
+
+This answers LCA queries in O(log n) each after O(n log n) preprocessing, and reuses exactly the parent/depth information a DFS already produces.
+
+---
+
+## 7. Shortest cycle through a vertex, worked in detail
+
+"Shortest cycle through vertex `source`" means: the minimum-length closed walk that starts at `source`, uses no edge twice, and returns to `source`.
+
+Run BFS from `source`, building `distance[]` and `parent[]` as usual. While scanning each vertex's neighbors, for **any edge `(vertex1, vertex2)` that is not the tree edge that discovered `vertex2` from `vertex1`** (i.e. `vertex2` was already visited through some other vertex when you encounter this edge), you've found a cycle:
+
+```
+cycle length = distance[vertex1] + distance[vertex2] + 1
+```
+
+Take the minimum of this quantity over every such non-tree edge found during the BFS. Intuition: `distance[vertex1]` is the shortest path from `source` to `vertex1`, `distance[vertex2]` is the shortest path from `source` to `vertex2`, and the extra edge `(vertex1, vertex2)` stitches those two paths together into a loop back to `source`. Because both distances come from BFS, they're each individually shortest, so this gives the shortest cycle through `source` specifically (not necessarily the shortest cycle in the whole graph — for that, you'd repeat this BFS from every vertex and take the global minimum, which is the standard O(V·E) girth algorithm for unweighted graphs).
+
+---
+
+## 8. Edges/vertices on *some* shortest path between `a` and `b`
+
+Better phrasing, as suggested: **"edge or vertex lies on a shortest path from `a` to `b`"** — not "qualifies," which didn't say what standard was being met.
+
+Run BFS once from `a` to get `distFromA[]`, and once from `b` to get `distFromB[]`. Let `shortestDist = distFromA[b]` (the shortest-path length between them). Then:
+
+- **Vertex `vertex` lies on some shortest a-to-b path** exactly when `distFromA[vertex] + distFromB[vertex] == shortestDist`.
+- **Edge `(vertex1, vertex2)` lies on some shortest a-to-b path** exactly  when `distFromA[vertex1] + 1 + distFromB[vertex2] == shortestDist`  (checking both edge directions if the graph is undirected).
+
+**For directed graphs**, this needs one careful change: `distFromB[]` as computed by a normal BFS from `b` gives distances *from* `b` *outward*, but what the edge test actually needs is the distance **into** `b` — i.e., the shortest distance from each vertex *to* `b`. So for directed graphs you must build the **reverse graph** (flip every edge) and run BFS from `b` on *that* reverse graph to get true "distance to b" values. Only then does `distFromA[vertex1] + 1 + distFromB[vertex2] == shortestDist` correctly mean "this directed edge sits on a shortest directed path from a to b." Using a forward BFS from `b` on the original directed graph instead would measure distances leaving `b`, which is the wrong quantity entirely and will silently give wrong answers.
+
+This reverse-graph requirement isn't unique to this problem — it's the same reason algorithms for full reachability analysis in directed graphs (most notably finding strongly connected components, e.g. Kosaraju's algorithm) also run a pass on the reverse graph: "can `x` reach `y`" and "can `y` reach `x`" are different questions in a directed graph, and answering both — which full reachability/SCC analysis requires — means traversing both the graph and its reverse.
+
+---
+
+## 9. "Tree-structural queries" (§2 wording, clarified)
+
+By "tree-structural queries" the intended meaning is: questions that ask about the *shape* of the tree itself — is `x` an ancestor of `y`? what's the lowest common ancestor of `x` and `y`? what's the depth/subtree size of `x`? — as opposed to questions about edge weights or shortest paths. DFS is the natural tool for these because a single DFS pass, computing `entryTime`/`exitTime`/`depth`/`parent`, gives you everything needed to answer all of them afterward in O(1) or O(log n) per query, without re-traversing the tree each time.

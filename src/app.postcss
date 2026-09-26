@@ -197,3 +197,8 @@ pre[class*="language-"] {
 .token.italic {
     font-style: italic;
 }
+
+.prose :where(code):not(:where([class~="not-prose"] *))::before,
+.prose :where(code):not(:where([class~="not-prose"] *))::after {
+  content: none;
+}

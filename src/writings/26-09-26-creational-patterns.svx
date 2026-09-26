@@ -1,0 +1,660 @@
+---
+title: "Creational Design Patterns — Java 21 Reference"
+description: "Applicability, practical examples, right and wrong uses, and consequences. Context: Java SE 21 (standalone) and Java 21 + Spring Boot."
+datetime: 2026-04-01T00:00:00.000Z
+tags:
+  - oop
+---
+
+
+> Applicability, practical examples, right and wrong uses, and consequences.
+> Context: Java SE 21 (standalone) and Java 21 + Spring Boot.
+
+---
+$x^2$
+## Table of Contents
+
+1. [Factory Method](#1-factory-method)
+2. [Abstract Factory](#2-abstract-factory)
+3. [Builder](#3-builder)
+4. [Prototype](#4-prototype)
+5. [Singleton](#5-singleton)
+6. [Quick Reference Matrix](#6-quick-reference-matrix)
+
+---
+
+## 1. Factory Method
+
+### What it is
+
+Defines an interface for creating an object, but lets subclasses (or implementors) decide which class to instantiate. The creator depends on an abstraction, not a concrete type.
+
+### Applicability
+
+| Context | Relevance | Notes |
+|---|---|---|
+| Java 21 standalone | **Moderate** | Sealed classes + switch expressions cover many cases more concisely. Still essential for open/extensible hierarchies. |
+| Java 21 + Spring Boot | **High** | Every `@Bean` method is a factory method. Framework internals are built on it. |
+
+### Practical Examples
+
+**Java 21 — sealed types make a factory method concise:**
+
+```java
+sealed interface Notification permits EmailNotification, SmsNotification, PushNotification {}
+
+record EmailNotification(String to, String subject) implements Notification {}
+record SmsNotification(String phone, String message) implements Notification {}
+record PushNotification(String deviceToken, String payload) implements Notification {}
+
+// Factory method — dispatch by type
+public static Notification create(String channel, Map<String, String> params) {
+    return switch (channel) {
+        case "email" -> new EmailNotification(params.get("to"), params.get("subject"));
+        case "sms"   -> new SmsNotification(params.get("phone"), params.get("message"));
+        case "push"  -> new PushNotification(params.get("token"), params.get("payload"));
+        default      -> throw new IllegalArgumentException("Unknown channel: " + channel);
+    };
+}
+```
+
+**Spring Boot — `@Bean` as factory method:**
+
+```java
+@Configuration
+public class StorageConfig {
+
+    @Bean
+    @ConditionalOnProperty(name = "storage.type", havingValue = "s3")
+    public StorageService s3StorageService(S3Client client) {
+        return new S3StorageService(client);
+    }
+
+    @Bean
+    @ConditionalOnProperty(name = "storage.type", havingValue = "local", matchIfMissing = true)
+    public StorageService localStorageService(@Value("${storage.path}") String path) {
+        return new LocalStorageService(path);
+    }
+}
+```
+
+The caller (`StorageService` injection point) never knows which concrete class it receives.
+
+### When it is the Right Choice
+
+- You want to decouple object creation from business logic.
+- The concrete type is determined at runtime (config, environment, user input).
+- You are building an extensible library or framework where consumers plug in their own types.
+- Multiple products share a common interface and you want to swap them transparently.
+
+### When it is the Wrong Choice
+
+- The type hierarchy is closed and small — a simple `switch` or `if` is clearer and has no extra indirection.
+- You need the pattern only for a single concrete class — this is over-engineering.
+- In Spring Boot, reaching for a hand-rolled factory when `@ConditionalOn*` already handles the dispatch.
+
+### What You Achieve When Used Well
+
+- Clean inversion of control: business logic talks to interfaces, never to `new ConcreteClass()`.
+- Easy extensibility — add a new product type without touching the creator.
+- Testability: inject a mock factory in tests, get predictable products.
+
+### Disasters When Used Wrong
+
+- **Factory explosion**: a separate factory class per domain object, each with one method, for no reason. You end up maintaining twice the classes with zero benefit.
+- **Leaky abstractions**: the factory method returns an interface but the caller immediately casts to a concrete type — defeating the entire point.
+- **Hidden coupling**: factory logic hard-codes every concrete type in a long `if-else` chain. The factory becomes a "god switch" that must change every time a new type is added, violating the Open/Closed Principle.
+
+---
+
+## 2. Abstract Factory
+
+### What it is
+
+Provides an interface for creating **families** of related objects without specifying their concrete classes. Where Factory Method creates one product, Abstract Factory creates a coordinated set of products.
+
+### Applicability
+
+| Context | Relevance | Notes |
+|---|---|---|
+| Java 21 standalone | **Moderate** | Useful for platform/theme families. Sealed interfaces reduce the verbosity of concrete factories. |
+| Java 21 + Spring Boot | **Moderate** | Mostly consumed, not written. Spring auto-configuration wires product families. Explicit use in multi-tenant or multi-environment setups. |
+
+### Practical Examples
+
+**Java 21 — a notification channel family:**
+
+```java
+// Product interfaces
+interface MessageSender   { void send(String to, String body); }
+interface DeliveryTracker { Status track(String messageId); }
+
+// Abstract factory
+interface NotificationChannelFactory {
+    MessageSender   createSender();
+    DeliveryTracker createTracker();
+}
+
+// Concrete factory: email family
+class EmailChannelFactory implements NotificationChannelFactory {
+    public MessageSender   createSender()  { return new SmtpSender(); }
+    public DeliveryTracker createTracker() { return new EmailDeliveryTracker(); }
+}
+
+// Concrete factory: SMS family
+class SmsChannelFactory implements NotificationChannelFactory {
+    public MessageSender   createSender()  { return new TwilioSender(); }
+    public DeliveryTracker createTracker() { return new SmsDeliveryTracker(); }
+}
+```
+
+**Spring Boot — auto-configuration as Abstract Factory:**
+
+```java
+// Spring wires a whole datasource family per profile
+@Configuration
+@Profile("postgres")
+public class PostgresDataConfig {
+    @Bean public DataSource dataSource() { /* postgres */ }
+    @Bean public TransactionManager transactionManager(DataSource ds) { /* postgres tx */ }
+    @Bean public JdbcTemplate jdbcTemplate(DataSource ds) { return new JdbcTemplate(ds); }
+}
+
+@Configuration
+@Profile("h2")
+public class H2DataConfig {
+    @Bean public DataSource dataSource() { /* in-memory H2 */ }
+    @Bean public TransactionManager transactionManager(DataSource ds) { /* H2 tx */ }
+    @Bean public JdbcTemplate jdbcTemplate(DataSource ds) { return new JdbcTemplate(ds); }
+}
+```
+
+Switching profiles swaps the entire family atomically.
+
+### When it is the Right Choice
+
+- Products come in **families** that must be used together consistently (e.g., a sender and its tracker must both be the SMS variants or both the email variants — mixing breaks correctness).
+- You need to switch entire environments or themes at a single configuration point.
+- You are building a cross-platform toolkit (UI widgets, persistence adapters, cloud provider clients).
+
+### When it is the Wrong Choice
+
+- Products are independent — there is no consistency constraint between them. Just use separate Factory Methods.
+- You only have one concrete family now and "might add more later" — YAGNI applies. Add the abstraction when the second family actually arrives.
+- The team is small and the domain is simple. The class count (two interfaces plus N×M implementations) outweighs the benefit.
+
+### What You Achieve When Used Well
+
+- **Family consistency guaranteed at compile time** — you cannot mix an `SmtpSender` with an `SmsDeliveryTracker` accidentally.
+- Entire environments (test, staging, prod) can be swapped by changing one factory binding.
+- Adding a new family (e.g., WhatsApp channel) requires only a new concrete factory class — existing code is untouched.
+
+### Disasters When Used Wrong
+
+- **Interface bloat**: adding a third product to the family requires changing the abstract factory interface and all concrete factories — a shotgun change across the codebase.
+- **Premature abstraction**: building the full factory hierarchy for a system that currently has exactly one environment, and may never have a second. You pay the complexity tax indefinitely.
+- **Invisible coupling**: two teams each independently add a product to the family interface, causing merge conflicts and forcing all factories to implement products they don't logically own.
+
+---
+
+## 3. Builder
+
+### What it is
+
+Separates the construction of a complex object from its representation, so the same construction process can produce different representations. In practice: a fluent API for building objects with many optional parameters.
+
+### Applicability
+
+| Context | Relevance | Notes |
+|---|---|---|
+| Java 21 standalone | **High** | Records handle tiny immutable value objects. Builder remains essential for objects with many optional fields, validation logic, or multi-step construction. |
+| Java 21 + Spring Boot | **High** | You consume Spring's own builders constantly (`WebClient.builder()`, `HttpSecurity`, `UriComponentsBuilder`). You write builders for DTOs, domain aggregates, test fixtures. |
+
+### Practical Examples
+
+**Java 21 — when a record is enough (simple case):**
+
+```java
+// Don't build a builder for this — a record is better
+record Point(double x, double y) {}
+
+var p = new Point(3.0, 4.0); // clear, immutable, no boilerplate
+```
+
+**Java 21 — when a builder is the right tool:**
+
+```java
+public final class HttpRequest {
+    private final URI uri;
+    private final String method;
+    private final Map<String, String> headers;
+    private final String body;
+    private final Duration timeout;
+    private final int retries;
+
+    private HttpRequest(Builder b) {
+        this.uri     = Objects.requireNonNull(b.uri, "uri required");
+        this.method  = b.method;
+        this.headers = Map.copyOf(b.headers);
+        this.body    = b.body;
+        this.timeout = b.timeout;
+        this.retries = b.retries;
+    }
+
+    public static Builder builder(URI uri) { return new Builder(uri); }
+
+    public static final class Builder {
+        private final URI uri;
+        private String method = "GET";
+        private Map<String, String> headers = new HashMap<>();
+        private String body;
+        private Duration timeout = Duration.ofSeconds(30);
+        private int retries = 0;
+
+        private Builder(URI uri) { this.uri = uri; }
+
+        public Builder method(String m)            { this.method = m;   return this; }
+        public Builder header(String k, String v)  { headers.put(k, v); return this; }
+        public Builder body(String b)              { this.body = b;      return this; }
+        public Builder timeout(Duration d)         { this.timeout = d;   return this; }
+        public Builder retries(int r)              { this.retries = r;   return this; }
+        public HttpRequest build()                 { return new HttpRequest(this); }
+    }
+}
+
+// Usage — reads like a sentence
+var req = HttpRequest.builder(URI.create("https://api.example.com/orders"))
+    .method("POST")
+    .header("Content-Type", "application/json")
+    .header("Authorization", "Bearer " + token)
+    .body(json)
+    .timeout(Duration.ofSeconds(10))
+    .retries(3)
+    .build();
+```
+
+**Spring Boot — consuming the framework's builders:**
+
+```java
+// WebClient
+WebClient client = WebClient.builder()
+    .baseUrl("https://api.example.com")
+    .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+    .filter(ExchangeFilterFunctions.basicAuthentication(user, pass))
+    .build();
+
+// Spring Security
+@Bean
+public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    return http
+        .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/public/**").permitAll()
+            .anyRequest().authenticated())
+        .sessionManagement(s -> s.sessionCreationPolicy(STATELESS))
+        .oauth2ResourceServer(o -> o.jwt(Customizer.withDefaults()))
+        .build();
+}
+
+// URI construction
+URI uri = UriComponentsBuilder.fromUriString("https://api.example.com")
+    .pathSegment("users", userId, "orders")
+    .queryParam("status", "active")
+    .queryParam("page", page)
+    .build()
+    .toUri();
+```
+
+**With Lombok (practical shorthand):**
+
+```java
+@Builder
+@Value // makes it immutable
+public class OrderRequest {
+    String customerId;
+    List<String> productIds;
+    String deliveryAddress;
+    @Builder.Default
+    Currency currency = Currency.getInstance("INR");
+}
+
+// Usage
+var order = OrderRequest.builder()
+    .customerId("C-123")
+    .productIds(List.of("P-1", "P-2"))
+    .deliveryAddress("Bengaluru, KA")
+    .build();
+```
+
+### When it is the Right Choice
+
+- The object has more than 4-5 fields, especially when most are optional.
+- Construction requires validation that should happen at `build()` time, not scattered across setters.
+- The object should be immutable once built.
+- The same base builder needs to produce variants (test fixtures, request templates).
+- Readable, self-documenting construction call sites matter.
+
+### When it is the Wrong Choice
+
+- The object has 2-3 required fields and nothing optional — a constructor or record is simpler.
+- The object is mutable anyway (an entity managed by JPA, for example) — builders add ceremony without the immutability payoff.
+- You are building a builder "because we might add fields later" — add it when the parameter list actually becomes unwieldy.
+
+### What You Achieve When Used Well
+
+- **Telescoping constructor problem eliminated** — no more `new Order(id, null, null, "active", null, 1)`.
+- Immutable objects with clear, self-validating construction.
+- Test fixtures that are readable and easy to vary: `baseRequest.toBuilder().retries(5).build()`.
+- Framework fluent APIs (Spring Security, WebClient) that non-experts can configure without reading source.
+
+### Disasters When Used Wrong
+
+- **Mutable builder, mutable product**: if the builder holds mutable state and the caller retains the builder reference, reusing it produces aliased objects sharing the same internal collections — subtle data corruption.
+- **Validation skipped**: building without required fields produces a silently broken object. Always validate at `build()`, not at field access time.
+- **Builder over records**: applying `@Builder` to a 2-field record adds Lombok, a dependency, and generated code noise — where `new Point(x, y)` was three tokens and perfectly clear.
+- **Too-flexible builders**: a builder that accepts any combination of fields where many combinations are logically invalid. A `build()` call that can silently produce nonsense is worse than a constructor that fails fast.
+
+---
+
+## 4. Prototype
+
+### What it is
+
+Creates new objects by copying (cloning) an existing object — the prototype. Instead of constructing from scratch, you clone and then customise.
+
+### Applicability
+
+| Context | Relevance | Notes |
+|---|---|---|
+| Java 21 standalone | **Low** | `Cloneable` / `clone()` is widely considered broken. Modern Java uses copy constructors or records. Concept survives; canonical implementation does not. |
+| Java 21 + Spring Boot | **Low** | `@Scope("prototype")` is named after it, but you rarely implement cloning. Spring manages the "fresh instance" concern. |
+
+### Practical Examples
+
+**What NOT to do — the broken `Cloneable` approach:**
+
+```java
+// Avoid — Cloneable is a marker interface with no clone() method,
+// clone() is protected on Object, deep-copy semantics are undefined,
+// and it bypasses constructors entirely.
+public class Config implements Cloneable {
+    private List<String> endpoints; // mutable — clone() will shallow-copy this!
+
+    @Override
+    public Config clone() {
+        try { return (Config) super.clone(); } // endpoints list is shared — BUG
+        catch (CloneNotSupportedException e) { throw new AssertionError(); }
+    }
+}
+```
+
+**Java 21 — copy constructor (the correct modern form):**
+
+```java
+public final class RequestTemplate {
+    private final String baseUrl;
+    private final Map<String, String> headers;
+    private final Duration timeout;
+    private final int retries;
+
+    // Primary constructor
+    public RequestTemplate(String baseUrl, Map<String, String> headers,
+                           Duration timeout, int retries) {
+        this.baseUrl  = baseUrl;
+        this.headers  = Map.copyOf(headers); // defensive copy
+        this.timeout  = timeout;
+        this.retries  = retries;
+    }
+
+    // Copy constructor — the modern Prototype
+    public RequestTemplate(RequestTemplate source) {
+        this(source.baseUrl, source.headers, source.timeout, source.retries);
+    }
+
+    // Wither methods for one-field variations
+    public RequestTemplate withTimeout(Duration newTimeout) {
+        return new RequestTemplate(baseUrl, headers, newTimeout, retries);
+    }
+    public RequestTemplate withRetries(int newRetries) {
+        return new RequestTemplate(baseUrl, headers, timeout, newRetries);
+    }
+}
+
+// Usage — prototype + customise
+var base = new RequestTemplate("https://api.example.com",
+                               Map.of("Accept", "application/json"),
+                               Duration.ofSeconds(10), 2);
+
+var fastProbe = base.withTimeout(Duration.ofSeconds(1)).withRetries(0);
+var robustCall = base.withRetries(5);
+```
+
+**Java 21 records — prototype is nearly free:**
+
+```java
+record ServiceConfig(String host, int port, boolean tls, Duration timeout) {}
+
+var prod = new ServiceConfig("api.example.com", 443, true, Duration.ofSeconds(10));
+
+// "Clone and customise" — idiomatic record approach
+var dev  = new ServiceConfig(prod.host(), 8080, false, prod.timeout());
+// Or with Lombok @With on a @Value class for named copies
+```
+
+**Spring Boot — `@Scope("prototype")` in practice:**
+
+```java
+// A stateful component — one fresh instance per injection point
+@Component
+@Scope("prototype")
+public class ReportGenerator {
+    private final List<String> warnings = new ArrayList<>(); // mutable, must not be shared
+
+    public void addWarning(String w) { warnings.add(w); }
+    public List<String> getWarnings() { return List.copyOf(warnings); }
+    public byte[] generate(ReportData data) { /* ... */ }
+}
+
+// Injection — must use ObjectProvider or ApplicationContext, NOT @Autowired directly
+// (direct @Autowired would inject the same instance despite prototype scope)
+@Service
+public class ReportService {
+    private final ObjectProvider<ReportGenerator> generatorProvider;
+
+    public ReportService(ObjectProvider<ReportGenerator> p) {
+        this.generatorProvider = p;
+    }
+
+    public byte[] createReport(ReportData data) {
+        ReportGenerator generator = generatorProvider.getObject(); // fresh instance
+        // use generator ...
+        return generator.generate(data);
+    }
+}
+```
+
+### When it is the Right Choice
+
+- You need many similar objects that differ in only a few fields (request templates, test fixtures, configuration variants).
+- Object construction is expensive (e.g., parsing a large schema) and you want to clone a pre-built instance instead.
+- In Spring: a bean is stateful and must not be shared across call sites (`@Scope("prototype")`).
+
+### When it is the Wrong Choice
+
+- Objects are immutable and cheap to construct — just call the constructor.
+- You reach for `Cloneable` and `clone()` — this is always the wrong choice in modern Java.
+- The objects hold references to resources (connections, file handles) that should not be shared or duplicated.
+- In Spring: injecting a prototype-scoped bean with plain `@Autowired` into a singleton — the prototype is only instantiated once, defeating the entire purpose.
+
+### What You Achieve When Used Well
+
+- Cheap creation of object variations without rebuilding from scratch.
+- Clear "template + customise" pattern — a base prototype encodes shared configuration, variants override specifics.
+- In Spring, stateful processing components that are safe to use per-request.
+
+### Disasters When Used Wrong
+
+- **Shallow copy of mutable collections**: cloning an object whose fields are mutable `List` or `Map` shares those collections between the original and the clone. Mutations in one appear in the other — a silent, hard-to-diagnose bug.
+- **Bypassed invariants**: `clone()` skips constructors, so validation logic and invariant checks in the constructor never run on cloned objects. You can clone an object into an invalid state.
+- **Singleton-prototype injection trap in Spring**: a singleton service holds a direct `@Autowired` reference to a prototype bean. The prototype is resolved exactly once at startup and cached in the singleton — every call uses the same stateful instance, producing shared mutable state across threads.
+
+---
+
+## 5. Singleton
+
+### What it is
+
+Ensures a class has only one instance and provides a global point of access to it.
+
+### Applicability
+
+| Context | Relevance | Notes |
+|---|---|---|
+| Java 21 standalone | **Low (hand-rolled)** | Hand-rolled singleton is a near-universal anti-pattern in application code. Legitimate only for true constants or stateless utilities. |
+| Java 21 + Spring Boot | **High (container-managed)** | Spring's default bean scope is singleton. You get it for free with every `@Component`. Never hand-roll it. |
+
+### Practical Examples
+
+**What NOT to do — the classic hand-rolled singleton:**
+
+```java
+// Avoid in application code
+public class ConfigManager {
+    private static volatile ConfigManager instance; // double-checked locking
+    private final Map<String, String> props;
+
+    private ConfigManager() {
+        props = loadFromDisk(); // hard-coded initialization
+    }
+
+    public static ConfigManager getInstance() {
+        if (instance == null) {
+            synchronized (ConfigManager.class) {
+                if (instance == null) instance = new ConfigManager();
+            }
+        }
+        return instance;
+    }
+}
+// Problems: untestable (can't inject a mock), global mutable state,
+// initialization order undefined, breaks in OSGi / app-server environments.
+```
+
+**The only acceptable hand-rolled form in Java — enum singleton:**
+
+```java
+// For true constants / stateless utilities only
+public enum MathConstants {
+    INSTANCE;
+    public double goldenRatio() { return (1 + Math.sqrt(5)) / 2; }
+    public double euler()       { return Math.E; }
+}
+// Thread-safe, serialization-safe, but still untestable — use sparingly.
+```
+
+**Java 21 + Spring Boot — the correct modern approach:**
+
+```java
+// Just annotate it. Spring manages exactly one instance per ApplicationContext.
+@Service
+public class PaymentGateway {
+    private final HttpClient client;
+    private final PaymentConfig config;
+
+    // Constructor injection — dependencies are explicit, testable
+    public PaymentGateway(HttpClient client, PaymentConfig config) {
+        this.client = client;
+        this.config = config;
+    }
+
+    public PaymentResult charge(PaymentRequest req) { /* ... */ }
+}
+
+// In a test — replace the singleton with a mock, zero friction
+@SpringBootTest
+class PaymentGatewayTest {
+    @MockBean PaymentGateway gateway; // Spring replaces the singleton for this test
+
+    @Test
+    void chargeDeclined() {
+        when(gateway.charge(any())).thenReturn(PaymentResult.declined("Insufficient funds"));
+        // ...
+    }
+}
+```
+
+**Sharing truly stateless utilities — prefer a static utility class over singleton:**
+
+```java
+// Don't make a singleton for a stateless helper — just use static methods
+public final class JsonUtils {
+    private static final ObjectMapper MAPPER = new ObjectMapper()
+        .registerModule(new JavaTimeModule());
+
+    private JsonUtils() {} // prevent instantiation
+
+    public static String toJson(Object obj) throws JsonProcessingException {
+        return MAPPER.writeValueAsString(obj);
+    }
+    public static <T> T fromJson(String json, Class<T> type) throws JsonProcessingException {
+        return MAPPER.readValue(json, type);
+    }
+}
+```
+
+### When it is the Right Choice
+
+- In Spring Boot: always use Spring's container-managed singleton — any `@Component`, `@Service`, `@Repository`, `@Controller` bean.
+- For a truly global, stateless, immutable constant registry that needs no injection (an enum is the cleanest form).
+- A shared, thread-safe resource whose initialization is expensive and must happen exactly once (connection pool, `ObjectMapper`, compiled regex) — managed by Spring or passed in via constructor injection.
+
+### When it is the Wrong Choice
+
+- When you hand-roll it with `static getInstance()` in application code — always wrong if you care about testing.
+- When the "singleton" holds mutable state that varies per request or per user (e.g., a shopping cart, a session context) — this causes data leakage between users.
+- When you choose singleton scope for a Spring bean that is stateful and not thread-safe — the single instance is shared across all concurrent requests.
+
+### What You Achieve When Used Well
+
+- **One authoritative instance**: connection pools, caches, configuration — there is exactly one and everyone shares it correctly.
+- **Performance**: expensive initialization happens once; subsequent uses are free.
+- **Consistency**: all callers see the same shared state, which is desirable for caches, rate limiters, and counters.
+- **In Spring**: all of the above, plus the bean is injectable, mockable, and lifecycle-managed.
+
+### Disasters When Used Wrong
+
+- **Global mutable state**: a hand-rolled singleton with setters is a shared mutable variable visible to every thread in the JVM. Race conditions are guaranteed under concurrency and extremely hard to reproduce in tests.
+- **Testing nightmare**: every test that calls `ConfigManager.getInstance()` gets the same instance. Tests cannot be isolated. State leaks from one test into the next. CI pipelines fail intermittently and unpredictably.
+- **Classloader issues**: in application servers and OSGi containers, a static singleton may be instantiated multiple times (once per classloader), silently breaking the one-instance guarantee while `getInstance()` still returns "the" instance — which is now one of several.
+- **Thread-unsafe Spring singleton**: a Spring service that caches user-specific data in an instance field is a singleton. Concurrent requests corrupt each other's data with no exception thrown — just wrong results returned to wrong users.
+
+```java
+// Classic Spring singleton disaster
+@Service
+public class SearchService {
+    // WRONG: instance field on a singleton = shared mutable state across all threads
+    private List<String> lastResults = new ArrayList<>();
+
+    public List<String> search(String query) {
+        lastResults.clear();           // Thread A clears
+        lastResults.addAll(doSearch(query)); // Thread B reads a half-populated list
+        return lastResults;
+    }
+}
+// Fix: make lastResults a local variable inside the method.
+```
+
+---
+
+## 6. Quick Reference Matrix
+
+| Pattern | Java 21 alone | + Spring Boot | Modern form | Never do |
+|---|---|---|---|---|
+| **Factory Method** | Moderate — sealed + switch often sufficient | High — every `@Bean` is one | `switch` expression on sealed types; `@Bean` methods | Giant `if-else` factory that changes on every new type |
+| **Abstract Factory** | Moderate — needed for true families | Moderate — consumed via auto-config | `@Configuration` + `@Profile` / `@ConditionalOn*` | Building a full factory hierarchy for a single concrete family |
+| **Builder** | High — records handle tiny objects; builder handles everything else | High — ubiquitous in both framework and application code | `@Builder` (Lombok) or hand-rolled inner `Builder` class | Builder over a 2-field object; mutable builder sharing internal collections |
+| **Prototype** | Low — `Cloneable` is dead | Low — `@Scope("prototype")` handles it | Copy constructors; wither methods; `@Scope("prototype")` | `Cloneable` + `clone()`; `@Autowired` prototype into singleton |
+| **Singleton** | Low (hand-rolled) | High (container-managed) | `@Component` / `@Service` / `@Repository` | `static getInstance()` in application code; mutable instance fields on singleton beans |
+
+---
+
+*Generated for Java SE 21 and Spring Boot 3.x. Pattern relevance will shift further as Project Valhalla (value types) and Amber (pattern matching enhancements) mature in Java 25+.*

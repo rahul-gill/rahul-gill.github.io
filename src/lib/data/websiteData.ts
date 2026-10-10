@@ -1,4 +1,4 @@
-import {base} from "$app/paths";
+import { resolve } from '$app/paths';
 
 export const WebsiteData = {
     userName: "Rahul Gill",

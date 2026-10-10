@@ -1,5 +1,5 @@
 import type {PageServerLoad} from './$types';
-import {getNotesTopics} from "$lib/data/notes";
+import {getNotesTopics} from "#lib/data/notes";
 
 
 export const load: PageServerLoad = () => {

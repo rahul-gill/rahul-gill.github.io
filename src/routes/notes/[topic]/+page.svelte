@@ -1,16 +1,16 @@
 <script lang="ts">
-    import SEOPage from "$lib/SEOPage.svelte";
-    import {WebsiteData} from "$lib/data/websiteData";
+    import SEOPage from "#lib/SEOPage.svelte";
+    import {WebsiteData} from "#lib/data/websiteData";
     import type {PageData, PageServerData} from './$types';
-    import {page} from "$app/stores";
-    import {base} from "$app/paths";
+    import {page} from "$app/state";
+    import { resolve } from '$app/paths';
 
     const title = `${WebsiteData.userName} | Notes`;
     const description = `A collection of notes for self-studying computer science.`;
     const canonical = `${WebsiteData.websiteAddress}/notes/`;
 
     export let data: PageData;
-    $: topic = $page.params.topic;
+    $: topic = page.params.topic;
     $: notesInTopic = data.notes;
     $: console.log(notesInTopic)
 </script>
@@ -23,7 +23,7 @@
         <ul>
             {#each notesInTopic as {title, slug}, index}
                 <li class="text-lg list-none">
-                    <a href="{base}/notes/{slug}" class="primary-coloring no-underline hover:underline">
+                    <a href={resolve('/notes/[topic]', { topic: slug })} class="primary-coloring no-underline hover:underline">
                         {index + 1}. {title} →
                     </a>
                 </li>

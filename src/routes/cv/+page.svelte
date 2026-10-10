@@ -1,7 +1,7 @@
 <script lang="ts">
-    import SEOPage from "$lib/SEOPage.svelte";
-    import { WebsiteData } from "$lib/data/websiteData";
-    import { resumeData } from "$lib/data/cv";
+    import SEOPage from "#lib/SEOPage.svelte";
+    import { WebsiteData } from "#lib/data/websiteData";
+    import { resumeData } from "#lib/data/cv";
   
     export let resume = resumeData;
   

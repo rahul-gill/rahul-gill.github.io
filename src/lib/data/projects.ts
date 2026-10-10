@@ -1,4 +1,4 @@
-export type ProjectLinkType = 'GitHub' | 'Website';
+export type ProjectLinkType = 'GitHub' | 'Website' | 'GPlayStore';
 export type ProjectInfo = {
     title: string;
     description: string[];//TODO

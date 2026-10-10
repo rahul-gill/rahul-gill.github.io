@@ -5,7 +5,7 @@
 @layer base {
     :root{
         @apply
-        bg-slate-100 text-slate-200
+        bg-white text-slate-200
         dark:bg-slate-200 dark:text-slate-950
     }
 }
@@ -16,14 +16,14 @@
     }
     .base-coloring-clear {
         @apply
-        bg-gray-50 text-gray-950
+        bg-white text-gray-950
         dark:bg-gray-950 dark:text-gray-50
         border-gray-950 dark:border-gray-50
         color-anim
     }
     .base-coloring {
         @apply
-        bg-slate-200 text-slate-950
+        bg-white text-slate-950
         dark:bg-slate-950 dark:text-slate-200
         border-slate-950 dark:border-slate-200
         color-anim
@@ -201,4 +201,42 @@ pre[class*="language-"] {
 .prose :where(code):not(:where([class~="not-prose"] *))::before,
 .prose :where(code):not(:where([class~="not-prose"] *))::after {
   content: none;
+}
+
+.heading-anchor {
+  margin-left: 0.4em;
+  opacity: 0;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+:is(h1, h2, h3, h4, h5, h6):hover .heading-anchor,
+.heading-anchor:focus-visible {
+  opacity: 0.6;
+}
+
+.heading-anchor:hover {
+  opacity: 1;
+}
+
+.heading-anchor-icon {
+  display: inline-block;
+  width: 0.75em;
+  height: 0.75em;
+  background-color: currentColor;
+  -webkit-mask: var(--link-icon) center / contain no-repeat;
+  mask: var(--link-icon) center / contain no-repeat;
+  --link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/%3E%3Cpath d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/%3E%3C/svg%3E");
+}
+
+.heading-anchor.copied {
+  opacity: 1;
+  color: #16a34a;
+}
+
+.heading-anchor.copied::after {
+  content: "Copied!";
+  margin-left: 0.5em;
+  font-size: 0.7em;
+  font-weight: 500;
 }

@@ -1,6 +1,6 @@
 import {redirect} from "@sveltejs/kit";
-import {base} from "$app/paths";
+import { resolve } from '$app/paths';
 
 export function load() {
-    throw redirect(307, `${base}/blog/page/0`);
+    redirect(307, resolve('/blog/page/[pageno]', { pageno: '0' }));
 }

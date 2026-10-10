@@ -1,6 +1,6 @@
-import type {WritingPreview} from "$lib/data/writings";
+import type {WritingPreview} from "#lib/data/writings";
 import type {PageServerLoad} from './$types';
-import {getBlogPostsWithTag} from "$lib/data/writings";
+import {getBlogPostsWithTag} from "#lib/data/writings";
 
 type GetResult = {
     articles: WritingPreview[];

@@ -1,11 +1,11 @@
 <script lang="ts">
-    import { slugify } from '$lib/utils/slugify';
+    import { slugify } from '#lib/utils/slugify';
     import type { PageData } from './$types';
-    import SEOPage from "$lib/SEOPage.svelte";
-    import {formatDate} from "$lib/utils/formate-date";
-    import {WebsiteData} from "$lib/data/websiteData";
-    import Tag from "$lib/components/Tag.svelte";
-    import {base} from "$app/paths";
+    import SEOPage from "#lib/SEOPage.svelte";
+    import {formatDate} from "#lib/utils/formate-date";
+    import {WebsiteData} from "#lib/data/websiteData";
+    import Tag from "#lib/components/Tag.svelte";
+    import { resolve } from '$app/paths';
 
     export let data: PageData;
     $: title = data.title;
@@ -32,7 +32,7 @@
 <SEOPage {title} {description} {canonical}>
     <div class="flex items-center justify-center flex-wrap mb-2">
         {#each formattedTags as { title, slug }}
-            <Tag href="{base}/blog/tags/{slug}/">
+            <Tag href={resolve('/blog/tags/[tag]/[pageno]', { tag: slug, pageno: '0' })}>
                 {title}
             </Tag>
         {/each}

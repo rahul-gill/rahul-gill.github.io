@@ -1,34 +1,34 @@
-import {WebsiteData} from "$lib/data/websiteData";
-import Mail from "$lib/icons/Mail.svelte";
-import Rss from "$lib/icons/Rss.svelte";
-import Github from "$lib/icons/Github.svelte";
-import Twitter from "$lib/icons/Twitter.svelte";
-import {base} from "$app/paths";
+import {WebsiteData} from "#lib/data/websiteData";
+import Mail from "#lib/icons/Mail.svelte";
+import Rss from "#lib/icons/Rss.svelte";
+import Github from "#lib/icons/Github.svelte";
+import Twitter from "#lib/icons/Twitter.svelte";
+import { resolve } from '$app/paths';
 
 //avoid trailing slash
 export const navBarTextLinks = [
     {
-        href: `${base}/about`,
+        href: resolve('about'),
         external: false,
         text: "About"
     },
     {
-        href: `${base}/projects`,
+        href: resolve('projects'),
         external: false,
         text: "Projects"
     },
     {
-        href: `${base}/blog`,
+        href: resolve('blog'),
         external: false,
         text: "Blog"
     },
     {
-        href: `${base}/notes`,
+        href: resolve('notes'),
         external: false,
         text: "Notes"
     },
     {
-        href: `${base}/cv`,
+        href: resolve('cv'),
         external: true,
         text: "CV"
     }
@@ -43,7 +43,7 @@ export const navBarIconLinks = [
         icon: Mail
     },
     {
-        href: `${base}/feed.xml`,
+        href: resolve('feed.xml'),
         text: 'RSS',
         external: true,
         icon: Rss

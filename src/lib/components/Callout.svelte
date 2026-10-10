@@ -1,5 +1,7 @@
 <script lang="ts">
-  export type CalloutVariant = 'info' | 'warn' | 'tip';
+    import type { CalloutVariant } from "../utils/utils";
+
+  
 
   export let variant: CalloutVariant = 'info';
   export let label: string | undefined = undefined;

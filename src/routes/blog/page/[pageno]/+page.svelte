@@ -1,21 +1,21 @@
 <script lang="ts">
     import type {PageServerData} from './$types';
-    import {WebsiteData} from "$lib/data/websiteData";
-    import SEOPage from "$lib/SEOPage.svelte";
-    import {formatDate} from "$lib/utils/formate-date";
-    import Tag from "$lib/components/Tag.svelte";
-    import {slugify} from "$lib/utils/slugify";
-    import PagerButtons from "$lib/components/PagerButtons.svelte";
-    import { page } from '$app/stores';
+    import {WebsiteData} from "#lib/data/websiteData";
+    import SEOPage from "#lib/SEOPage.svelte";
+    import {formatDate} from "#lib/utils/formate-date";
+    import Tag from "#lib/components/Tag.svelte";
+    import {slugify} from "#lib/utils/slugify";
+    import PagerButtons from "#lib/components/PagerButtons.svelte";
+    import { page } from '$app/state';
     import {goto} from "$app/navigation";
-    import {base} from "$app/paths";
+    import { resolve } from '$app/paths';
     export let data: PageServerData;
 
     const title = `${WebsiteData.userName} | Writing`;
     const description = 'My writing about tech and other things';
     const canonical = `${WebsiteData.websiteAddress}/blog/`;
 
-    $: currentPageNumber = parseInt($page.params.pageno);
+    $: currentPageNumber = parseInt(page?.params?.pageno ?? '0');
     const itemCountPerPage = 10;
     $: lastPageNumber = Math.floor(data.articles.length / itemCountPerPage);
     $: pagedItems = data.articles.slice(currentPageNumber * itemCountPerPage, currentPageNumber * itemCountPerPage + itemCountPerPage)
@@ -32,7 +32,7 @@
                     {formatDate(datetime)}
                 </time>
             </div>
-            <a href="{base}/blog/{slug}/" class="no-underline">
+            <a href={resolve('/blog/[slug]', { slug })} class="no-underline">
                 <h2 class="text-2xl hover:underline my-1">
                     {title}
                 </h2>
@@ -41,7 +41,7 @@
 
             <div class="flex mt-2 gap-2 flex-wrap">
                 {#each tags as tag}
-                    <Tag  href="{base}/blog/tags/{slugify(tag)}/">
+                    <Tag  href={resolve('/blog/tags/[tag]', { tag: slugify(tag) })}>
                         {tag}
                     </Tag>
                 {/each}
@@ -52,7 +52,7 @@
         <PagerButtons
                 currentPageIndex={currentPageNumber}
                 lastPageIndex={lastPageNumber}
-                goToPage={(page) => goto(`/blog/page/${page}`)}
+                goToPage={(n) => goto(resolve('/blog/page/[pageno]', { pageno: String(n) }))}
                 className="my-8"/>
     {/if}
 </SEOPage>

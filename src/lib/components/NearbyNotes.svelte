@@ -1,24 +1,18 @@
 <script lang="ts">
-    import {base} from "$app/paths";
+    import { resolve } from '$app/paths';
 
     export let notesBefore: number;
     export let notesAfter: number;
     export let topicSlug: string;
     export let notesAround: { slug: string, noteNumber: number, isCurrent: boolean, title: string }[];
 
-    function noteHref(slug: string){
-        console.log(base);
-        return `${base}${slug}`
-    }
-
-    $: console.log(notesAround.map(item => noteHref(item.slug)))
 
 </script>
 
 <ul class="list-none">
     {#if notesBefore !== 0}
         <li>
-            <a href="{base}/notes/{topicSlug}"
+            <a href={resolve('/notes/[topic]', { topic: topicSlug })}
                class="no-underline text-lg flex flex-row items-center"
             >
                         <span class="w-9 h-9 primary-coloring-bg rounded-full flex items-center justify-center mr-2">
@@ -32,7 +26,7 @@
     {/if}
     {#each notesAround as noteAround}
         <li>
-            <a href="{base}/notes/{noteAround.slug}"
+            <a href={resolve('/notes/[topic]', { topic: noteAround.slug })}
                class="no-underline text-lg flex flex-row items-center"
             >
                         <span class="w-9 h-9 primary-coloring-bg rounded-full flex items-center justify-center mr-2">
@@ -46,7 +40,7 @@
     {/each}
     {#if notesAfter !== 0}
         <li>
-            <a href="{base}/notes/{topicSlug}"
+            <a href={resolve('/notes/[topic]', { topic: topicSlug })}
                class="no-underline text-lg flex flex-row items-center"
             >
                         <span class="w-9 h-9 primary-coloring-bg rounded-full flex items-center justify-center mr-2">

@@ -1,8 +1,8 @@
 <script>
-    import SEOPage from "$lib/SEOPage.svelte";
-    import {WebsiteData} from "$lib/data/websiteData";
-    import {formatLinkType, UserProjectsInfo} from "$lib/data/projects";
-    import NavLink from "$lib/components/NavLink.svelte";
+    import SEOPage from "#lib/SEOPage.svelte";
+    import {WebsiteData} from "#lib/data/websiteData";
+    import {formatLinkType, UserProjectsInfo} from "#lib/data/projects";
+    import NavLink from "#lib/components/NavLink.svelte";
 
 
     const title = `${WebsiteData.userName} | Projects`;

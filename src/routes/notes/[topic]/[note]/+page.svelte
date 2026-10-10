@@ -1,8 +1,8 @@
 <script lang="ts">
     import type {PageData} from './$types';
-    import SEOPage from "$lib/SEOPage.svelte";
-    import {base} from "$app/paths";
-    import NearbyNotes from "$lib/components/NearbyNotes.svelte";
+    import SEOPage from "#lib/SEOPage.svelte";
+    import { resolve } from '$app/paths';
+    import NearbyNotes from "#lib/components/NearbyNotes.svelte";
 
     export let data: PageData;
 

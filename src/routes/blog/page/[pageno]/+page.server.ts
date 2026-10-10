@@ -1,5 +1,5 @@
-import {getBlogPosts,} from "$lib/data/writings";
-import type {WritingPreview} from "$lib/data/writings";
+import {getBlogPosts,} from "#lib/data/writings";
+import type {WritingPreview} from "#lib/data/writings";
 import type {PageServerLoad} from './$types';
 
 type GetResult = {

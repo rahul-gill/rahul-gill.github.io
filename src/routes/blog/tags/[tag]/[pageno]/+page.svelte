@@ -1,25 +1,25 @@
 <script lang="ts">
-    import {formatDate} from "$lib/utils/formate-date";
-    import {slugify} from "$lib/utils/slugify";
+    import {formatDate} from "#lib/utils/formate-date";
+    import {slugify} from "#lib/utils/slugify";
     import {goto} from "$app/navigation";
-    import SEOPage from "$lib/SEOPage.svelte";
-    import PagerButtons from "$lib/components/PagerButtons.svelte";
-    import Tag from "$lib/components/Tag.svelte";
-    import {WebsiteData} from "$lib/data/websiteData";
-    import {page} from "$app/stores";
+    import SEOPage from "#lib/SEOPage.svelte";
+    import PagerButtons from "#lib/components/PagerButtons.svelte";
+    import Tag from "#lib/components/Tag.svelte";
+    import {WebsiteData} from "#lib/data/websiteData";
+    import {page} from "$app/state";
     import type {PageServerData} from './$types';
-    import {base} from "$app/paths";
+    import { resolve } from '$app/paths';
     export let data: PageServerData;
 
 
-    $: tag = $page.params.tag;
+    $: tag = page?.params?.tag ?? '';
 
     const title = `${WebsiteData.userName} | Writing`;
     const description = `My writing tagged '${tag}'`;
     const canonical = `${WebsiteData.websiteAddress}/blog/`;
 
 
-    $: currentPageNumber = parseInt($page.params.pageno);
+    $: currentPageNumber = parseInt(page?.params?.pageno ?? '0');
     const itemCountPerPage = 10;
     $: lastPageNumber = Math.floor(data.articles.length / itemCountPerPage);
     $: pagedItems = data.articles.slice(currentPageNumber * itemCountPerPage, currentPageNumber * itemCountPerPage + itemCountPerPage)
@@ -35,7 +35,7 @@
                     {formatDate(datetime)}
                 </time>
             </div>
-            <a href="{base}/blog/{slug}/" class="no-underline">
+            <a href={resolve('/blog/[slug]', { slug })} class="no-underline">
                 <h2 class="text-2xl hover:underline my-1">
                     {title}
                 </h2>
@@ -44,7 +44,7 @@
 
             <div class="flex mt-2 gap-2 flex-wrap">
                 {#each tags as tag}
-                    <Tag href="{base}/blog/tags/{slugify(tag)}/">
+                    <Tag href={resolve('/blog/tags/[tag]', { tag: slugify(tag) })}>
                         {tag}
                     </Tag>
                 {/each}
@@ -55,7 +55,7 @@
         <PagerButtons
                 currentPageIndex={currentPageNumber}
                 lastPageIndex={lastPageNumber}
-                goToPage={(page) => goto(`/blog/tags/${tag}/${page}`)}
+                goToPage={(n) => goto(resolve('/blog/tags/[tag]/[pageno]', { tag: tag, pageno: String(n) }))}
                 className="my-8"/>
     {/if}
 </SEOPage>

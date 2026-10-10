@@ -1,0 +1,1 @@
+export type CalloutVariant = 'info' | 'warn' | 'tip';

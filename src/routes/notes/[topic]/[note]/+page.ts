@@ -1,5 +1,5 @@
 import type {PageLoad} from './$types';
-import {getNote, getNotesInTopicAroundANote} from "$lib/data/notes";
+import {getNote, getNotesInTopicAroundANote} from "#lib/data/notes";
 
 export const load: PageLoad = async ({params}) => {
     return {

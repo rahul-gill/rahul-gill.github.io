@@ -1,5 +1,5 @@
 import {basename} from "path";
-import {slugify} from "$lib/utils/slugify";
+import {slugify} from "#lib/utils/slugify";
 
 
 export type WritingPreview = {

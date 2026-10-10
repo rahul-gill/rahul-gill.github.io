@@ -8,7 +8,7 @@ tags:
 
 
 <script>
-  import Callout from '$lib/components/Callout.svelte';
+  import Callout from '#lib/components/Callout.svelte';
 </script>
 
 Object-Oriented Programming (OOP) is a paradigm built around the idea that software should model the world as a collection of *objects* — entities that encapsulate both data (fields, properties) and behavior (methods). It has been the dominant paradigm in enterprise software for decades, powering everything from Android apps to banking systems.

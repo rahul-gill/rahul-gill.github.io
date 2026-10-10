@@ -1,7 +1,8 @@
 import type { RequestHandler } from './$types';
 import { Feed } from 'feed';
-import {getBlogPosts} from "$lib/data/writings";
-import {WebsiteData} from "$lib/data/websiteData";
+import {getBlogPosts} from "#lib/data/writings";
+import {WebsiteData} from "#lib/data/websiteData";
+import { render } from 'svelte/server';
 
 // To also prerender this *page*, as SvelteKit treats it as a page regarding prerendering.
 export const prerender = true;
@@ -27,6 +28,8 @@ export const GET: RequestHandler = async ({setHeaders}) => {
 
     for (const blogPost of blogPosts) {
         const href = `${WebsiteData.websiteAddress}/writing/${blogPost.slug}/`;
+        const file = await import(`../../writings/${blogPost.slug}.svx`);
+        const { body } = render(file.default);
 
         feed.addItem({
             id: href,
@@ -34,7 +37,7 @@ export const GET: RequestHandler = async ({setHeaders}) => {
             link: href,
             date: new Date(blogPost.datetime),
             description: blogPost.description,
-            content: (await import(`../../writings/${blogPost.slug}.svx`)).default.render().html
+            content: body
         });
     }
 

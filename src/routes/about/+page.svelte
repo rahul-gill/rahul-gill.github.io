@@ -1,11 +1,11 @@
 <script lang="ts">
-    import SEOPage from "$lib/SEOPage.svelte";
-    import {WebsiteData} from "$lib/data/websiteData";
-    import {formatDate} from "$lib/utils/formate-date";
-    import {slugify} from "$lib/utils/slugify";
-    import Tag from "$lib/components/Tag.svelte";
+    import SEOPage from "#lib/SEOPage.svelte";
+    import {WebsiteData} from "#lib/data/websiteData";
+    import {formatDate} from "#lib/utils/formate-date";
+    import {slugify} from "#lib/utils/slugify";
+    import Tag from "#lib/components/Tag.svelte";
     import type {PageServerData} from './$types';
-    import {base} from "$app/paths";
+    import { resolve } from '$app/paths';
 
     const title = `${WebsiteData.userName} | About`;
     const description = `Get to know ${WebsiteData.userName}.`;
@@ -31,7 +31,7 @@
             Currently, I'm working as an Associate Consultant at Oracle.
         </p>
 
-        <a href={base + "/cv"} target="_blank" rel="external" class="primary-coloring">
+        <a href={resolve("/cv")} target="_blank" rel="external" class="primary-coloring">
             See my English resume →
         </a>
 
@@ -44,7 +44,7 @@
                         {formatDate(datetime)}
                     </time>
                 </div>
-                <a href="{base}/blog/{slug}/" class="no-underline">
+                <a href={resolve('/blog/[slug]', { slug })} class="no-underline">
                     <h2 class="text-2xl hover:underline my-1">
                         {title}
                     </h2>
@@ -53,7 +53,7 @@
 
                 <div class="flex mt-2 gap-2 flex-wrap">
                     {#each tags as tag}
-                        <Tag href="{base}/blog/tags/{slugify(tag)}/">
+                        <Tag href={resolve('/blog/tags/[tag]', { tag: slugify(tag) })}>
                             {tag}
                         </Tag>
                     {/each}
